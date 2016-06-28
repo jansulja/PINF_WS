@@ -6,18 +6,35 @@
 
 package com.tim15.model;
 
-import java.util.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
+@Entity
 public class DnevnoStanjeRacuna {
-   public long brojIzvoda;
-   public java.util.Date datumPrometa;
-   public double prethodnoStanje = 0;
-   public double prometUKorist = 0;
-   public double prometNaTeret = 0;
-   public double novoStanje = 0;
 
-   /** @pdRoleInfo migr=no name=AnalitikaIzvoda assc=analitikaIzvodaBanke coll=java.util.Collection impl=java.util.HashSet mult=0..* */
-   public java.util.Collection<AnalitikaIzvoda> analitikaIzvoda;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "dnevno_stanje_racuna_id", unique = true)
+   private long brojIzvoda;
+   private java.util.Date datumPrometa;
+   private double prethodnoStanje = 0;
+   private double prometUKorist = 0;
+   private double prometNaTeret = 0;
+   private double novoStanje = 0;
+
+   @ManyToOne
+   @JoinColumn(name="racuni_id")
+   private Racuni racuni;
+
+   @OneToMany(mappedBy="dnevnoStanjeRacuna")
+   private java.util.Collection<AnalitikaIzvoda> analitikaIzvoda;
 
 
    /** @pdGenerated default getter */

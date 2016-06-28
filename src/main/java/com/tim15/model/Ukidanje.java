@@ -6,11 +6,26 @@
 
 package com.tim15.model;
 
-import java.util.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
+@Entity
 public class Ukidanje {
-   public int idUkidanja;
-   public java.util.Date datumUkidanja;
-   public java.lang.String sredstvaSePrenoseNaRacun;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "ukidanje_id", unique = true)
+   private int idUkidanja;
+   private java.util.Date datumUkidanja;
+   private java.lang.String sredstvaSePrenoseNaRacun;
+
+   @ManyToOne
+   @JoinColumn(name = "racuni_id")
+   private Racuni racuni;
 
 }

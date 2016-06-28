@@ -6,18 +6,36 @@
 
 package com.tim15.model;
 
-import java.util.*;
-
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+@Entity
+@Table(name="racuni")
 public class Racuni {
-   public long idRacuna;
-   public java.lang.String brojRacuna;
-   public java.util.Date datumOtvaranja;
-   public boolean vazeci = false;
 
-   /** @pdRoleInfo migr=no name=DnevnoStanjeRacuna assc=dnevniIzvodiBanke coll=java.util.Collection impl=java.util.HashSet mult=0..* */
-   public java.util.Collection<DnevnoStanjeRacuna> dnevnoStanjeRacuna;
-   /** @pdRoleInfo migr=no name=Ukidanje assc=ukidanjeRacuna coll=java.util.Collection impl=java.util.HashSet mult=0..* */
-   public java.util.Collection<Ukidanje> ukidanje;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "racuni_id", unique = true)
+   private long idRacuna;
+   private java.lang.String brojRacuna;
+   private java.util.Date datumOtvaranja;
+   private boolean vazeci = false;
+
+   @ManyToOne
+   @JoinColumn(name="klijent_id")
+   private Klijent klijent;
+
+   @OneToMany(mappedBy="racuni")
+   private java.util.Collection<DnevnoStanjeRacuna> dnevnoStanjeRacuna;
+
+   @OneToMany(mappedBy="racuni")
+   private java.util.Collection<Ukidanje> ukidanje;
 
 
    /** @pdGenerated default getter */
