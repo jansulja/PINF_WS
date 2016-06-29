@@ -7,7 +7,7 @@ myApp.controller ('RegistrationController', ['$scope', function($scope, $rootSco
 			
 		$http({
 			//Ovo mozda treba da se menja u zavisnosti od path-a
-			url: "https://localhost:8443/xws/api/gradjanin/login",
+			url: "https://localhost:8089/PINF_WSProjekat/api/klijent/login",
 			method: "POST",
 			data: $scope.user
 		}).then(function successCallback(data) {
@@ -37,7 +37,7 @@ myApp.controller ('RegistrationController', ['$scope', function($scope, $rootSco
 			
 		$http({
 			//Ovo mozda treba da se menja u zavisnosti od path-a
-			url: "https://localhost:8443/xws/api/gradjanin/login",
+			url: "https://localhost:8089/PINF_WSProjekat/api/klijent/register/fizicko",
 			method: "POST",
 			data: $scope.user
 		}).then(function successCallback(data) {
@@ -68,7 +68,7 @@ myApp.controller ('RegistrationController', ['$scope', function($scope, $rootSco
 			
 		$http({
 			//Ovo mozda treba da se menja u zavisnosti od path-a
-			url: "https://localhost:8443/xws/api/gradjanin/login",
+			url: "https://localhost:8089/PINF_WSProjekat/api/klijent/register/pravno",
 			method: "POST",
 			data: $scope.user
 		}).then(function successCallback(data) {
