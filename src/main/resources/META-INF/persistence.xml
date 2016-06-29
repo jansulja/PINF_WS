@@ -1,0 +1,40 @@
+<persistence version="1.0"
+	xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence
+   http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd">
+
+	<persistence-unit name="pinf_ws" transaction-type="JTA">
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<jta-data-source>pinf_ws</jta-data-source>
+		<non-jta-data-source>unmanagedpinf_ws</non-jta-data-source>
+		<class>com.tim15.model.Klijent</class>
+		<class>com.tim15.model.Racuni</class>
+		<class>com.tim15.model.DnevnoStanjeRacuna</class>
+		<class>com.tim15.model.AnalitikaIzvoda</class>
+		<class>com.tim15.model.PravnoLice</class>
+		<class>com.tim15.model.FizickoLice</class>
+		<class>com.tim15.model.Banka</class>
+
+
+		<properties>
+
+			<property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
+			<property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/pinf" />
+			<property name="hibernate.connection.username" value="root" />
+			<property name="hibernate.connection.password" value="admin" />
+
+
+			<property name="hibernate.hbm2ddl.auto" value="update" />
+			<property name="hibernate.transaction.flush_before_completion"
+				value="true" />
+			<property name="hibernate.transaction.auto_close_session"
+				value="true" />
+			<property name="hibernate.transaction.manager_lookup_class"
+				value="org.apache.openejb.hibernate.TransactionManagerLookup" />
+			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect" />
+			<property name="hibernate.show_sql" value="true" />
+			<property name="hibernate.format_sql" value="true" />
+
+		</properties>
+	</persistence-unit>
+</persistence>

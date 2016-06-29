@@ -6,24 +6,39 @@
 
 package com.tim15.model;
 
-import java.util.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
+@Entity
 public class AnalitikaIzvoda {
-   public long brojStavke;
-   public java.lang.String duznikNalogodavac;
-   public java.lang.String svrhaPlacanja;
-   public java.lang.String poverilacPrimalac;
-   public java.util.Date datumPrijema;
-   public java.util.Date datumValute;
-   public java.lang.String racunDuznika;
-   public double modelZaduzenja;
-   public java.lang.String pozivNaProjZaduzenja;
-   public java.lang.String racunPoverioca;
-   public double modelOdobrenja;
-   public java.lang.String pozivNaBrojOdobrenja;
-   public boolean hitno = false;
-   public double iznos = 0;
-   public double tipGreske = 1;
-   public java.lang.String status;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id", unique = true)
+   private long brojStavke;
+   private java.lang.String duznikNalogodavac;
+   private java.lang.String svrhaPlacanja;
+   private java.lang.String poverilacPrimalac;
+   private java.util.Date datumPrijema;
+   private java.util.Date datumValute;
+   private java.lang.String racunDuznika;
+   private double modelZaduzenja;
+   private java.lang.String pozivNaProjZaduzenja;
+   private java.lang.String racunPoverioca;
+   private double modelOdobrenja;
+   private java.lang.String pozivNaBrojOdobrenja;
+   private boolean hitno = false;
+   private double iznos = 0;
+   private double tipGreske = 1;
+   private java.lang.String status;
+
+   @ManyToOne
+   @JoinColumn(name="dnevno_stanje_racuna_id")
+   private DnevnoStanjeRacuna dnevnoStanjeRacuna;
 
 }

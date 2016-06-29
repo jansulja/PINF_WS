@@ -20,7 +20,7 @@ public abstract class GenericDaoBean<T, ID extends Serializable> implements
 
 	protected Class<T> entityType;
 
-	@PersistenceContext(unitName = "xws")
+	@PersistenceContext(unitName = "pinf_ws")
 	protected EntityManager em;
 
 	@SuppressWarnings("unchecked")
