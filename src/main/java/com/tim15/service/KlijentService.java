@@ -55,20 +55,42 @@ public class KlijentService {
 	@Path("register/pravno")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Object register(PravnoLice sentUser) {
+	public Object registerPravno(PravnoLice sentUser) {
 
-		pravnoLiceDao.register(sentUser);
-		return Response.status(Response.Status.OK).build();
+		//TODO Validacija
+
+		Response response = null;
+
+		try {
+			pravnoLiceDao.register(sentUser);
+			response = Response.status(Response.Status.OK).build();
+		} catch (NoSuchFieldException e) {
+
+			e.printStackTrace();
+			response = Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+
+		}
+		return response;
 	}
 
 	@POST
 	@Path("register/fizicko")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Object register(FizickoLice sentUser) {
+	public Object registerFizicko(FizickoLice sentUser) {
 
-		fizickoLiceDao.register(sentUser);
-		return Response.status(Response.Status.OK).build();
+		//TODO Validacija
+
+		Response response = null;
+
+		try {
+			fizickoLiceDao.register(sentUser);
+			response = Response.status(Response.Status.OK).build();
+		} catch (NoSuchFieldException e) {
+			e.printStackTrace();
+			response = Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+		}
+		return response;
 	}
 
 }

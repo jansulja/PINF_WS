@@ -4,6 +4,6 @@ import com.tim15.model.FizickoLice;
 
 public interface FizickoLiceDaoLocal extends GenericDao<FizickoLice, Integer> {
 
-	public void register(FizickoLice fizickoLice);
+	public void register(FizickoLice fizickoLice) throws NoSuchFieldException;
 
 }

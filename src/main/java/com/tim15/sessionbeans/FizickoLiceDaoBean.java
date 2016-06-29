@@ -15,10 +15,10 @@ public class FizickoLiceDaoBean extends GenericDaoBean<FizickoLice, Integer> imp
 
 	private static Logger log = Logger.getLogger(KlijentService.class);
 	@Override
-	public void register(FizickoLice fizickoLice) {
+	public void register(FizickoLice fizickoLice) throws NoSuchFieldException {
 
 		log.info("registracija fizickog lica: " + fizickoLice.toString());
-
+		this.persist(fizickoLice);
 	}
 
 }

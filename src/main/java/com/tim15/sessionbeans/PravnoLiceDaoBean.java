@@ -16,9 +16,10 @@ public class PravnoLiceDaoBean extends GenericDaoBean<PravnoLice, Integer> imple
 	private static Logger log = Logger.getLogger(PravnoLiceDaoBean.class);
 
 	@Override
-	public void register(PravnoLice pravnoLice) {
+	public void register(PravnoLice pravnoLice) throws NoSuchFieldException {
 
 		log.info("registracija pravnog lica: " + pravnoLice.toString());
+		this.persist(pravnoLice);
 
 	}
 

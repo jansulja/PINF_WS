@@ -4,6 +4,6 @@ import com.tim15.model.PravnoLice;
 
 public interface PravnoLiceDaoLocal extends GenericDao<PravnoLice, Integer> {
 
-	public void register(PravnoLice pravnoLice);
+	public void register(PravnoLice pravnoLice) throws NoSuchFieldException;
 
 }
