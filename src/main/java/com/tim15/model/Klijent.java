@@ -29,7 +29,7 @@ public class Klijent {
    private java.lang.String email;
    private java.lang.String adresa;
    private java.lang.String password;
-
+   private Integer idBanka;
 
 
    /** @pdRoleInfo migr=no name=Racuni assc=vlasnikRacuna coll=java.util.Collection impl=java.util.HashSet mult=0..* */
@@ -41,6 +41,14 @@ public class Klijent {
 
 
 
+
+public Integer getIdBanka() {
+	return idBanka;
+}
+
+public void setIdBanka(Integer idBanka) {
+	this.idBanka = idBanka;
+}
 
 public Klijent(String telefon, String email, String adresa, String password) {
 	super();

@@ -13,6 +13,7 @@
 		<class>com.tim15.model.AnalitikaIzvoda</class>
 		<class>com.tim15.model.PravnoLice</class>
 		<class>com.tim15.model.FizickoLice</class>
+		<class>com.tim15.model.Banka</class>
 
 
 		<properties>
