@@ -1,0 +1,52 @@
+<section class="card register">
+  <form name="myform" ng-submit="registerpravno()"
+    novalidate>
+
+    <div class="textintro">
+      <h1>Registrujte se</h1>
+      <p>Kao pravno lice</p>
+      <p class="message" ng-show="message">{{message}}</p>
+      
+    </div>
+
+    <fieldset>
+      <input type="text" name="naziv" placeholder="Naziv" ng-model="pravnolice.naziv" ng-required="true">
+      <p class="error validationerror" ng-show="myform.naziv.$invalid && myform.naziv.$touched">Naziv neophodan</p>
+
+      <input type="email" name="email" placeholder="Email" ng-model="pravnoLice.email" ng-required="true">
+      <p class="error validationerror" ng-show="myform.email.$invalid && myform.email.$touched">Must be a valid email</p>
+
+      <input type="password" name="password" placeholder="Password" ng-model="pravnoLice.password" ng-required="true">
+      <p class="error validationerror" ng-show="myform.password.$invalid && myform.password.$touched">Password is required</p>
+
+
+      <!-- PIB  -->
+      <input type="text" name="pib" placeholder="PIB" ng-model="pravnoLice.pib" ng-required="true">
+      <p class="error validationerror" ng-show="myform.pib.$invalid && myform.pib.$touched">PIB required</p>
+
+
+      <input type="text" name="adresa" placeholder="Adresa stanovanja" ng-model="pravnoLice.adresa" ng-required="true">
+      <p class="error validationerror" ng-show="myform.adresa.$invalid && myform.adresa.$touched">Adresa stanovanja neophodna</p>
+
+      <!-- broj telefona -->
+      <input type="text" name="telefon" placeholder="Broj telefona" ng-model="pravnoLice.telefon" ng-required="true">
+      <p class="error validationerror" ng-show="myform.telefon.$invalid && myform.telefon.$touched">Broj telefona neophodan</p>
+
+      <!-- sifra pretezne delatnosti -->
+      <input type="text" name="sifra" placeholder="Sifra pretezne delatnosti" ng-model="pravnoLice.sifra" ng-required="true">
+      <p class="error validationerror" ng-show="myform.sifra.$invalid && myform.sifra.$touched">Sifra pretezne delatnosti</p>
+
+      <!-- klasifikacija-->
+      <input type="text" name="klasifikacija" placeholder="Klasifikacija" ng-model="pravnoLice.klasifikacija" ng-required="true">
+      <p class="error validationerror" ng-show="myform.klasifikacija.$invalid && myform.klasifikacija.$touched">Sifra pretezne delatnosti</p>
+
+      <!-- jmbg -->
+      <input type="text" name="matBroj" placeholder="Maticni broj" ng-model="pravnoLice.matBroj" ng-required="true">
+      <p class="error validationerror" ng-show="myform.matBroj.$invalid && myform.matBroj.$touched">Maticni broj neophodan</p>
+
+    </fieldset>
+
+    <button type="submit" class="btn" ng-disabled="myform.password.$invalid">Register</button>
+    <p>or <a ng-href="#/login">login</a></p>
+  </form>
+</section>
