@@ -36,7 +36,7 @@ public class PravnoLiceDaoBean extends GenericDaoBean<PravnoLice, Integer> imple
 
 		Banka banka = bankaDao.findById(pravnoLice.getIdBanka());
 
-		Racuni racun = new Racuni(BankaUtil.generateBrojRacuna(banka), new Date(), true, pravnoLice, banka);
+		Racuni racun = new Racuni(BankaUtil.generateBrojRacuna(banka), new Date(), true, pravnoLice, banka,0);
 		racuniDao.persist(racun);
 
 	}

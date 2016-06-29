@@ -30,6 +30,7 @@ public class Racuni {
 	private java.lang.String brojRacuna;
 	private java.util.Date datumOtvaranja;
 	private boolean vazeci = false;
+	private double stanje;
 
 	@ManyToOne
 	@JoinColumn(name = "klijent_id")
@@ -50,13 +51,14 @@ public class Racuni {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Racuni(String brojRacuna, Date datumOtvaranja, boolean vazeci, Klijent klijent, Banka banka) {
+	public Racuni(String brojRacuna, Date datumOtvaranja, boolean vazeci, Klijent klijent, Banka banka, double stanje) {
 		super();
 		this.brojRacuna = brojRacuna;
 		this.datumOtvaranja = datumOtvaranja;
 		this.vazeci = vazeci;
 		this.klijent = klijent;
 		this.banka = banka;
+		this.stanje = stanje;
 
 	}
 

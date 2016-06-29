@@ -35,7 +35,7 @@ public class FizickoLiceDaoBean extends GenericDaoBean<FizickoLice, Integer> imp
 
 		Banka banka = bankaDao.findById(fizickoLice.getIdBanka());
 
-		Racuni racun = new Racuni(BankaUtil.generateBrojRacuna(banka), new Date(), true, fizickoLice, banka);
+		Racuni racun = new Racuni(BankaUtil.generateBrojRacuna(banka), new Date(), true, fizickoLice, banka, 0);
 		racuniDao.persist(racun);
 
 	}
