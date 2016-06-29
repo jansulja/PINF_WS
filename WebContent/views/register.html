@@ -1,0 +1,64 @@
+<section class="card register">
+  <form name="myform" ng-submit="register()"
+    novalidate>
+
+    <div class="textintro">
+      <h1>Registrujte se</h1>
+      <p>Da bi ste pristupili sajtu</p>
+      <p class="message" ng-show="message">{{message}}</p>
+      
+    </div>
+
+    <fieldset>
+      <input type="text" name="imeiPrezime" placeholder="Ime i prezime" ng-model="user.imeiPrezime" ng-required="true">
+      <p class="error validationerror" ng-show="myform.imeiPrezime.$invalid && myform.imeiPrezime.$touched">Ime i prezime neophodno</p>
+
+      <input type="email" name="email" placeholder="Email" ng-model="user.email" ng-required="true">
+      <p class="error validationerror" ng-show="myform.email.$invalid && myform.email.$touched">Must be a valid email</p>
+
+      <input type="password" name="password" placeholder="Password" ng-model="user.password" ng-required="true">
+      <p class="error validationerror" ng-show="myform.password.$invalid && myform.password.$touched">Password is required</p>
+
+      <!-- ovde treba datum rodjenja -->
+             
+                  <input type="text" 
+                    datepicker-popup="dd.MM.yyyy." ng-model="Upit.DatumPredlogaOd"
+                    is-open="dateOpened1" close-text="Close" /> <span
+                    class="input-group-btn">
+                    <button type="button" class="btn btn-default"
+                      ng-click="openDatepicker1($event, 'dateOpened1')">
+                      <i class="glyphicon glyphicon-calendar"></i>
+                    </button>
+                  </span>
+    
+
+
+      <!-- adresa stanovanja -->
+
+      <input type="text" name="adresa" placeholder="Adresa stanovanja" ng-model="user.adresa" ng-required="true">
+      <p class="error validationerror" ng-show="myform.adresa.$invalid && myform.adresa.$touched">Adresa stanovanja neophodna</p>
+
+      <!-- broj telefona -->
+      <input type="text" name="telefon" placeholder="Broj telefona" ng-model="user.telefon" ng-required="true">
+      <p class="error validationerror" ng-show="myform.telefon.$invalid && myform.telefon.$touched">Broj telefona neophodan</p>
+
+      <!-- pol -->
+      <p>Pol</p>
+      <input type="radio" name="pol" value="Zensko" ng-model="user.pol" ng-required="true"/>Zensko
+      <input type="radio" name="pol" value="Musko" ng-model="user.pol" ng-required="true"/>Musko
+      
+      <!-- registarskiBroj-->
+      <input type="text" name="regBr" placeholder="Registarski broj" ng-model="user.regBr" ng-required="true">
+      <p class="error validationerror" ng-show="myform.regBr.$invalid && myform.regBr.$touched">Registarski broj neophodan</p>
+
+      <!-- jmbg -->
+      <input type="text" name="jmbg" placeholder="JMBG" ng-model="user.jmbg" ng-required="true">
+      <p class="error validationerror" ng-show="myform.jmbg.$invalid && myform.jmbg.$touched">JMBG neophodan</p>
+
+    </fieldset>
+
+    <button type="submit" class="btn" ng-disabled="myform.password.$invalid">Register</button>
+    <p>or <a ng-href="#/login">login</a></p>
+    <p>Registrujte se kao pravno lice <a ng-href="#/registerpravno">Registracija</a></p>
+  </form>
+</section>
