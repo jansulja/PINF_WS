@@ -4,7 +4,7 @@ myApp.controller ('RegistrationController', ['$scope', function($scope, $rootSco
 	$scope.login = function(){
 
 		var deferred = $q.defer();
-			
+
 		$http({
 			//Ovo mozda treba da se menja u zavisnosti od path-a
 			url: "https://localhost:8089/PINF_WSProjekat/api/klijent/login",
@@ -26,7 +26,6 @@ myApp.controller ('RegistrationController', ['$scope', function($scope, $rootSco
 			$rootScope.current.email = data.email;
 
 		});
-	}
 	};
 
 
@@ -34,7 +33,7 @@ myApp.controller ('RegistrationController', ['$scope', function($scope, $rootSco
 
 	$scope.register = function(){
 		var deferred = $q.defer();
-			
+
 		$http({
 			//Ovo mozda treba da se menja u zavisnosti od path-a
 			url: "https://localhost:8089/PINF_WSProjekat/api/klijent/register/fizicko",
@@ -56,7 +55,7 @@ myApp.controller ('RegistrationController', ['$scope', function($scope, $rootSco
 		});
 	};
 
-	
+
 	$scope.openDatepicker1 = function($event, opened) {
 		$event.preventDefault();
 		$event.stopPropagation();
@@ -65,7 +64,7 @@ myApp.controller ('RegistrationController', ['$scope', function($scope, $rootSco
 
 	$scope.registerpravno = function(){
 				var deferred = $q.defer();
-			
+
 		$http({
 			//Ovo mozda treba da se menja u zavisnosti od path-a
 			url: "https://localhost:8089/PINF_WSProjekat/api/klijent/register/pravno",

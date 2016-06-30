@@ -1,4 +1,4 @@
-var myApp = angular.module('myApp', ['ngRoute']); //angular modul, referencira myApp iz index.html-a
+var myApp = angular.module('myApp', ['ngRoute','drzava-list','ngResource']); //angular modul, referencira myApp iz index.html-a
 
 myApp.config(['$routeProvider', function($routeProvider){
 	$routeProvider.
@@ -17,6 +17,10 @@ myApp.config(['$routeProvider', function($routeProvider){
 		when('/registerpravno', {
 			templateUrl: 'views/registerpravno.html',
 			controller: 'RegistrationController'
+		}).
+		when('/drzava-list', {
+			templateUrl: 'views/drzava-list.html',
+			controller: 'drzava-listCtrl'
 		}).
 		otherwise({
 			redirectTo: '/login'

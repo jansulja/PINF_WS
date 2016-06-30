@@ -102,6 +102,12 @@ public class Racuni {
 		this.klijent = klijent;
 	}
 
+	public void addFunds(double funds){
+
+		this.stanje += funds;
+
+	}
+
 	/** @pdGenerated default getter */
 	public java.util.Collection<DnevnoStanjeRacuna> getDnevnoStanjeRacuna() {
 		if (dnevnoStanjeRacuna == null)
