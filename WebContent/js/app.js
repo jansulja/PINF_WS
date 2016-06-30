@@ -1,11 +1,12 @@
-'use strict';
+//var myApp = angular.module('myApp', ['ngRoute','drzava-list','resource.drzava']); //angular modul, referencira myApp iz index.html-a
+
 
 angular
 .module('myApp', [
 'ngRoute',
 'registration',
-'success',
-'drzava-new'])
+'success','drzava-list','resource.drzava'])
+
 
 
 .config(function($routeProvider){
@@ -33,6 +34,10 @@ angular
 		when('/registerpravno', {
 			templateUrl: 'views/registerpravno.html',
 			controller: 'RegistrationController'
+		}).
+		when('/drzava-list', {
+			templateUrl: 'views/drzava-list.html',
+			controller: 'drzava-listCtrl'
 		}).
 		otherwise({
 			redirectTo: '/login'

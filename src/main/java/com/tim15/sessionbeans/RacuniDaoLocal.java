@@ -4,4 +4,7 @@ import com.tim15.model.Racuni;
 
 public interface RacuniDaoLocal extends GenericDao<Racuni, Integer> {
 
+	public Racuni findByNumber(String number);
+	public void addFunds(String accountNum, double funds);
+
 }
