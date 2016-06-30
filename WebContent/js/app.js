@@ -1,11 +1,11 @@
-var myApp = angular.module('myApp', ['ngRoute','drzava-list','resource.drzava']); //angular modul, referencira myApp iz index.html-a
+//var myApp = angular.module('myApp', ['ngRoute','drzava-list','resource.drzava']); //angular modul, referencira myApp iz index.html-a
 
 
 angular
 .module('myApp', [
 'ngRoute',
 'registration',
-'success'])
+'success','drzava-list','resource.drzava'])
 
 
 .config(function($routeProvider){
