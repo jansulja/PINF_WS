@@ -1,6 +1,14 @@
 var myApp = angular.module('myApp', ['ngRoute','drzava-list','ngResource']); //angular modul, referencira myApp iz index.html-a
 
-myApp.config(['$routeProvider', function($routeProvider){
+
+angular
+.module('myApp', [
+'ngRoute',
+'registration',
+'success'])
+
+
+.config(function($routeProvider){
 	$routeProvider.
 		when('/login', {
 			templateUrl: 'views/login.html',
@@ -25,5 +33,5 @@ myApp.config(['$routeProvider', function($routeProvider){
 		otherwise({
 			redirectTo: '/login'
 		});
-}]);
+});
 

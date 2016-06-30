@@ -21,16 +21,8 @@
 
       <!-- ovde treba datum rodjenja -->
              
-                  <input type="text" 
-                    datepicker-popup="dd.MM.yyyy." ng-model="Upit.DatumPredlogaOd"
-                    is-open="dateOpened1" close-text="Close" /> <span
-                    class="input-group-btn">
-                    <button type="button" class="btn btn-default"
-                      ng-click="openDatepicker1($event, 'dateOpened1')">
-                      <i class="glyphicon glyphicon-calendar"></i>
-                    </button>
-                  </span>
-    
+      <input type="text" name="datum" placeholder="DD.MM.YYYY." ng-model="user.date" ng-required="true">
+      <p class="error validationerror" ng-show="myform.datum.$invalid && myform.datum.$touched">Datum je neophodan</p>
 
 
       <!-- adresa stanovanja -->
