@@ -1,0 +1,63 @@
+<div class="card meetings cf">
+
+	<div class="textintro">
+		<h1>Dodaj analitiku izvoda</h1>
+		<p>Popuni polja i stisni + </p>
+	</div>
+
+	<form class="formgroup addmeeting cf"
+		name="myform"
+		ng-submit="dodajAnalitiku()"
+		novalidate>
+
+		<div class="inputwrapper">
+		<!--Ovde dodaj sve inpute za drzavu -->
+
+			<!--Broj stavke -->
+			<input type="text" name="sifra"
+			placeholder="Broj stavke"
+			ng-model="analitika.broj" ng-required="true">
+
+
+			<!--Duznik nalogodavac -->
+			<input type="text" name="naziv"
+			placeholder="Duznik nalogodavac"
+			ng-model="analitika.duznik" ng-required="true">
+
+			<!--Svrha placanja -->
+
+			<!--Poverical primalac -->
+
+			<!--Datum prijema -->
+
+			<!--Datum valute -->
+
+			<!--Racun duznika -->
+
+			<!--Model zaduzenja -->
+
+			<!--Poziv na broj zaduzenja -->
+
+			<!--Racun poverioca -->
+
+			<!--Model odobrenja -->
+
+			<!--Poziv na broj odobrenja -->
+
+			<!--Hitno -->
+
+			<!--Iznos -->
+
+			<!--Tip greske -->
+
+			<!--Status -->
+
+			<!--Dnevno stanje racuna -->
+		
+
+		</div>
+
+		<button type="submit" class="btn" 
+			ng-disabled="myform.$invalid">+</button>
+	</form>
+</div>
