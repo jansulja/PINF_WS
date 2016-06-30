@@ -1,4 +1,4 @@
-var myApp = angular.module('myApp', ['ngRoute','drzava-list','ngResource']); //angular modul, referencira myApp iz index.html-a
+var myApp = angular.module('myApp', ['ngRoute','drzava-list','resource.drzava']); //angular modul, referencira myApp iz index.html-a
 
 
 angular
