@@ -5,7 +5,7 @@ angular
 .module('myApp', [
 'ngRoute',
 'registration',
-'success','drzava-list','resource.drzava'])
+'success','drzava-list','resource.drzava','drzava-new'])
 
 
 
@@ -19,7 +19,7 @@ angular
 			templateUrl: 'views/register.html',
 			controller: 'RegistrationController'
 		}).
-		when('/drzava-new',{
+		when('/drzava-new/:sifraDrzave',{
 			templateUrl: 'views/drzava-new.html',
 			controller: 'drzava-newCtrl'
 		}).

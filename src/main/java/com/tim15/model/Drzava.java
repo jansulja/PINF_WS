@@ -6,17 +6,17 @@
 
 package com.tim15.model;
 
-import java.util.*;
-
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 @Entity
@@ -25,14 +25,14 @@ public class Drzava {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "drzava_id", unique = true)
-   private double sifraDrzave;
+   private int sifraDrzave;
    private java.lang.String nazivDrzave;
 
    public double getSifraDrzave() {
 	return sifraDrzave;
 }
 
-   public void setSifraDrzave(double sifraDrzave) {
+   public void setSifraDrzave(int sifraDrzave) {
 	this.sifraDrzave = sifraDrzave;
 }
 
@@ -46,7 +46,7 @@ public class Drzava {
 
 /** @pdRoleInfo migr=no name=Valuta assc=drzavnaValuta coll=java.util.Collection impl=java.util.HashSet mult=0..* */
 
-	@OneToMany(mappedBy = "drzava")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "drzava", cascade = CascadeType.ALL)
 	private java.util.Collection<Valuta> valuta;
    /** @pdRoleInfo migr=no name=NaseljenoMesto assc=mestaUDrzavi coll=java.util.Collection impl=java.util.HashSet mult=0..* */
 	@Transient
@@ -61,6 +61,7 @@ public class Drzava {
    }
 
    /** @pdGenerated default iterator getter */
+   @JsonIgnore
    public java.util.Iterator getIteratorValuta() {
       if (valuta == null)
          valuta = new java.util.HashSet<Valuta>();
@@ -109,6 +110,7 @@ public class Drzava {
    }
 
    /** @pdGenerated default iterator getter */
+   @JsonIgnore
    public java.util.Iterator getIteratorNaseljenoMesto() {
       if (naseljenoMesto == null)
          naseljenoMesto = new java.util.HashSet<NaseljenoMesto>();

@@ -1,11 +1,41 @@
 'use strict';
 
-angular.module('drzava-new',[])
+angular.module('drzava-new',['resource.drzava'])
 
-.controller('drzava-newCtrl', function($scope, $rootScope, $routeParams, $log, $location, $q, $http){
+.controller('drzava-newCtrl', function(Drzava,$scope, $rootScope, $routeParams, $log, $location, $q, $http){
 
-		$scope.dodajDrzavu = function(){
+	if($routeParams.sifraDrzave!='new'){
+
+		$scope.title = "Izmena"
+		$scope.buttonText = "Izmeni"
+		//preuzimanje parametra iz URL
+		var sifraDrzave = $routeParams.sifraDrzave;
+
+		Drzava.get({'drzavaId':sifraDrzave}).$promise.then(function (data) {
+			$scope.drzava = data;
+		});
+	}
+	//ako kreiramo novu fakutru
+	else{
+		$scope.title = "Dodavanje"
+		$scope.buttonText = "Dodaj"
+		$scope.drzava = new Drzava();
+
+	}
 
 
-			}
+	$scope.save = function () {
+		if($scope.drzava.sifraDrzave){
+			//zbog cega redirekcija ide na callback?
+			$scope.drzava.$update({drzavaId:$scope.drzava.sifraDrzave},function () {
+				$location.path('/drzava-list');
+			});
+		}
+		else{
+			$scope.drzava.$save(function () {
+				$location.path('/drzava-list');
+			});
+		}
+
+	}
 });
