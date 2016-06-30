@@ -16,6 +16,7 @@
 		<class>com.tim15.model.Banka</class>
 
 
+
 		<properties>
 
 			<property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
