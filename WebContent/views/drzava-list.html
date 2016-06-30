@@ -1,5 +1,13 @@
-<div>
+<div class="card meetings cf">
 
-	<h3>Drzave</h3>
+
+<table class="table table-striped table-bordered table-condensed table-hover">
+			<tr>
+				<th>Drzava</th>
+			</tr>
+			<tr ng-repeat="drzava in drzave track by $index ">
+				<td>{{drzava.naziv}}</td>
+			</tr>
+			</table>
 
 </div>
