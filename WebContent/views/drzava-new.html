@@ -1,0 +1,37 @@
+<div class="card meetings cf">
+
+	<div class="textintro">
+		<h1>Dodaj drzavu</h1>
+		<p>Popuni polja i stisni + </p>
+	</div>
+
+	<form class="formgroup addmeeting cf"
+		name="myform"
+		ng-submit="dodajDrzavu()"
+		novalidate>
+
+		<div class="inputwrapper">
+		<!--Ovde dodaj sve inpute za drzavu -->
+
+			<!--Sifra drzave -->
+			<input type="text" name="sifra"
+			placeholder="Sifra drzave"
+			ng-model="drzava.sifra" ng-required="true">
+
+
+			<!--Naziv drzave -->
+			<input type="text" name="naziv"
+			placeholder="Naziv drzave"
+			ng-model="drzava.naziv" ng-required="true">
+
+			<!--Valuta -->
+
+			<!--Naseljeno mesto -->
+		
+
+		</div>
+
+		<button type="submit" class="btn" 
+			ng-disabled="myform.$invalid">+</button>
+	</form>
+</div>
