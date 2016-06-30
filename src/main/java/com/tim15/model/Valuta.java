@@ -8,20 +8,41 @@ package com.tim15.model;
 
 import java.util.*;
 
-public class Valuta {
-   public int idValute;
-   public java.lang.String zvanicnaSifra;
-   public java.lang.String naziv;
-   public boolean domicilna = false;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
+
+@Entity
+public class Valuta {
+		@Id
+		@GeneratedValue(strategy = GenerationType.IDENTITY)
+		@Column(name = "valuta_id", unique = true)
+    private int idValute;
+	private java.lang.String zvanicnaSifra;
+	private java.lang.String naziv;
+	private boolean domicilna = false;
+	@ManyToOne
+	@JoinColumn(name="drzava_id")
+	private Drzava drzava ;
    /** @pdRoleInfo migr=no name=KursUValuti assc=osnovnaValuta coll=java.util.Collection impl=java.util.HashSet mult=0..* */
-   public java.util.Collection<KursUValuti> kursUValutiOsnovna;
+	@Transient
+	private java.util.Collection<KursUValuti> kursUValutiOsnovna;
    /** @pdRoleInfo migr=no name=KursUValuti assc=premaValuti coll=java.util.Collection impl=java.util.HashSet mult=0..* */
-   public java.util.Collection<KursUValuti> kursUValutiPrema;
+	@Transient
+	private java.util.Collection<KursUValuti> kursUValutiPrema;
    /** @pdRoleInfo migr=no name=Racuni assc=valutaRacuna coll=java.util.Collection impl=java.util.HashSet mult=0..* */
-   public java.util.Collection<Racuni> racuni;
+	@Transient
+	private java.util.Collection<Racuni> racuni;
    /** @pdRoleInfo migr=no name=AnalitikaIzvoda assc=valutaPlacanja coll=java.util.Collection impl=java.util.HashSet mult=0..* */
-   public java.util.Collection<AnalitikaIzvoda> analitikaIzvoda;
+	@Transient
+	private java.util.Collection<AnalitikaIzvoda> analitikaIzvoda;
 
 
 
