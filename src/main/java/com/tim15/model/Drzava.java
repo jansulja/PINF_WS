@@ -17,6 +17,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 
 @Entity
@@ -47,6 +48,7 @@ public class Drzava {
 /** @pdRoleInfo migr=no name=Valuta assc=drzavnaValuta coll=java.util.Collection impl=java.util.HashSet mult=0..* */
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "drzava", cascade = CascadeType.ALL)
+	@JsonManagedReference
 	private java.util.Collection<Valuta> valuta;
    /** @pdRoleInfo migr=no name=NaseljenoMesto assc=mestaUDrzavi coll=java.util.Collection impl=java.util.HashSet mult=0..* */
 	@Transient

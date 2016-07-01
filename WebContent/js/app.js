@@ -5,7 +5,7 @@ angular
 .module('myApp', [
 'ngRoute',
 'registration',
-'success','drzava-list','resource.drzava','drzava-new'])
+'success','drzava-list','resource.drzava','drzava-new','resource.valuta','valuta-list','valuta' ])
 
 
 
@@ -38,6 +38,14 @@ angular
 		when('/drzava-list', {
 			templateUrl: 'views/drzava-list.html',
 			controller: 'drzava-listCtrl'
+		}).
+		when('/valuta-list', {
+			templateUrl: 'views/valuta-list.html',
+			controller: 'valuta-listCtrl'
+		}).
+		when('/valuta/:idValute', {
+			templateUrl: 'views/valuta.html',
+			controller: 'valutaCtrl'
 		}).
 		otherwise({
 			redirectTo: '/login'

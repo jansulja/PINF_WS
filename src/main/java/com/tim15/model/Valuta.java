@@ -18,6 +18,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 
 @Entity
 public class Valuta {
@@ -30,23 +32,82 @@ public class Valuta {
 	private boolean domicilna = false;
 	@ManyToOne
 	@JoinColumn(name="drzava_id")
+	@JsonBackReference
 	private Drzava drzava ;
-   /** @pdRoleInfo migr=no name=KursUValuti assc=osnovnaValuta coll=java.util.Collection impl=java.util.HashSet mult=0..* */
+
 	@Transient
 	private java.util.Collection<KursUValuti> kursUValutiOsnovna;
-   /** @pdRoleInfo migr=no name=KursUValuti assc=premaValuti coll=java.util.Collection impl=java.util.HashSet mult=0..* */
+
 	@Transient
 	private java.util.Collection<KursUValuti> kursUValutiPrema;
-   /** @pdRoleInfo migr=no name=Racuni assc=valutaRacuna coll=java.util.Collection impl=java.util.HashSet mult=0..* */
+
 	@Transient
 	private java.util.Collection<Racuni> racuni;
-   /** @pdRoleInfo migr=no name=AnalitikaIzvoda assc=valutaPlacanja coll=java.util.Collection impl=java.util.HashSet mult=0..* */
+
 	@Transient
 	private java.util.Collection<AnalitikaIzvoda> analitikaIzvoda;
 
 
 
-   /** @pdGenerated default getter */
+
+
+   public int getIdValute() {
+		return idValute;
+	}
+
+	public void setIdValute(int idValute) {
+		this.idValute = idValute;
+	}
+
+	public java.lang.String getZvanicnaSifra() {
+		return zvanicnaSifra;
+	}
+
+	public void setZvanicnaSifra(java.lang.String zvanicnaSifra) {
+		this.zvanicnaSifra = zvanicnaSifra;
+	}
+
+	public java.lang.String getNaziv() {
+		return naziv;
+	}
+
+	public void setNaziv(java.lang.String naziv) {
+		this.naziv = naziv;
+	}
+
+	public boolean isDomicilna() {
+		return domicilna;
+	}
+
+	public void setDomicilna(boolean domicilna) {
+		this.domicilna = domicilna;
+	}
+
+	public Drzava getDrzava() {
+		return drzava;
+	}
+
+	public void setDrzava(Drzava drzava) {
+		this.drzava = drzava;
+	}
+
+	public java.util.Collection<KursUValuti> getKursUValutiOsnovna() {
+		return kursUValutiOsnovna;
+	}
+
+	public void setKursUValutiOsnovna(java.util.Collection<KursUValuti> kursUValutiOsnovna) {
+		this.kursUValutiOsnovna = kursUValutiOsnovna;
+	}
+
+	public java.util.Collection<KursUValuti> getKursUValutiPrema() {
+		return kursUValutiPrema;
+	}
+
+	public void setKursUValutiPrema(java.util.Collection<KursUValuti> kursUValutiPrema) {
+		this.kursUValutiPrema = kursUValutiPrema;
+	}
+
+/** @pdGenerated default getter */
    public java.util.Collection<Racuni> getRacuni() {
       if (racuni == null)
          racuni = new java.util.HashSet<Racuni>();
