@@ -1,11 +1,11 @@
 <!doctype html>
-<html lang="en" ng-app="myApp">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <title>Angular Registration</title>
   <meta name="viewport" content="width=device-width, user-scalable=no">
-   <link href='https://fonts.googleapis.com/css?family=Lato:400,100,700,900' rel='stylesheet' type='text/css'> 
-   <link rel="stylesheet" href="css/style.css">
+   
+   <link rel="stylesheet" href="css/main.css">
 
 
 
@@ -33,13 +33,26 @@
 
 
 </head>
-<body>
-<header>
-	<nav class="cf" ng-include="'views/nav.html'"></nav>
-</header>
-<div class="page">
-  <main class="cf" ng-view></main>
-</div>
+<body ng-app="myApp">
+    <div class="container-fluid">
+      <div class="header">
+        <ul class="nav nav-pills pull-right" >
+          <li><a ng-href="#/login">Login</a></li>
+    	  <li><a ng-href="#/register">Register</a></li>
+    	  <li><a ng-href="#/drzava-new">New drzava</a></li>
+          <li><a ng-href="#/analitikaizvoda-new">New analitika izvoda</a></li>
+          <li><a ng-href="#/drzava-list">Lista drzava</a></li>
+        </ul>
+        <h3 class="text-muted">Banka</h3>
+      </div>
+
+      <div ng-view=""></div>
+
+      <div class="footer">
+        <p><span class="glyphicon glyphicon-copyright-mark"></span> Tim22 2016</p>
+        <p></p>
+      </div>
+    </div>
 </body>
 </html>
 
