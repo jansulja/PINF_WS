@@ -16,6 +16,9 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -52,6 +55,7 @@ public class Drzava {
 //	private java.util.Collection<Valuta> valuta;
    /** @pdRoleInfo migr=no name=NaseljenoMesto assc=mestaUDrzavi coll=java.util.Collection impl=java.util.HashSet mult=0..* */
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "drzava", cascade = CascadeType.ALL)
+	@Fetch(FetchMode.SELECT)
 	@JsonManagedReference
 	private java.util.Collection<NaseljenoMesto> naseljenoMesto;
 
