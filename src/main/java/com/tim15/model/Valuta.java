@@ -20,52 +20,73 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-
-//@Entity
+@Entity
 public class Valuta {
-		@Id
-		@GeneratedValue(strategy = GenerationType.IDENTITY)
-		@Column(name = "valuta_id", unique = true)
-    private int idValute;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "valuta_id", unique = true)
+	private int valutaId;
 	private java.lang.String zvanicnaSifra;
 	private java.lang.String naziv;
 	private boolean domicilna = false;
 
 	@ManyToOne
-	@JoinColumn(name="drzava_id")
+	@JoinColumn(name = "drzava_id")
 	@JsonBackReference
-	private Drzava drzava ;
+	private Drzava drzava;
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "valuta", cascade = CascadeType.ALL)
 	@JsonManagedReference
+	@Fetch(FetchMode.SELECT)
 	private java.util.Collection<KursUValuti> kursUValutiOsnovna;
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "valuta", cascade = CascadeType.ALL)
 	@JsonManagedReference
+	@Fetch(FetchMode.SELECT)
 	private java.util.Collection<KursUValuti> kursUValutiPrema;
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "valuta", cascade = CascadeType.ALL)
 	@JsonManagedReference
+	@Fetch(FetchMode.SELECT)
 	private java.util.Collection<Racuni> racuni;
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "valuta", cascade = CascadeType.ALL)
 	@JsonManagedReference
+	@Fetch(FetchMode.SELECT)
 	private java.util.Collection<AnalitikaIzvoda> analitikaIzvoda;
 
-
-
-
-
-   public int getIdValute() {
-		return idValute;
+	public Valuta() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
-	public void setIdValute(int idValute) {
-		this.idValute = idValute;
+	public Valuta(String zvanicnaSifra, String naziv, boolean domicilna, Drzava drzava,
+			Collection<KursUValuti> kursUValutiOsnovna, Collection<KursUValuti> kursUValutiPrema,
+			Collection<Racuni> racuni, Collection<AnalitikaIzvoda> analitikaIzvoda) {
+		super();
+		this.zvanicnaSifra = zvanicnaSifra;
+		this.naziv = naziv;
+		this.domicilna = domicilna;
+		this.drzava = drzava;
+		this.kursUValutiOsnovna = kursUValutiOsnovna;
+		this.kursUValutiPrema = kursUValutiPrema;
+		this.racuni = racuni;
+		this.analitikaIzvoda = analitikaIzvoda;
+	}
+
+	public int getValutaId() {
+		return valutaId;
+	}
+
+	public void setValutaId(int valutaId) {
+		this.valutaId = valutaId;
 	}
 
 	public java.lang.String getZvanicnaSifra() {
@@ -116,103 +137,116 @@ public class Valuta {
 		this.kursUValutiPrema = kursUValutiPrema;
 	}
 
-/** @pdGenerated default getter */
-   public java.util.Collection<Racuni> getRacuni() {
-      if (racuni == null)
-         racuni = new java.util.HashSet<Racuni>();
-      return racuni;
-   }
+	/** @pdGenerated default getter */
+	public java.util.Collection<Racuni> getRacuni() {
+		if (racuni == null)
+			racuni = new java.util.HashSet<Racuni>();
+		return racuni;
+	}
 
-   /** @pdGenerated default iterator getter */
-   @JsonIgnore
-   public java.util.Iterator getIteratorRacuni() {
-      if (racuni == null)
-         racuni = new java.util.HashSet<Racuni>();
-      return racuni.iterator();
-   }
+	/** @pdGenerated default iterator getter */
+	@JsonIgnore
+	public java.util.Iterator getIteratorRacuni() {
+		if (racuni == null)
+			racuni = new java.util.HashSet<Racuni>();
+		return racuni.iterator();
+	}
 
-   /** @pdGenerated default setter
-     * @param newRacuni */
-   public void setRacuni(java.util.Collection<Racuni> newRacuni) {
-      removeAllRacuni();
-      for (java.util.Iterator iter = newRacuni.iterator(); iter.hasNext();)
-         addRacuni((Racuni)iter.next());
-   }
+	/**
+	 * @pdGenerated default setter
+	 * @param newRacuni
+	 */
+	public void setRacuni(java.util.Collection<Racuni> newRacuni) {
+		removeAllRacuni();
+		for (java.util.Iterator iter = newRacuni.iterator(); iter.hasNext();)
+			addRacuni((Racuni) iter.next());
+	}
 
-   /** @pdGenerated default add
-     * @param newRacuni */
-   public void addRacuni(Racuni newRacuni) {
-      if (newRacuni == null)
-         return;
-      if (this.racuni == null)
-         this.racuni = new java.util.HashSet<Racuni>();
-      if (!this.racuni.contains(newRacuni))
-         this.racuni.add(newRacuni);
-   }
+	/**
+	 * @pdGenerated default add
+	 * @param newRacuni
+	 */
+	public void addRacuni(Racuni newRacuni) {
+		if (newRacuni == null)
+			return;
+		if (this.racuni == null)
+			this.racuni = new java.util.HashSet<Racuni>();
+		if (!this.racuni.contains(newRacuni))
+			this.racuni.add(newRacuni);
+	}
 
-   /** @pdGenerated default remove
-     * @param oldRacuni */
-   public void removeRacuni(Racuni oldRacuni) {
-      if (oldRacuni == null)
-         return;
-      if (this.racuni != null)
-         if (this.racuni.contains(oldRacuni))
-            this.racuni.remove(oldRacuni);
-   }
+	/**
+	 * @pdGenerated default remove
+	 * @param oldRacuni
+	 */
+	public void removeRacuni(Racuni oldRacuni) {
+		if (oldRacuni == null)
+			return;
+		if (this.racuni != null)
+			if (this.racuni.contains(oldRacuni))
+				this.racuni.remove(oldRacuni);
+	}
 
-   /** @pdGenerated default removeAll */
-   public void removeAllRacuni() {
-      if (racuni != null)
-         racuni.clear();
-   }
-   /** @pdGenerated default getter */
-   public java.util.Collection<AnalitikaIzvoda> getAnalitikaIzvoda() {
-      if (analitikaIzvoda == null)
-         analitikaIzvoda = new java.util.HashSet<AnalitikaIzvoda>();
-      return analitikaIzvoda;
-   }
+	/** @pdGenerated default removeAll */
+	public void removeAllRacuni() {
+		if (racuni != null)
+			racuni.clear();
+	}
 
-   /** @pdGenerated default iterator getter */
-   @JsonIgnore
-   public java.util.Iterator getIteratorAnalitikaIzvoda() {
-      if (analitikaIzvoda == null)
-         analitikaIzvoda = new java.util.HashSet<AnalitikaIzvoda>();
-      return analitikaIzvoda.iterator();
-   }
+	/** @pdGenerated default getter */
+	public java.util.Collection<AnalitikaIzvoda> getAnalitikaIzvoda() {
+		if (analitikaIzvoda == null)
+			analitikaIzvoda = new java.util.HashSet<AnalitikaIzvoda>();
+		return analitikaIzvoda;
+	}
 
-   /** @pdGenerated default setter
-     * @param newAnalitikaIzvoda */
-   public void setAnalitikaIzvoda(java.util.Collection<AnalitikaIzvoda> newAnalitikaIzvoda) {
-      removeAllAnalitikaIzvoda();
-      for (java.util.Iterator iter = newAnalitikaIzvoda.iterator(); iter.hasNext();)
-         addAnalitikaIzvoda((AnalitikaIzvoda)iter.next());
-   }
+	/** @pdGenerated default iterator getter */
+	@JsonIgnore
+	public java.util.Iterator getIteratorAnalitikaIzvoda() {
+		if (analitikaIzvoda == null)
+			analitikaIzvoda = new java.util.HashSet<AnalitikaIzvoda>();
+		return analitikaIzvoda.iterator();
+	}
 
-   /** @pdGenerated default add
-     * @param newAnalitikaIzvoda */
-   public void addAnalitikaIzvoda(AnalitikaIzvoda newAnalitikaIzvoda) {
-      if (newAnalitikaIzvoda == null)
-         return;
-      if (this.analitikaIzvoda == null)
-         this.analitikaIzvoda = new java.util.HashSet<AnalitikaIzvoda>();
-      if (!this.analitikaIzvoda.contains(newAnalitikaIzvoda))
-         this.analitikaIzvoda.add(newAnalitikaIzvoda);
-   }
+	/**
+	 * @pdGenerated default setter
+	 * @param newAnalitikaIzvoda
+	 */
+	public void setAnalitikaIzvoda(java.util.Collection<AnalitikaIzvoda> newAnalitikaIzvoda) {
+		removeAllAnalitikaIzvoda();
+		for (java.util.Iterator iter = newAnalitikaIzvoda.iterator(); iter.hasNext();)
+			addAnalitikaIzvoda((AnalitikaIzvoda) iter.next());
+	}
 
-   /** @pdGenerated default remove
-     * @param oldAnalitikaIzvoda */
-   public void removeAnalitikaIzvoda(AnalitikaIzvoda oldAnalitikaIzvoda) {
-      if (oldAnalitikaIzvoda == null)
-         return;
-      if (this.analitikaIzvoda != null)
-         if (this.analitikaIzvoda.contains(oldAnalitikaIzvoda))
-            this.analitikaIzvoda.remove(oldAnalitikaIzvoda);
-   }
+	/**
+	 * @pdGenerated default add
+	 * @param newAnalitikaIzvoda
+	 */
+	public void addAnalitikaIzvoda(AnalitikaIzvoda newAnalitikaIzvoda) {
+		if (newAnalitikaIzvoda == null)
+			return;
+		if (this.analitikaIzvoda == null)
+			this.analitikaIzvoda = new java.util.HashSet<AnalitikaIzvoda>();
+		if (!this.analitikaIzvoda.contains(newAnalitikaIzvoda))
+			this.analitikaIzvoda.add(newAnalitikaIzvoda);
+	}
 
-   /** @pdGenerated default removeAll */
-   public void removeAllAnalitikaIzvoda() {
-      if (analitikaIzvoda != null)
-         analitikaIzvoda.clear();
-   }
+	/**
+	 * @pdGenerated default remove
+	 * @param oldAnalitikaIzvoda
+	 */
+	public void removeAnalitikaIzvoda(AnalitikaIzvoda oldAnalitikaIzvoda) {
+		if (oldAnalitikaIzvoda == null)
+			return;
+		if (this.analitikaIzvoda != null)
+			if (this.analitikaIzvoda.contains(oldAnalitikaIzvoda))
+				this.analitikaIzvoda.remove(oldAnalitikaIzvoda);
+	}
+
+	/** @pdGenerated default removeAll */
+	public void removeAllAnalitikaIzvoda() {
+		if (analitikaIzvoda != null)
+			analitikaIzvoda.clear();
+	}
 
 }

@@ -17,20 +17,51 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-//@Entity
+@Entity
 public class VrstePlacanja {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "vrstaplacanja_id", unique = true)
-	private int idVrste;
+	private int vrstaPlacanjaId;
 	private java.lang.String nazivVrstePlacanja;
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "vrstePlacanja", cascade = CascadeType.ALL)
 	@JsonManagedReference
+	@Fetch(FetchMode.SELECT)
 	private java.util.Collection<AnalitikaIzvoda> analitikaIzvoda;
+
+	public VrstePlacanja() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public VrstePlacanja(String nazivVrstePlacanja, Collection<AnalitikaIzvoda> analitikaIzvoda) {
+		super();
+		this.nazivVrstePlacanja = nazivVrstePlacanja;
+		this.analitikaIzvoda = analitikaIzvoda;
+	}
+
+	public int getVrstaPlacanjaId() {
+		return vrstaPlacanjaId;
+	}
+
+	public void setVrstaPlacanjaId(int vrstaPlacanjaId) {
+		this.vrstaPlacanjaId = vrstaPlacanjaId;
+	}
+
+	public java.lang.String getNazivVrstePlacanja() {
+		return nazivVrstePlacanja;
+	}
+
+	public void setNazivVrstePlacanja(java.lang.String nazivVrstePlacanja) {
+		this.nazivVrstePlacanja = nazivVrstePlacanja;
+	}
 
 	/** @pdGenerated default getter */
 	public java.util.Collection<AnalitikaIzvoda> getAnalitikaIzvoda() {

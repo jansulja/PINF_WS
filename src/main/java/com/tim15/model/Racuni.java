@@ -21,16 +21,19 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-//@Entity
+@Entity
 public class Racuni {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "racuni_id", unique = true)
-	private long idRacuna;
+	private long racuniId;
 	private java.lang.String brojRacuna;
 	private java.util.Date datumOtvaranja;
 	private boolean vazeci = false;
@@ -43,10 +46,12 @@ public class Racuni {
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "racuni", cascade = CascadeType.ALL)
 	@JsonManagedReference
+	@Fetch(FetchMode.SELECT)
 	private java.util.Collection<DnevnoStanjeRacuna> dnevnoStanjeRacuna;
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "racuni", cascade = CascadeType.ALL)
 	@JsonManagedReference
+	@Fetch(FetchMode.SELECT)
 	private java.util.Collection<Ukidanje> ukidanje;
 
 	@ManyToOne
@@ -75,12 +80,14 @@ public class Racuni {
 
 	}
 
-	public long getIdRacuna() {
-		return idRacuna;
+
+
+	public long getRacuniId() {
+		return racuniId;
 	}
 
-	public void setIdRacuna(long idRacuna) {
-		this.idRacuna = idRacuna;
+	public void setRacuniId(long racuniId) {
+		this.racuniId = racuniId;
 	}
 
 	public java.lang.String getBrojRacuna() {
@@ -181,6 +188,30 @@ public class Racuni {
 		if (ukidanje == null)
 			ukidanje = new java.util.HashSet<Ukidanje>();
 		return ukidanje;
+	}
+
+	public double getStanje() {
+		return stanje;
+	}
+
+	public void setStanje(double stanje) {
+		this.stanje = stanje;
+	}
+
+	public Banka getBanka() {
+		return banka;
+	}
+
+	public void setBanka(Banka banka) {
+		this.banka = banka;
+	}
+
+	public Valuta getValuta() {
+		return valuta;
+	}
+
+	public void setValuta(Valuta valuta) {
+		this.valuta = valuta;
 	}
 
 	/** @pdGenerated default iterator getter */

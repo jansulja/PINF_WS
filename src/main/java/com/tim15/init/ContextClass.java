@@ -32,10 +32,10 @@ public class ContextClass implements ServletContextListener {
 		Banka b2 = new Banka("125", "7439857", "PIRAEUS BANK, AD, BEOGRAD", "adresa 2", "pireus@tel.com", "www.pire.com", "063/453-234", "063/453-234", true, null, null);
 		Banka b3 = new Banka("160", "7439857", "BANCA INTESA, AD, BEOGRAD", "adresa 3", "intesa@tel.com", "www.intesa.com", "063/453-234", "063/453-234", true, null, null);
 
-		
+
 		//String telefon, String email, String adresa, String password
-		Klijent klijent = new Klijent("063/111-111", "k1@k1.com", "Vladimira Nazora 12","k1");
-		
+		//Klijent klijent = new Klijent("063/111-111", "k1@k1.com", "Vladimira Nazora 12","k1");
+
 //		try {
 //			bankaDao.persist(b1);
 //			bankaDao.persist(b2);

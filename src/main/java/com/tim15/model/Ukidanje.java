@@ -6,6 +6,8 @@
 
 package com.tim15.model;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,19 +18,63 @@ import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
-//@Entity
+@Entity
 public class Ukidanje {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ukidanje_id", unique = true)
-   private int idUkidanja;
-   private java.util.Date datumUkidanja;
-   private java.lang.String sredstvaSePrenoseNaRacun;
+	private int ukidanjeId;
+	private java.util.Date datumUkidanja;
+	private java.lang.String sredstvaSePrenoseNaRacun;
 
-   @ManyToOne
-   @JoinColumn(name = "racuni_id")
-   @JsonBackReference
-   private Racuni racuni;
+	@ManyToOne
+	@JoinColumn(name = "racuni_id")
+	@JsonBackReference
+	private Racuni racuni;
+
+	public Ukidanje() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public Ukidanje(Date datumUkidanja, String sredstvaSePrenoseNaRacun, Racuni racuni) {
+		super();
+		this.datumUkidanja = datumUkidanja;
+		this.sredstvaSePrenoseNaRacun = sredstvaSePrenoseNaRacun;
+		this.racuni = racuni;
+	}
+
+	public int getUkidanjeId() {
+		return ukidanjeId;
+	}
+
+	public void setUkidanjeId(int ukidanjeId) {
+		this.ukidanjeId = ukidanjeId;
+	}
+
+	public java.util.Date getDatumUkidanja() {
+		return datumUkidanja;
+	}
+
+	public void setDatumUkidanja(java.util.Date datumUkidanja) {
+		this.datumUkidanja = datumUkidanja;
+	}
+
+	public java.lang.String getSredstvaSePrenoseNaRacun() {
+		return sredstvaSePrenoseNaRacun;
+	}
+
+	public void setSredstvaSePrenoseNaRacun(java.lang.String sredstvaSePrenoseNaRacun) {
+		this.sredstvaSePrenoseNaRacun = sredstvaSePrenoseNaRacun;
+	}
+
+	public Racuni getRacuni() {
+		return racuni;
+	}
+
+	public void setRacuni(Racuni racuni) {
+		this.racuni = racuni;
+	}
 
 }

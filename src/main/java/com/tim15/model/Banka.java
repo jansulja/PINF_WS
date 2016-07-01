@@ -16,16 +16,18 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.Transient;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-//@Entity
+@Entity
 public class Banka {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "banka_id", unique = true)
-	private int idBanke;
+	private int bankaId;
 	private java.lang.String sifraBanke;
 	private java.lang.String pib;
 	private java.lang.String naziv;
@@ -36,20 +38,27 @@ public class Banka {
 	private java.lang.String fax;
 	private boolean banka;
 
-	/**
-	 * @pdRoleInfo migr=no name=Racuni assc=poslovnaBanka
-	 *             coll=java.util.Collection impl=java.util.HashSet mult=0..*
-	 */
+
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "banka", cascade = CascadeType.ALL)
 	@JsonManagedReference
+	@Fetch(FetchMode.SELECT)
 	private java.util.Collection<Racuni> racuni;
-	/**
-	 * @pdRoleInfo migr=no name=KursnaLista assc=kursPoslovneBanke
-	 *             coll=java.util.Collection impl=java.util.HashSet mult=0..*
-	 */
+
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "banka", cascade = CascadeType.ALL)
 	@JsonManagedReference
+	@Fetch(FetchMode.SELECT)
 	private java.util.Collection<KursnaLista> kursnaLista;
+
+
+
+
+
+	public Banka() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+
 
 	public Banka(String sifraBanke, String pib, String naziv, String adresa, String eMail, String web, String telefon,
 			String fax, boolean banka, Collection<Racuni> racuni, Collection<KursnaLista> kursnaLista) {
@@ -67,17 +76,14 @@ public class Banka {
 		this.kursnaLista = kursnaLista;
 	}
 
-	public Banka() {
-		super();
-		// TODO Auto-generated constructor stub
+
+
+	public int getBankaId() {
+		return bankaId;
 	}
 
-	public int getIdBanke() {
-		return idBanke;
-	}
-
-	public void setIdBanke(int idBanke) {
-		this.idBanke = idBanke;
+	public void setBankaId(int bankaId) {
+		this.bankaId = bankaId;
 	}
 
 	public java.lang.String getSifraBanke() {
