@@ -22,30 +22,40 @@ public class AnalitikaIzvoda {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", unique = true)
-   private long brojStavke;
-   private java.lang.String duznikNalogodavac;
-   private java.lang.String svrhaPlacanja;
-   private java.lang.String poverilacPrimalac;
-   private java.util.Date datumPrijema;
-   private java.util.Date datumValute;
-   private java.lang.String racunDuznika;
-   private double modelZaduzenja;
-   private java.lang.String pozivNaProjZaduzenja;
-   private java.lang.String racunPoverioca;
-   private double modelOdobrenja;
-   private java.lang.String pozivNaBrojOdobrenja;
-   private boolean hitno = false;
-   private double iznos = 0;
-   private double tipGreske = 1;
-   private java.lang.String status;
+	private long brojStavke;
+	private java.lang.String duznikNalogodavac;
+	private java.lang.String svrhaPlacanja;
+	private java.lang.String poverilacPrimalac;
+	private java.util.Date datumPrijema;
+	private java.util.Date datumValute;
+	private java.lang.String racunDuznika;
+	private double modelZaduzenja;
+	private java.lang.String pozivNaProjZaduzenja;
+	private java.lang.String racunPoverioca;
+	private double modelOdobrenja;
+	private java.lang.String pozivNaBrojOdobrenja;
+	private boolean hitno = false;
+	private double iznos = 0;
+	private double tipGreske = 1;
+	private java.lang.String status;
 
-   @ManyToOne
-   @JoinColumn(name="dnevno_stanje_racuna_id")
-   private DnevnoStanjeRacuna dnevnoStanjeRacuna;
+	@ManyToOne
+	@JoinColumn(name = "dnevno_stanje_racuna_id")
+	private DnevnoStanjeRacuna dnevnoStanjeRacuna;
 
-   @ManyToOne
-   @JoinColumn(name="valuta_id")
-   @JsonBackReference
-   private Valuta valuta;
+	@ManyToOne
+	@JoinColumn(name = "valuta_id")
+	@JsonBackReference
+	private Valuta valuta;
+
+	@ManyToOne
+	@JoinColumn(name = "naseljenomesto_id")
+	@JsonBackReference
+	private NaseljenoMesto naseljenoMesto;
+
+	@ManyToOne
+	@JoinColumn(name = "vrsteplacanja_id")
+	@JsonBackReference
+	private VrstePlacanja vrstePlacanja;
 
 }

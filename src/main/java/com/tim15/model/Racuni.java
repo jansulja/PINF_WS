@@ -9,8 +9,10 @@ package com.tim15.model;
 import java.util.Collection;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -20,6 +22,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "racuni")
@@ -36,16 +39,20 @@ public class Racuni {
 
 	@ManyToOne
 	@JoinColumn(name = "klijent_id")
+	@JsonBackReference
 	private Klijent klijent;
 
-	@OneToMany(mappedBy = "racuni")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "racuni", cascade = CascadeType.ALL)
+	@JsonManagedReference
 	private java.util.Collection<DnevnoStanjeRacuna> dnevnoStanjeRacuna;
 
-	@OneToMany(mappedBy = "racuni")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "racuni", cascade = CascadeType.ALL)
+	@JsonManagedReference
 	private java.util.Collection<Ukidanje> ukidanje;
 
 	@ManyToOne
 	@JoinColumn(name = "banka_id")
+	@JsonBackReference
 	private Banka banka;
 
 	@ManyToOne

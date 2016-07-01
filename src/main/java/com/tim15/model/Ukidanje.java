@@ -14,6 +14,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 public class Ukidanje {
 
@@ -26,6 +28,7 @@ public class Ukidanje {
 
    @ManyToOne
    @JoinColumn(name = "racuni_id")
+   @JsonBackReference
    private Racuni racuni;
 
 }
