@@ -8,8 +8,10 @@ package com.tim15.model;
 
 import java.util.*;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -20,6 +22,7 @@ import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 
 @Entity
@@ -42,10 +45,12 @@ public class Valuta {
 	@Transient
 	private java.util.Collection<KursUValuti> kursUValutiPrema;
 
-	@Transient
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "valuta", cascade = CascadeType.ALL)
+	@JsonManagedReference
 	private java.util.Collection<Racuni> racuni;
 
-	@Transient
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "valuta", cascade = CascadeType.ALL)
+	@JsonManagedReference
 	private java.util.Collection<AnalitikaIzvoda> analitikaIzvoda;
 
 

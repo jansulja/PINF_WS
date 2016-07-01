@@ -51,7 +51,8 @@ public class Drzava {
 	@JsonManagedReference
 	private java.util.Collection<Valuta> valuta;
    /** @pdRoleInfo migr=no name=NaseljenoMesto assc=mestaUDrzavi coll=java.util.Collection impl=java.util.HashSet mult=0..* */
-	@Transient
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "drzava", cascade = CascadeType.ALL)
+	@JsonManagedReference
 	private java.util.Collection<NaseljenoMesto> naseljenoMesto;
 
 

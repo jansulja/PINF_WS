@@ -14,6 +14,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 public class AnalitikaIzvoda {
 
@@ -40,5 +42,10 @@ public class AnalitikaIzvoda {
    @ManyToOne
    @JoinColumn(name="dnevno_stanje_racuna_id")
    private DnevnoStanjeRacuna dnevnoStanjeRacuna;
+
+   @ManyToOne
+   @JoinColumn(name="valuta_id")
+   @JsonBackReference
+   private Valuta valuta;
 
 }

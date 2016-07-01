@@ -19,6 +19,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table(name = "racuni")
 public class Racuni {
@@ -45,6 +47,11 @@ public class Racuni {
 	@ManyToOne
 	@JoinColumn(name = "banka_id")
 	private Banka banka;
+
+	@ManyToOne
+	@JoinColumn(name="valuta_id")
+	@JsonBackReference
+	private Valuta valuta;
 
 	public Racuni() {
 		super();
