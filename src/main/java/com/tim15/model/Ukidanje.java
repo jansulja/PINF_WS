@@ -16,7 +16,7 @@ import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
-@Entity
+//@Entity
 public class Ukidanje {
 
 	@Id

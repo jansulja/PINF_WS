@@ -47,9 +47,9 @@ public class Drzava {
 
 /** @pdRoleInfo migr=no name=Valuta assc=drzavnaValuta coll=java.util.Collection impl=java.util.HashSet mult=0..* */
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "drzava", cascade = CascadeType.ALL)
-	@JsonManagedReference
-	private java.util.Collection<Valuta> valuta;
+//	@OneToMany(fetch = FetchType.EAGER, mappedBy = "drzava", cascade = CascadeType.ALL)
+//	@JsonManagedReference
+//	private java.util.Collection<Valuta> valuta;
    /** @pdRoleInfo migr=no name=NaseljenoMesto assc=mestaUDrzavi coll=java.util.Collection impl=java.util.HashSet mult=0..* */
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "drzava", cascade = CascadeType.ALL)
 	@JsonManagedReference
@@ -57,54 +57,54 @@ public class Drzava {
 
 
    /** @pdGenerated default getter */
-   public java.util.Collection<Valuta> getValuta() {
-      if (valuta == null)
-         valuta = new java.util.HashSet<Valuta>();
-      return valuta;
-   }
-
-   /** @pdGenerated default iterator getter */
-   @JsonIgnore
-   public java.util.Iterator getIteratorValuta() {
-      if (valuta == null)
-         valuta = new java.util.HashSet<Valuta>();
-      return valuta.iterator();
-   }
+//   public java.util.Collection<Valuta> getValuta() {
+//      if (valuta == null)
+//         valuta = new java.util.HashSet<Valuta>();
+//      return valuta;
+//   }
+//
+//   /** @pdGenerated default iterator getter */
+//   @JsonIgnore
+//   public java.util.Iterator getIteratorValuta() {
+//      if (valuta == null)
+//         valuta = new java.util.HashSet<Valuta>();
+//      return valuta.iterator();
+//   }
 
    /** @pdGenerated default setter
      * @param newValuta */
-   public void setValuta(java.util.Collection<Valuta> newValuta) {
-      removeAllValuta();
-      for (java.util.Iterator iter = newValuta.iterator(); iter.hasNext();)
-         addValuta((Valuta)iter.next());
-   }
+//   public void setValuta(java.util.Collection<Valuta> newValuta) {
+//      removeAllValuta();
+//      for (java.util.Iterator iter = newValuta.iterator(); iter.hasNext();)
+//         addValuta((Valuta)iter.next());
+//   }
 
    /** @pdGenerated default add
      * @param newValuta */
-   public void addValuta(Valuta newValuta) {
-      if (newValuta == null)
-         return;
-      if (this.valuta == null)
-         this.valuta = new java.util.HashSet<Valuta>();
-      if (!this.valuta.contains(newValuta))
-         this.valuta.add(newValuta);
-   }
-
-   /** @pdGenerated default remove
-     * @param oldValuta */
-   public void removeValuta(Valuta oldValuta) {
-      if (oldValuta == null)
-         return;
-      if (this.valuta != null)
-         if (this.valuta.contains(oldValuta))
-            this.valuta.remove(oldValuta);
-   }
-
-   /** @pdGenerated default removeAll */
-   public void removeAllValuta() {
-      if (valuta != null)
-         valuta.clear();
-   }
+//   public void addValuta(Valuta newValuta) {
+//      if (newValuta == null)
+//         return;
+//      if (this.valuta == null)
+//         this.valuta = new java.util.HashSet<Valuta>();
+//      if (!this.valuta.contains(newValuta))
+//         this.valuta.add(newValuta);
+//   }
+//
+//   /** @pdGenerated default remove
+//     * @param oldValuta */
+//   public void removeValuta(Valuta oldValuta) {
+//      if (oldValuta == null)
+//         return;
+//      if (this.valuta != null)
+//         if (this.valuta.contains(oldValuta))
+//            this.valuta.remove(oldValuta);
+//   }
+//
+//   /** @pdGenerated default removeAll */
+//   public void removeAllValuta() {
+//      if (valuta != null)
+//         valuta.clear();
+//   }
    /** @pdGenerated default getter */
    public java.util.Collection<NaseljenoMesto> getNaseljenoMesto() {
       if (naseljenoMesto == null)

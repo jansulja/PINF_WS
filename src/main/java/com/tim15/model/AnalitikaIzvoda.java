@@ -39,23 +39,23 @@ public class AnalitikaIzvoda {
 	private double tipGreske = 1;
 	private java.lang.String status;
 
-	@ManyToOne
-	@JoinColumn(name = "dnevno_stanje_racuna_id")
-	private DnevnoStanjeRacuna dnevnoStanjeRacuna;
-
-	@ManyToOne
-	@JoinColumn(name = "valuta_id")
-	@JsonBackReference
-	private Valuta valuta;
+//	@ManyToOne
+//	@JoinColumn(name = "dnevno_stanje_racuna_id")
+//	private DnevnoStanjeRacuna dnevnoStanjeRacuna;
+//
+//	@ManyToOne
+//	@JoinColumn(name = "valuta_id")
+//	@JsonBackReference
+//	private Valuta valuta;
 
 	@ManyToOne
 	@JoinColumn(name = "naseljenomesto_id")
 	@JsonBackReference
 	private NaseljenoMesto naseljenoMesto;
 
-	@ManyToOne
-	@JoinColumn(name = "vrsteplacanja_id")
-	@JsonBackReference
-	private VrstePlacanja vrstePlacanja;
+//	@ManyToOne
+//	@JoinColumn(name = "vrsteplacanja_id")
+//	@JsonBackReference
+//	private VrstePlacanja vrstePlacanja;
 
 }

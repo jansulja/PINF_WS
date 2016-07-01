@@ -8,13 +8,13 @@
 		<jta-data-source>pinf_ws</jta-data-source>
 		<non-jta-data-source>unmanagedpinf_ws</non-jta-data-source>
 
-		<class>com.tim15.model.Klijent</class>
-		<class>com.tim15.model.Racuni</class>
-		<class>com.tim15.model.DnevnoStanjeRacuna</class>
-		<class>com.tim15.model.AnalitikaIzvoda</class>
-		<class>com.tim15.model.PravnoLice</class>
-		<class>com.tim15.model.FizickoLice</class>
-		<class>com.tim15.model.Banka</class>
+<!-- 		<class>com.tim15.model.Klijent</class> -->
+<!-- 		<class>com.tim15.model.Racuni</class> -->
+<!-- 		<class>com.tim15.model.DnevnoStanjeRacuna</class> -->
+<!-- 		<class>com.tim15.model.AnalitikaIzvoda</class> -->
+<!-- 		<class>com.tim15.model.PravnoLice</class> -->
+<!-- 		<class>com.tim15.model.FizickoLice</class> -->
+<!-- 		<class>com.tim15.model.Banka</class> -->
 
 
 

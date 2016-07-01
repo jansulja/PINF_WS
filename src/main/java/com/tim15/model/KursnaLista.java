@@ -8,16 +8,20 @@ package com.tim15.model;
 
 import java.util.*;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-@Entity
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+//@Entity
 public class KursnaLista {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,7 +36,8 @@ public class KursnaLista {
    @JsonBackReference
    private Banka banka ;
 
-   /** @pdRoleInfo migr=no name=KursUValuti assc=valuteUListi coll=java.util.Collection impl=java.util.HashSet mult=0..* */
+   @OneToMany(fetch = FetchType.EAGER, mappedBy = "kursnaLista", cascade = CascadeType.ALL)
+   @JsonManagedReference
    private java.util.Collection<KursUValuti> kursUValuti;
 
 

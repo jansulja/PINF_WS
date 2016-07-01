@@ -20,7 +20,7 @@ import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-@Entity
+//@Entity
 public class Banka {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

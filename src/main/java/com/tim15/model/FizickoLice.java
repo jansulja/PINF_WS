@@ -10,8 +10,8 @@ import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.PrimaryKeyJoinColumn;
-@Entity
-@PrimaryKeyJoinColumn(name="klijent_id")
+//@Entity
+//@PrimaryKeyJoinColumn(name="klijent_id")
 public class FizickoLice extends Klijent {
 
    private java.lang.String punoIme;

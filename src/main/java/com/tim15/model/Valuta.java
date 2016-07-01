@@ -25,7 +25,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 
-@Entity
+//@Entity
 public class Valuta {
 		@Id
 		@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,11 +40,11 @@ public class Valuta {
 	@JsonBackReference
 	private Drzava drzava ;
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "valutaOsnova", cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "valuta", cascade = CascadeType.ALL)
 	@JsonManagedReference
 	private java.util.Collection<KursUValuti> kursUValutiOsnovna;
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "valutaPrema", cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "valuta", cascade = CascadeType.ALL)
 	@JsonManagedReference
 	private java.util.Collection<KursUValuti> kursUValutiPrema;
 

@@ -23,9 +23,9 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-@Entity
-@Table(name="klijent")
-@Inheritance(strategy=InheritanceType.JOINED)
+//@Entity
+//@Table(name="klijent")
+//@Inheritance(strategy=InheritanceType.JOINED)
 public class Klijent {
 
 	@Id

@@ -18,7 +18,7 @@ import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
-@Entity
+//@Entity
 public class KursUValuti {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,12 +30,13 @@ public class KursUValuti {
    @ManyToOne
    @JoinColumn(name="valuta_id")
    @JsonBackReference
-   private Valuta valutaOsnova ;
+   private Valuta valuta;
 
    @ManyToOne
-   @JoinColumn(name="valuta_id")
+   @JoinColumn(name="kursnalista_id")
    @JsonBackReference
-   private Valuta valutaPrema ;
+   private KursnaLista kursnaLista;
+
 
    public double getRedniBroj() {
 	return redniBroj;

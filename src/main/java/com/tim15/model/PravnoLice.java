@@ -11,8 +11,8 @@ import java.util.*;
 import javax.persistence.Entity;
 import javax.persistence.PrimaryKeyJoinColumn;
 
-@Entity
-@PrimaryKeyJoinColumn(name="klijent_id")
+//@Entity
+//@PrimaryKeyJoinColumn(name="klijent_id")
 public class PravnoLice extends Klijent {
 
    private java.lang.String naziv;

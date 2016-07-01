@@ -17,7 +17,7 @@ import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
-@Entity
+//@Entity
 public class DnevnoStanjeRacuna {
 
 
