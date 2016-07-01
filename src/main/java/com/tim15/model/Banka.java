@@ -40,12 +40,12 @@ public class Banka {
 
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "banka", cascade = CascadeType.ALL)
-	@JsonManagedReference
+	@JsonManagedReference(value="bankaRacuni")
 	@Fetch(FetchMode.SELECT)
 	private java.util.Collection<Racuni> racuni;
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "banka", cascade = CascadeType.ALL)
-	@JsonManagedReference
+	@JsonManagedReference(value="bankaKursnaLista")
 	@Fetch(FetchMode.SELECT)
 	private java.util.Collection<KursnaLista> kursnaLista;
 

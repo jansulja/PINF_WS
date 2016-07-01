@@ -32,7 +32,7 @@ public class VrstePlacanja {
 	private java.lang.String nazivVrstePlacanja;
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "vrstePlacanja", cascade = CascadeType.ALL)
-	@JsonManagedReference
+	@JsonManagedReference(value="vrstePlacanjaAnalitikaIzvoda")
 	@Fetch(FetchMode.SELECT)
 	private java.util.Collection<AnalitikaIzvoda> analitikaIzvoda;
 

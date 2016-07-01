@@ -43,21 +43,22 @@ public class AnalitikaIzvoda {
 
 	@ManyToOne
 	@JoinColumn(name = "dnevno_stanje_racuna_id")
+	@JsonBackReference(value="dnevnoStanjeRacunaAnalitikaIzvoda")
 	private DnevnoStanjeRacuna dnevnoStanjeRacuna;
 
 	@ManyToOne
 	@JoinColumn(name = "valuta_id")
-	@JsonBackReference
+	@JsonBackReference(value="valutaAnalitikaIzvoda")
 	private Valuta valuta;
 
 	@ManyToOne
 	@JoinColumn(name = "naseljenomesto_id")
-	@JsonBackReference
+	@JsonBackReference("naseljenoMestoAnalitikaIzvoda")
 	private NaseljenoMesto naseljenoMesto;
 
 	@ManyToOne
 	@JoinColumn(name = "vrsteplacanja_id")
-	@JsonBackReference
+	@JsonBackReference(value="vrstePlacanjaAnalitikaIzvoda")
 	private VrstePlacanja vrstePlacanja;
 
 

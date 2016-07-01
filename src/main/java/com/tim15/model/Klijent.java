@@ -41,7 +41,7 @@ public class Klijent {
 	private Integer idBanka;
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "klijent", cascade = CascadeType.ALL)
-	@JsonManagedReference
+	@JsonManagedReference(value="klijentRacuni")
 	@Fetch(FetchMode.SELECT)
 	private java.util.Collection<Racuni> racuni;
 

@@ -33,13 +33,13 @@ public class Drzava {
 	private java.lang.String nazivDrzave;
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "drzava", cascade = CascadeType.ALL)
-	@JsonManagedReference
+	@JsonManagedReference(value="drzavaValuta")
 	@Fetch(FetchMode.SELECT)
 	private java.util.Collection<Valuta> valuta;
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "drzava", cascade = CascadeType.ALL)
 	@Fetch(FetchMode.SELECT)
-	@JsonManagedReference
+	@JsonManagedReference(value="drzavaNaseljenoMesto")
 	private java.util.Collection<NaseljenoMesto> naseljenoMesto;
 
 
@@ -79,7 +79,7 @@ public class Drzava {
 	 *             coll=java.util.Collection impl=java.util.HashSet mult=0..*
 	 */
 
-	/** @pdGenerated default getter */
+	@JsonIgnore
 	public java.util.Collection<Valuta> getValuta() {
 		if (valuta == null)
 			valuta = new java.util.HashSet<Valuta>();
@@ -98,6 +98,7 @@ public class Drzava {
 	 * @pdGenerated default setter
 	 * @param newValuta
 	 */
+	@JsonIgnore
 	public void setValuta(java.util.Collection<Valuta> newValuta) {
 		removeAllValuta();
 		for (java.util.Iterator iter = newValuta.iterator(); iter.hasNext();)
@@ -135,7 +136,7 @@ public class Drzava {
 			valuta.clear();
 	}
 
-	/** @pdGenerated default getter */
+	@JsonIgnore
 	public java.util.Collection<NaseljenoMesto> getNaseljenoMesto() {
 		if (naseljenoMesto == null)
 			naseljenoMesto = new java.util.HashSet<NaseljenoMesto>();
@@ -154,6 +155,7 @@ public class Drzava {
 	 * @pdGenerated default setter
 	 * @param newNaseljenoMesto
 	 */
+	@JsonIgnore
 	public void setNaseljenoMesto(java.util.Collection<NaseljenoMesto> newNaseljenoMesto) {
 		removeAllNaseljenoMesto();
 		for (java.util.Iterator iter = newNaseljenoMesto.iterator(); iter.hasNext();)
@@ -164,6 +166,7 @@ public class Drzava {
 	 * @pdGenerated default add
 	 * @param newNaseljenoMesto
 	 */
+
 	public void addNaseljenoMesto(NaseljenoMesto newNaseljenoMesto) {
 		if (newNaseljenoMesto == null)
 			return;
@@ -190,5 +193,7 @@ public class Drzava {
 		if (naseljenoMesto != null)
 			naseljenoMesto.clear();
 	}
+
+
 
 }

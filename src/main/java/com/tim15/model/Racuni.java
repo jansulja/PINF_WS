@@ -41,27 +41,27 @@ public class Racuni {
 
 	@ManyToOne
 	@JoinColumn(name = "klijent_id")
-	@JsonBackReference
+	@JsonBackReference(value="klijentRacuni")
 	private Klijent klijent;
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "racuni", cascade = CascadeType.ALL)
-	@JsonManagedReference
+	@JsonManagedReference(value="racuniDnevnoStanjeRacuna")
 	@Fetch(FetchMode.SELECT)
 	private java.util.Collection<DnevnoStanjeRacuna> dnevnoStanjeRacuna;
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "racuni", cascade = CascadeType.ALL)
-	@JsonManagedReference
+	@JsonManagedReference(value="racuniUkidanje")
 	@Fetch(FetchMode.SELECT)
 	private java.util.Collection<Ukidanje> ukidanje;
 
 	@ManyToOne
 	@JoinColumn(name = "banka_id")
-	@JsonBackReference
+	@JsonBackReference(value="bankaRacuni")
 	private Banka banka;
 
 	@ManyToOne
 	@JoinColumn(name="valuta_id")
-	@JsonBackReference
+	@JsonBackReference(value="valutaRacuni")
 	private Valuta valuta;
 
 	public Racuni() {

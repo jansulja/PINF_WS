@@ -20,6 +20,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
+import org.eclipse.jdt.internal.compiler.ast.ThisReference;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
@@ -39,26 +40,26 @@ public class Valuta {
 
 	@ManyToOne
 	@JoinColumn(name = "drzava_id")
-	@JsonBackReference
+	@JsonBackReference(value="drzavaValuta")
 	private Drzava drzava;
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "valuta", cascade = CascadeType.ALL)
-	@JsonManagedReference
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "valutaOsnovna", cascade = CascadeType.ALL)
+	@JsonManagedReference(value="valutaOsnovnaKursUValuti")
 	@Fetch(FetchMode.SELECT)
 	private java.util.Collection<KursUValuti> kursUValutiOsnovna;
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "valuta", cascade = CascadeType.ALL)
-	@JsonManagedReference
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "valutaPrema", cascade = CascadeType.ALL)
+	@JsonManagedReference(value="valutaPremaKursUValuti")
 	@Fetch(FetchMode.SELECT)
 	private java.util.Collection<KursUValuti> kursUValutiPrema;
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "valuta", cascade = CascadeType.ALL)
-	@JsonManagedReference
+	@JsonManagedReference(value="valutaRacuni")
 	@Fetch(FetchMode.SELECT)
 	private java.util.Collection<Racuni> racuni;
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "valuta", cascade = CascadeType.ALL)
-	@JsonManagedReference
+	@JsonManagedReference(value="valutaAnalitikaIzvoda")
 	@Fetch(FetchMode.SELECT)
 	private java.util.Collection<AnalitikaIzvoda> analitikaIzvoda;
 

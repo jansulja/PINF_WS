@@ -41,11 +41,11 @@ public class DnevnoStanjeRacuna {
 
 	@ManyToOne
 	@JoinColumn(name = "racuni_id")
-	@JsonBackReference
+	@JsonBackReference(value="racuniDnevnoStanjeRacuna")
 	private Racuni racuni;
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "dnevnoStanjeRacuna", cascade = CascadeType.ALL)
-	@JsonManagedReference
+	@JsonManagedReference(value="dnevnoStanjeRacunaAnalitikaIzvoda")
 	@Fetch(FetchMode.SELECT)
 	private java.util.Collection<AnalitikaIzvoda> analitikaIzvoda;
 

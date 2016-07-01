@@ -26,13 +26,18 @@ public class KursUValuti {
 	private double srednji = 0;
 
 	@ManyToOne
-	@JoinColumn(name = "valuta_id")
-	@JsonBackReference
-	private Valuta valuta;
+	@JoinColumn(name = "valuta_id",insertable = false,updatable = false)
+	@JsonBackReference(value="valutaOsnovnaKursUValuti")
+	private Valuta valutaOsnovna;
+
+	@ManyToOne
+	@JoinColumn(name = "valuta_id",insertable = false,updatable = false)
+	@JsonBackReference(value="valutaPremaKursUValuti")
+	private Valuta valutaPrema;
 
 	@ManyToOne
 	@JoinColumn(name = "kursnalista_id")
-	@JsonBackReference
+	@JsonBackReference(value="kursnaListaKursUValuti")
 	private KursnaLista kursnaLista;
 
 	public KursUValuti() {
@@ -40,14 +45,7 @@ public class KursUValuti {
 		// TODO Auto-generated constructor stub
 	}
 
-	public KursUValuti(double kupovni, double srednji, Valuta valuta, KursnaLista kursnaLista, double prodajni) {
-		super();
-		this.kupovni = kupovni;
-		this.srednji = srednji;
-		this.valuta = valuta;
-		this.kursnaLista = kursnaLista;
-		this.prodajni = prodajni;
-	}
+
 
 	public int getKursUValutiId() {
 		return kursUValutiId;
@@ -57,13 +55,7 @@ public class KursUValuti {
 		this.kursUValutiId = kursUValutiId;
 	}
 
-	public Valuta getValuta() {
-		return valuta;
-	}
 
-	public void setValuta(Valuta valuta) {
-		this.valuta = valuta;
-	}
 
 	public KursnaLista getKursnaLista() {
 		return kursnaLista;

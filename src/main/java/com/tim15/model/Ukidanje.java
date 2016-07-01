@@ -30,7 +30,7 @@ public class Ukidanje {
 
 	@ManyToOne
 	@JoinColumn(name = "racuni_id")
-	@JsonBackReference
+	@JsonBackReference(value="racuniUkidanje")
 	private Racuni racuni;
 
 	public Ukidanje() {

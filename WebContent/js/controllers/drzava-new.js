@@ -32,6 +32,8 @@ angular.module('drzava-new',['resource.drzava'])
 			});
 		}
 		else{
+			console.log($scope.drzava.toJSON());
+
 			$scope.drzava.$save(function () {
 				$location.path('/drzava-list');
 			});

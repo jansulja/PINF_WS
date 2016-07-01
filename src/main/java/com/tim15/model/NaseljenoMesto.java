@@ -36,13 +36,13 @@ public class NaseljenoMesto {
 	private java.lang.String pTToznaka;
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "naseljenoMesto", cascade = CascadeType.ALL)
-	@JsonManagedReference
+	@JsonManagedReference(value="naseljenoMestoAnalitikaIzvoda")
 	@Fetch(FetchMode.SELECT)
 	private java.util.Collection<AnalitikaIzvoda> analitikaIzvoda;
 
 	@ManyToOne
 	@JoinColumn(name = "drzava_id")
-	@JsonBackReference
+	@JsonBackReference(value="drzavaNaseljenoMesto")
 	private Drzava drzava;
 
 	public NaseljenoMesto() {
