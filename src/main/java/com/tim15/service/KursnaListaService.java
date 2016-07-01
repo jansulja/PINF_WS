@@ -3,6 +3,7 @@ package com.tim15.service;
 import java.util.List;
 
 import javax.ejb.EJB;
+import javax.persistence.criteria.CriteriaBuilder.In;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -17,40 +18,34 @@ import javax.ws.rs.core.Response.Status;
 
 import org.apache.log4j.Logger;
 
-import com.tim15.model.Banka;
-import com.tim15.model.Drzava;
-import com.tim15.model.Racuni;
-import com.tim15.model.view.NalogZaUplatu;
-import com.tim15.sessionbeans.BankaDaoLocal;
+import com.tim15.model.KursnaLista;
+import com.tim15.sessionbeans.KursnaListaDaoLocal;
 
-import com.tim15.sessionbeans.RacuniDaoLocal;
 
-@Path("/banka")
-public class BankaService {
+
+@Path("/kursnalista")
+public class KursnaListaService {
 
 	@EJB
-	private RacuniDaoLocal racuniDao;
-
-	@EJB
-	private BankaDaoLocal bankaDao;
+	private KursnaListaDaoLocal kursnaListaDao;
 
 
-	private static Logger log = Logger.getLogger(DrzavaService.class);
+	private static Logger log = Logger.getLogger(KursnaListaService.class);
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Banka> izlistajDrzave() {
-		return bankaDao.findAll();
+	public List<KursnaLista> izlistajDrzave() {
+		return kursnaListaDao.findAll();
 	}
 
 
 	@GET
 	@Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Banka findById(@PathParam("id") String id) {
-		Banka retVal = null;
+    public KursnaLista findById(@PathParam("id") String id) {
+		KursnaLista retVal = null;
 		try {
-			retVal = bankaDao.findById(Integer.parseInt(id));
+			retVal = kursnaListaDao.findById(Integer.parseInt(id));
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 		}
@@ -61,11 +56,11 @@ public class BankaService {
 	@POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response create(Banka entity) {
+    public Response create(KursnaLista entity) {
 		Response response = null;
 
 		try {
-			bankaDao.persist(entity);
+			kursnaListaDao.persist(entity);
 			response = Response.status(Status.OK).build();
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
@@ -80,11 +75,11 @@ public class BankaService {
     @Path("{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Banka update(Banka entity) {
+    public KursnaLista update(KursnaLista entity) {
 
-		Banka retVal = null;
+    	KursnaLista retVal = null;
         try {
-        	retVal = bankaDao.merge(entity);
+        	retVal = kursnaListaDao.merge(entity);
         } catch (Exception e) {
 			log.error(e.getMessage(), e);
 		}
@@ -98,7 +93,7 @@ public class BankaService {
     	Response response = null;
 
 		try {
-        	bankaDao.remove(id);
+			kursnaListaDao.remove(id);
         	response = Response.status(Status.OK).build();
         } catch (Exception e) {
         	log.error(e.getMessage(), e);
@@ -106,17 +101,5 @@ public class BankaService {
         }
     	return response;
     }
-
-	@POST
-	@Path("uplata")
-	@Produces(MediaType.APPLICATION_JSON)
-	@Consumes(MediaType.APPLICATION_JSON)
-	public Object uplata(NalogZaUplatu nalogZaUplatu) {
-
-		racuniDao.addFunds(nalogZaUplatu.getRacunPrimaoca(), nalogZaUplatu.getIznos());
-		return Response.ok().build();
-
-	}
-
 
 }
