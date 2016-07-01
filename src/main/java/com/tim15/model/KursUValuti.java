@@ -8,10 +8,59 @@ package com.tim15.model;
 
 import java.util.*;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
+@Entity
 public class KursUValuti {
-   public double redniBroj;
-   public double kupovni = 0;
-   public double srednji = 0;
-   public double prodajni = 0;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "kursuvaluti_id", unique = true)
+   private double redniBroj;
+   private double kupovni = 0;
+   private double srednji = 0;
+
+   @ManyToOne
+   @JoinColumn(name="valuta_id")
+   @JsonBackReference
+   private Valuta valutaOsnova ;
+
+   @ManyToOne
+   @JoinColumn(name="valuta_id")
+   @JsonBackReference
+   private Valuta valutaPrema ;
+
+   public double getRedniBroj() {
+	return redniBroj;
+}
+public void setRedniBroj(double redniBroj) {
+	this.redniBroj = redniBroj;
+}
+public double getKupovni() {
+	return kupovni;
+}
+public void setKupovni(double kupovni) {
+	this.kupovni = kupovni;
+}
+public double getSrednji() {
+	return srednji;
+}
+public void setSrednji(double srednji) {
+	this.srednji = srednji;
+}
+public double getProdajni() {
+	return prodajni;
+}
+public void setProdajni(double prodajni) {
+	this.prodajni = prodajni;
+}
+private double prodajni = 0;
 
 }

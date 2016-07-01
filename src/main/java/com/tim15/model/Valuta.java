@@ -8,8 +8,10 @@ package com.tim15.model;
 
 import java.util.*;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -20,6 +22,7 @@ import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 
 @Entity
@@ -31,15 +34,18 @@ public class Valuta {
 	private java.lang.String zvanicnaSifra;
 	private java.lang.String naziv;
 	private boolean domicilna = false;
+
 	@ManyToOne
 	@JoinColumn(name="drzava_id")
 	@JsonBackReference
 	private Drzava drzava ;
 
-	@Transient
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "valutaOsnova", cascade = CascadeType.ALL)
+	@JsonManagedReference
 	private java.util.Collection<KursUValuti> kursUValutiOsnovna;
 
-	@Transient
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "valutaPrema", cascade = CascadeType.ALL)
+	@JsonManagedReference
 	private java.util.Collection<KursUValuti> kursUValutiPrema;
 
 	@Transient
