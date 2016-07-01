@@ -35,11 +35,18 @@ ol, ul {
 
 table {
   border-collapse: collapse;
-  border-spacing: 0; }
+  border-spacing: 0; 
+  width: 100%;
+  border: 1px solid black;}
+th {
+   height: 50px;
+  text-align: center;
 
-caption, th, td {
+}
+caption, td {
   text-align: left;
   font-weight: normal;
+  border: 1px solid black;
   vertical-align: middle; }
 
 q, blockquote {
