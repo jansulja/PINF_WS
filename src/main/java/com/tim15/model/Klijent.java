@@ -6,15 +6,22 @@
 
 package com.tim15.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name="klijent")
@@ -33,7 +40,8 @@ public class Klijent {
 
 
    /** @pdRoleInfo migr=no name=Racuni assc=vlasnikRacuna coll=java.util.Collection impl=java.util.HashSet mult=0..* */
-   @OneToMany(mappedBy="klijent")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "klijent", cascade = CascadeType.ALL)
+	@JsonManagedReference
    private java.util.Collection<Racuni> racuni;
 
 

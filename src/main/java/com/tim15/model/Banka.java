@@ -8,13 +8,17 @@ package com.tim15.model;
 
 import java.util.Collection;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Banka {
@@ -36,13 +40,15 @@ public class Banka {
 	 * @pdRoleInfo migr=no name=Racuni assc=poslovnaBanka
 	 *             coll=java.util.Collection impl=java.util.HashSet mult=0..*
 	 */
-	@OneToMany(mappedBy = "banka")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "banka", cascade = CascadeType.ALL)
+	@JsonManagedReference
 	private java.util.Collection<Racuni> racuni;
 	/**
 	 * @pdRoleInfo migr=no name=KursnaLista assc=kursPoslovneBanke
 	 *             coll=java.util.Collection impl=java.util.HashSet mult=0..*
 	 */
-	@Transient
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "banka", cascade = CascadeType.ALL)
+	@JsonManagedReference
 	private java.util.Collection<KursnaLista> kursnaLista;
 
 	public Banka(String sifraBanke, String pib, String naziv, String adresa, String eMail, String web, String telefon,
