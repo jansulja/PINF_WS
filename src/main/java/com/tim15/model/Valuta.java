@@ -19,6 +19,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 @Entity
@@ -115,6 +116,7 @@ public class Valuta {
    }
 
    /** @pdGenerated default iterator getter */
+   @JsonIgnore
    public java.util.Iterator getIteratorRacuni() {
       if (racuni == null)
          racuni = new java.util.HashSet<Racuni>();
@@ -163,6 +165,7 @@ public class Valuta {
    }
 
    /** @pdGenerated default iterator getter */
+   @JsonIgnore
    public java.util.Iterator getIteratorAnalitikaIzvoda() {
       if (analitikaIzvoda == null)
          analitikaIzvoda = new java.util.HashSet<AnalitikaIzvoda>();
