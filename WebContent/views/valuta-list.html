@@ -9,6 +9,7 @@
 			<th>Naziv</th>
 			<th>Domicilna</th>
 			<th>Zvanicna Sifra</th>
+			<th>Opcija</th>
 		</tr>
 		<tr ng-repeat="valuta in valute track by $index ">
 			<td>{{valuta.naziv}}</td>
@@ -16,8 +17,8 @@
 			<td>{{valuta.zvanicnaSifra}}</td>
 			
 			<td><button type="button" class="btn btn-default"
-					ng-click="remove(valuta)">Obrisi</button></td>
-			<td><button type="button" class="btn btn-default"
+					ng-click="remove(valuta)">Obrisi</button>
+			<button type="button" class="btn btn-default"
 					ng-click="edit(valuta)">Izmeni</button></td>
 
 

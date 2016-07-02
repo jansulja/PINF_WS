@@ -1,32 +1,17 @@
-<div class="card meetings cf">
+<div>
 
 	<div class="textintro">
 		<h1>{{title}}</h1>
 		
 	</div>
 
-	<form class="formgroup addmeeting cf"
-		name="myform"
-		ng-submit="save()"
-		novalidate>
-
-		<div class="inputwrapper">
-		<!--Ovde dodaj sve inpute za drzavu -->
-
-
-			<!--Naziv drzave -->
-			<input type="text" name="naziv"
-			placeholder="Naziv drzave"
-			ng-model="drzava.nazivDrzave" ng-required="true">
-
-			<!--Valuta -->
-
-			<!--Naseljeno mesto -->
-		
-
+	<form ng-submit="save()" name="myform" novalidate>
+		<div class="form-group">
+			<label for="naziv">Naziv</label>
+			<input type="text" class="form-control" placeholder="Naziv drzave" id="naziv" placeholder="Email" ng-model="drzava.nazivDrzave" ng-required="true">
 		</div>
 
-		<button type="submit" class="btn btn-default" 
-			ng-disabled="myform.$invalid">{{buttonText}}</button>
+	
+		<button type="submit" class="btn btn-default" ng-disabled="myform.$invalid">{{buttonText}}</button>
 	</form>
 </div>

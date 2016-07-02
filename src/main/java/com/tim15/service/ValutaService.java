@@ -64,7 +64,7 @@ public class ValutaService {
 			response = Response.status(Status.OK).build();
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
-			response = Response.status(Status.INTERNAL_SERVER_ERROR).build();
+			response = Response.status(Status.INTERNAL_SERVER_ERROR).entity("{\"message\":\"Ne postoji drzava sa sifrom : "+ entity.getDrzava().getDrzavaId() +"\"}").build();
 
 		}
 		return response;

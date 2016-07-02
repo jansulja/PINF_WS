@@ -1,20 +1,31 @@
 <div class="card meetings cf">
 	<button type="button" class="btn btn-default"
-					ng-click="new()">Dodaj</button>
+	ng-click="new()">Dodaj</button>
 	
 	<table
-		class="table">
-		<tr>
-			<th>Drzava</th>
-		</tr>
-		<tr ng-repeat="drzava in drzave track by $index ">
-			<td>{{drzava.nazivDrzave}}</td>
-			<td><button type="button" class="btn btn-default"
-					ng-click="remove(drzava)">Obrisi</button></td>
-			<td><button type="button" class="btn btn-default"
-					ng-click="edit(drzava)">Izmeni</button></td>
-			<td><button type="button" class="btn btn-default"
-					ng-click="listValuta(drzava)">Valute</button></td>
+	class="table">
+	<tr>
+		<th>Sifra</th>
+		<th>Naziv</th>
+		<th>Opcija</th>
+		<th ng-if="zoom()">Pick up</th>
+		
+	</tr>
+	<tr ng-repeat="drzava in drzave track by $index ">
+		<td>{{drzava.drzavaId}}</td>
+		<td>{{drzava.nazivDrzave}}</td>
+		<td><button type="button" class="btn btn-default"
+			ng-click="remove(drzava)">Obrisi</button><button type="button" class="btn btn-default"
+			ng-click="edit(drzava)">Izmeni</button>
+			
+			<button type="button" class="btn btn-default"
+			ng-click="listValuta(drzava)">Valute</button></td>
+
+			<td ng-if="zoom()">
+				<button ng-click="drzavaPickUp(drzava)" type="button" class="btn btn-default" aria-label="Left Align">
+				<span class="glyphicon glyphicon-log-out" aria-hidden="true"  ></span>
+				</button>
+			</td>
 
 		</tr>
 	</table>

@@ -19,7 +19,14 @@ angular.module('valuta',['resource.valuta'])
 	else{
 		$scope.title = "Dodavanje"
 		$scope.buttonText = "Dodaj"
-		$scope.valuta = new Valuta();
+
+		if($rootScope.valutaSaved){
+
+			$scope.valuta = $rootScope.valutaSaved
+		}else{
+			$scope.valuta = new Valuta();
+		}
+
 
 	}
 
@@ -33,9 +40,22 @@ angular.module('valuta',['resource.valuta'])
 		}
 		else{
 			$scope.valuta.$save(function () {
+
 				$location.path('/valuta-list');
+			},function (error){
+				console.log(error);
+				$scope.errorMessage = error.data.message;
 			});
 		}
 
 	}
+
+	$scope.drzavaZoom = function(){
+		$rootScope.zoom = true;
+		$rootScope.valutaSaved = $scope.valuta;
+		$location.path('/drzava-list');
+
+	}
+
+
 });

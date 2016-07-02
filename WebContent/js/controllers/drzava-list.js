@@ -2,10 +2,10 @@
 
 angular.module('drzava-list',['resource.drzava'])
 
-.controller('drzava-listCtrl', function ($scope,$location, Drzava){
+.controller('drzava-listCtrl', function ($scope,$location, Drzava, $rootScope){
 
 	$scope.drzave = Drzava.query();
-
+	//$scope.drzave = [{'nazivDrzave':'drzava 1'},{'nazivDrzave':'drzava 2'},{'nazivDrzave':'drzava 3'},{'nazivDrzave':'drzava 4'}];
 
 	$scope.new = function(){
 
@@ -41,6 +41,24 @@ angular.module('drzava-list',['resource.drzava'])
 
 	}
 
+	$scope.zoom = function(){
+
+		var zoom = false;
+
+		if($rootScope.zoom){
+			zoom = true;
+		}
+
+		return zoom;
+
+	}
+
+	$scope.drzavaPickUp = function(drzava){
+
+		$rootScope.valutaSaved.drzava = drzava;
+		$location.path('/valuta/new');
+
+	}
 
 
 
