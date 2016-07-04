@@ -3,7 +3,6 @@ package com.tim15.service;
 import java.util.List;
 
 import javax.ejb.EJB;
-import javax.persistence.criteria.CriteriaBuilder.In;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -18,6 +17,7 @@ import javax.ws.rs.core.Response.Status;
 
 import org.apache.log4j.Logger;
 
+import com.tim15.model.Drzava;
 import com.tim15.model.NaseljenoMesto;
 import com.tim15.sessionbeans.NaseljenoMestoDaoLocal;
 
@@ -28,6 +28,7 @@ public class NaseljenoMestoService {
 
 	@EJB
 	private NaseljenoMestoDaoLocal naseljenoMestoDao;
+
 
 
 	private static Logger log = Logger.getLogger(NaseljenoMestoService.class);
@@ -52,6 +53,19 @@ public class NaseljenoMestoService {
 		return retVal;
     }
 
+	@GET
+	@Path("/drzava/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Drzava getDrzava(@PathParam("id") String id) {
+		NaseljenoMesto retVal = null;
+		try {
+			retVal = naseljenoMestoDao.findById(Integer.parseInt(id));
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+		}
+		return retVal.getDrzava();
+    }
+
 
 	@POST
     @Consumes(MediaType.APPLICATION_JSON)
@@ -72,13 +86,14 @@ public class NaseljenoMestoService {
 
 
 	@PUT
-    @Path("{id}")
+    @Path("{naseljenoMestiId}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public NaseljenoMesto update(NaseljenoMesto entity) {
+    public NaseljenoMesto update(NaseljenoMesto entity ) {
 
     	NaseljenoMesto retVal = null;
         try {
+        	//entity.setNaseljenoMestoId(id);
         	retVal = naseljenoMestoDao.merge(entity);
         } catch (Exception e) {
 			log.error(e.getMessage(), e);

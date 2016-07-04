@@ -4,25 +4,33 @@ angular.module('valuta',['resource.valuta'])
 
 .controller('valutaCtrl', function(Valuta,$scope, $rootScope, $routeParams, $log, $location, $q, $http){
 
-	if($routeParams.idValute!='new'){
+	if($routeParams.valutaId!='new'){
 
 		$scope.title = "Izmena"
 		$scope.buttonText = "Izmeni"
 		//preuzimanje parametra iz URL
-		var idValute = $routeParams.idValute;
+		var valutaId = $routeParams.valutaId;
 
-		Valuta.get({'valutaId':idValute}).$promise.then(function (data) {
-			$scope.valuta = data;
-		});
+		if($rootScope.savedObject){
+
+			$scope.valuta = $rootScope.savedObject
+			$rootScope.savedObject = undefined;
+		}else{
+
+			Valuta.get({'valutaId':valutaId}).$promise.then(function (data) {
+				$scope.valuta = data;
+			});
+		}
 	}
 	//ako kreiramo novu fakutru
 	else{
 		$scope.title = "Dodavanje"
 		$scope.buttonText = "Dodaj"
 
-		if($rootScope.valutaSaved){
+		if($rootScope.savedObject){
 
-			$scope.valuta = $rootScope.valutaSaved
+			$scope.valuta = $rootScope.savedObject;
+			$rootScope.savedObject = undefined;
 		}else{
 			$scope.valuta = new Valuta();
 		}
@@ -32,9 +40,9 @@ angular.module('valuta',['resource.valuta'])
 
 
 	$scope.save = function () {
-		if($scope.valuta.idValute){
+		if($scope.valuta.valutaId){
 			//zbog cega redirekcija ide na callback?
-			$scope.valuta.$update({valutaId:$scope.valuta.idValute},function () {
+			$scope.valuta.$update({valutaId:$scope.valuta.valutaId},function () {
 				$location.path('/valuta-list');
 			});
 		}
@@ -50,12 +58,15 @@ angular.module('valuta',['resource.valuta'])
 
 	}
 
-	$scope.drzavaZoom = function(){
-		$rootScope.zoom = true;
-		$rootScope.valutaSaved = $scope.valuta;
-		$location.path('/drzava-list');
 
-	}
+
+
+//	$scope.drzavaZoom = function(){
+//		$rootScope.zoom = true;
+//		$rootScope.valutaSaved = $scope.valuta;
+//		$location.path('/drzava-list');
+//
+//	}
 
 
 });

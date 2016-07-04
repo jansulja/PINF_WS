@@ -8,7 +8,7 @@
 		<th>Sifra</th>
 		<th>Naziv</th>
 		<th>Opcija</th>
-		<th ng-if="zoom()">Pick up</th>
+		<th ng-if="isZoomActive()">Pick up</th>
 		
 	</tr>
 	<tr ng-repeat="drzava in drzave track by $index ">
@@ -21,8 +21,8 @@
 			<button type="button" class="btn btn-default"
 			ng-click="listValuta(drzava)">Valute</button></td>
 
-			<td ng-if="zoom()">
-				<button ng-click="drzavaPickUp(drzava)" type="button" class="btn btn-default" aria-label="Left Align">
+			<td ng-if="isZoomActive()">
+				<button ng-click="genericPickUp(drzava,'drzava')" type="button" class="btn btn-default" aria-label="Left Align">
 				<span class="glyphicon glyphicon-log-out" aria-hidden="true"  ></span>
 				</button>
 			</td>

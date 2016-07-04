@@ -6,7 +6,9 @@
 
 package com.tim15.model;
 
+import java.io.Serializable;
 import java.util.Collection;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -20,27 +22,36 @@ import javax.persistence.OneToMany;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
-public class Drzava {
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonIgnoreProperties(ignoreUnknown = true)
+//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property="drzavaId" ,scope=Drzava.class)
+public class Drzava implements Serializable{
 
+
+	private static final long serialVersionUID = 4224465156285553609L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "drzava_id", unique = true)
 	private int drzavaId;
 	private java.lang.String nazivDrzave;
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "drzava", cascade = CascadeType.ALL)
-	@JsonManagedReference(value="drzavaValuta")
-	@Fetch(FetchMode.SELECT)
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "drzava",orphanRemoval=true)
+//	@JsonManagedReference(value="drzavaValuta")
+//	@Fetch(FetchMode.SELECT)
 	private java.util.Collection<Valuta> valuta;
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "drzava", cascade = CascadeType.ALL)
-	@Fetch(FetchMode.SELECT)
-	@JsonManagedReference(value="drzavaNaseljenoMesto")
-	private java.util.Collection<NaseljenoMesto> naseljenoMesto;
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "drzava",orphanRemoval=true)
+	//@Fetch(FetchMode.SELECT)
+	//@JsonManagedReference(value="drzavaNaseljenoMesto")
+	private Set<NaseljenoMesto> naseljenoMesto;
 
 
 
@@ -51,8 +62,9 @@ public class Drzava {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Drzava(String nazivDrzave, Collection<Valuta> valuta, Collection<NaseljenoMesto> naseljenoMesto) {
+	public Drzava(int drzavaId,String nazivDrzave, Collection<Valuta> valuta, Set<NaseljenoMesto> naseljenoMesto) {
 		super();
+		this.drzavaId = drzavaId;
 		this.nazivDrzave = nazivDrzave;
 		this.valuta = valuta;
 		this.naseljenoMesto = naseljenoMesto;

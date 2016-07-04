@@ -1,0 +1,36 @@
+<div class="card meetings cf">
+	<h3>Naseljena mesta</h3>
+
+	<button type="button" class="btn btn-default"
+					ng-click="new()">Dodaj</button>
+
+	<table class="table table-striped table-bordered table-condensed table-hover">
+		<tr>
+			<th>Sifra</th>
+			<th>Naziv</th>
+			<th>PTT Oznaka</th>
+			<th>Drzava</th>
+			<th>Opcija</th>
+			<th ng-if="isZoomActive()">Pick up</th>
+			
+		</tr>
+		<tr ng-repeat="naseljenoMesto in naseljenaMesta track by $index ">
+			<td>{{naseljenoMesto.naseljenoMestoId}}</td>
+			<td>{{naseljenoMesto.naziv}}</td>
+			<td>{{naseljenoMesto.pTToznaka}}</td>
+			<td>{{naseljenoMesto.drzava.nazivDrzave}}</td>
+			
+			<td><button type="button" class="btn btn-default"
+					ng-click="remove(naseljenoMesto)">Obrisi</button>
+			<button type="button" class="btn btn-default"
+					ng-click="edit(naseljenoMesto)">Izmeni</button></td>
+
+			<td ng-if="isZoomActive()">
+				<button ng-click="genericPickUp(naseljenoMesto,'naseljenoMesto')" type="button" class="btn btn-default" aria-label="Left Align">
+				<span class="glyphicon glyphicon-log-out" aria-hidden="true"  ></span>
+				</button>
+			</td>
+		</tr>
+	</table>
+
+</div>

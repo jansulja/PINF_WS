@@ -15,21 +15,21 @@ angular.module('valuta-list',['resource.valuta'])
 
 	$scope.edit = function(valuta){
 
-		$location.path('valuta/' + valuta.idValute);
+		$location.path('valuta/' + valuta.valutaId);
 
 	}
 
 
 	$scope.remove = function(valuta){
 
-		valuta.$remove({valutaId:valuta.idValute}, function(){
+		valuta.$remove({valutaId:valuta.valutaId}, function(){
 
 			var idx;
 			var valute = $scope.valute;
 			//Update scope
 			for(var i = 0; i< valute.length;i++){
 
-				if(valute[i].idValute == valuta.idValute){
+				if(valute[i].valutaId == valuta.valutaId){
 					idx = i;
 				}
 

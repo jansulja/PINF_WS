@@ -39,6 +39,9 @@ public abstract class GenericDaoBean<T, ID extends Serializable> implements
 		Session session = getHibernateSession();
 		Criteria criteria = session.createCriteria(entityType);
 		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+
+
+
 		return criteria.list();
 	}
 

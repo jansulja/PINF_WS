@@ -9,26 +9,21 @@
 	<form ng-submit="save()" name="myform" novalidate>
 		<div class="form-group">
 			<label for="naziv">Naziv</label>
-			<input type="text" class="form-control" id="naziv" ng-model="valuta.naziv" ng-required="true">
+			<input type="text" class="form-control" id="naziv" ng-model="naseljenoMesto.naziv" ng-required="true">
 		</div>
 		
 		<div class="form-group">
-			<label for="zvanicnaSifra">Zvanicna Sifra</label>
-			<input type="text" class="form-control" id="zvanicnaSifra" ng-model="valuta.zvanicnaSifra" ng-required="true">
+			<label for="zvanicnaSifra">PTT Oznaka</label>
+			<input type="text" class="form-control" id="zvanicnaSifra" ng-model="naseljenoMesto.pTToznaka" ng-required="true">
 		</div>
 
-		<div class="checkbox">
-			<label>
-				<input type="checkbox" ng-model="valuta.domicilna"> Domicilna 
-			</label>
-		</div>
 
 		<div class="form-group">
 			<label for="drzavaId">Sifra drzave</label>
 			<div class="form-inline">
-					<input ng-click="errorMessage = undefined" type="text" class="form-control" id="drzavaId" ng-model="valuta.drzava.drzavaId" ng-required="true">
+					<input ng-click="errorMessage = undefined" type="text" class="form-control" id="drzavaId" ng-model="naseljenoMesto.drzava.drzavaId" ng-required="true">
 					
-					<button type="button" class="btn btn-default" aria-label="Left Align" ng-click="genericZoom(valuta,'/drzava-list','/valuta/','valutaId')">
+					<button type="button" class="btn btn-default" aria-label="Left Align" ng-click="genericZoom(naseljenoMesto,'/drzava-list','/naseljenoMesto/','naseljenoMestoId')">
 						<span class="glyphicon glyphicon-option-horizontal" aria-hidden="true"></span>
 					</button>
 			</div>

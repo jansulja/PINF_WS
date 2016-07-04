@@ -6,7 +6,7 @@ angular.module('drzava-list',['resource.drzava'])
 
 	$scope.drzave = Drzava.query();
 	//$scope.drzave = [{'nazivDrzave':'drzava 1'},{'nazivDrzave':'drzava 2'},{'nazivDrzave':'drzava 3'},{'nazivDrzave':'drzava 4'}];
-
+	console.log($scope.drzave);
 	$scope.new = function(){
 
 		$location.path('drzava-new/new');
@@ -22,14 +22,14 @@ angular.module('drzava-list',['resource.drzava'])
 
 	$scope.remove = function(drzava){
 
-		drzava.$remove({drzavaId:drzava.sifraDrzave}, function(){
+		drzava.$remove({drzavaId:drzava.drzavaId}, function(){
 
 			var idx;
 			var drzave = $scope.drzave;
 			//Update scope
 			for(var i = 0; i< drzave.length;i++){
 
-				if(drzave[i].sifraDrzave == drzava.sifraDrzave){
+				if(drzave[i].drzavaId == drzava.drzavaId){
 					idx = i;
 				}
 
@@ -41,24 +41,26 @@ angular.module('drzava-list',['resource.drzava'])
 
 	}
 
-	$scope.zoom = function(){
+//	$scope.zoom = function(){
+//
+//		var zoom = false;
+//
+//		if($rootScope.zoom){
+//			zoom = true;
+//		}
+//
+//		return zoom;
+//
+//	}
 
-		var zoom = false;
 
-		if($rootScope.zoom){
-			zoom = true;
-		}
 
-		return zoom;
-
-	}
-
-	$scope.drzavaPickUp = function(drzava){
-
-		$rootScope.valutaSaved.drzava = drzava;
-		$location.path('/valuta/new');
-
-	}
+//	$scope.drzavaPickUp = function(drzava){
+//
+//		$rootScope.valutaSaved.drzava = drzava;
+//		$location.path('/valuta/new');
+//
+//	}
 
 
 

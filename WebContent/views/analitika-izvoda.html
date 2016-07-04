@@ -1,0 +1,109 @@
+<div class="col-md-3"></div>
+<div class="col-md-6">
+
+	<div class="textintro">
+		<h1>{{title}}</h1>
+
+	</div>
+
+
+
+	<form ng-submit="save()" name="myform" novalidate>
+	
+		<div class="form-group">
+			<label for="duznikNalogodavac">duznikNalogodavac</label>
+			<input type="text" class="form-control" id="duznikNalogodavac" ng-model="analitikaIzvoda.duznikNalogodavac" ng-required="true">
+		</div>
+		<div class="form-group">
+			<label for="svrhaPlacanja">svrhaPlacanja</label>
+			<input type="text" class="form-control" id="svrhaPlacanja" ng-model="analitikaIzvoda.svrhaPlacanja" ng-required="true">
+		</div>
+		<div class="form-group">
+			<label for="poverilacPrimalac">poverilacPrimalac</label>
+			<input type="text" class="form-control" id="poverilacPrimalac" ng-model="analitikaIzvoda.poverilacPrimalac" ng-required="true">
+		</div>
+
+		<div class="form-group">
+			<label>datumPrijema</label>
+			<div class="input-group">
+			<span class="input-group-btn">
+					<button type="button" class="btn btn-default" ng-click="openDatepicker($event, 'dateOpened')"><i class="glyphicon glyphicon-calendar"></i></button>
+				</span>
+				<input type="text" class="form-control" datepicker-popup="dd/MM/yyyy" ng-model="analitikaIzvoda.datumPrijema" is-open="dateOpened" close-text="Close" />
+				
+			</div>
+		</div>
+		
+		<div class="form-group">
+			<label>datumValute</label>
+			<div class="input-group">
+			<span class="input-group-btn">
+					<button type="button" class="btn btn-default" ng-click="openDatepicker($event, 'dateOpened2')"><i class="glyphicon glyphicon-calendar"></i></button>
+				</span>
+				<input type="text" class="form-control" datepicker-popup="dd/MM/yyyy" ng-model="analitikaIzvoda.datumValute" is-open="dateOpened2" close-text="Close" />
+				
+			</div>
+		</div>
+		
+		
+	
+		<div class="form-group">
+			<label for="racunDuznika">racunDuznika</label>
+			<input type="text" class="form-control" id="racunDuznika" ng-model="analitikaIzvoda.racunDuznika" ng-required="true">
+		</div>
+		<div class="form-group">
+			<label for="modelZaduzenja">modelZaduzenja</label>
+			<input type="text" class="form-control" id="modelZaduzenja" ng-model="analitikaIzvoda.modelZaduzenja" ng-required="true">
+		</div>
+		<div class="form-group">
+			<label for="pozivNaProjZaduzenja">pozivNaProjZaduzenja</label>
+			<input type="text" class="form-control" id="pozivNaProjZaduzenja" ng-model="analitikaIzvoda.pozivNaProjZaduzenja" ng-required="true">
+		</div>
+		<div class="form-group">
+			<label for="racunPoverioca">racunPoverioca</label>
+			<input type="text" class="form-control" id="racunPoverioca" ng-model="analitikaIzvoda.racunPoverioca" ng-required="true">
+		</div>
+		<div class="form-group">
+			<label for="modelOdobrenja">modelOdobrenja</label>
+			<input type="text" class="form-control" id="modelOdobrenja" ng-model="analitikaIzvoda.modelOdobrenja" ng-required="true">
+		</div>
+		<div class="form-group">
+			<label for="pozivNaBrojOdobrenja">pozivNaBrojOdobrenja</label>
+			<input type="text" class="form-control" id="pozivNaBrojOdobrenja" ng-model="analitikaIzvoda.pozivNaBrojOdobrenja" ng-required="true">
+		</div>
+		<div class="checkbox">
+			<label>
+				<input type="checkbox" ng-model="analitikaIzvoda.hitno"> Hitno 
+			</label>
+		</div>
+		<div class="form-group">
+			<label for="iznos">iznos</label>
+			<input type="text" class="form-control" id="iznos" ng-model="analitikaIzvoda.iznos" ng-required="true">
+		</div>
+		<div class="form-group">
+			<label for="tipGreske">tipGreske</label>
+			<input type="text" class="form-control" id="tipGreske" ng-model="analitikaIzvoda.tipGreske" ng-required="true">
+		</div>
+		<div class="form-group">
+			<label for="status">status</label>
+			<input type="text" class="form-control" id="status" ng-model="analitikaIzvoda.status" ng-required="true">
+		</div>
+
+		<div class="form-group">
+			<label for="naseljenoMestoId">Sifra drzave</label>
+			<div class="form-inline">
+					<input ng-click="errorMessage = undefined" type="text" class="form-control" id="naseljenoMestoId" ng-model="analitikaIzvoda.naseljenoMesto.naseljenoMestoId" ng-required="true">
+					
+					<button type="button" class="btn btn-default" aria-label="Left Align" ng-click="genericZoom(analitikaIzvoda,'/naseljenoMesto-list','/analitikaIzvoda/','analitikaIzvodaId')">
+						<span class="glyphicon glyphicon-option-horizontal" aria-hidden="true"></span>
+					</button>
+			</div>
+		</div>
+
+
+		<div class="alert alert-danger" role="alert" ng-show="errorMessage">{{errorMessage}}</div>
+
+		<button type="submit" class="btn btn-default" ng-disabled="myform.$invalid">{{buttonText}}</button>
+	</form>
+</div>
+<div class="col-md-3"></div>

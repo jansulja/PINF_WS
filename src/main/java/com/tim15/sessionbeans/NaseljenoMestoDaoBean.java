@@ -7,7 +7,7 @@ import com.tim15.model.AnalitikaIzvoda;
 import com.tim15.model.NaseljenoMesto;
 
 @Stateless
-@Local(BankaDaoLocal.class)
+@Local(NaseljenoMestoDaoLocal.class)
 public class NaseljenoMestoDaoBean extends GenericDaoBean<NaseljenoMesto, Integer> implements NaseljenoMestoDaoLocal{
 
 }

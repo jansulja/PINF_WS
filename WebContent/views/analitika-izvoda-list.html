@@ -1,0 +1,59 @@
+<div class="card meetings cf">
+	<h3>Analitika izvoda</h3>
+
+	<button type="button" class="btn btn-default"
+	ng-click="new()">Dodaj</button>
+
+	<table class="table table-striped table-bordered table-condensed table-hover">
+		<tr>
+			<th>Sifra</th>
+			<th>Naseljeno mesto</th>
+			<th>duznikNalogodavac</th>
+			<th>svrhaPlacanja</th>
+			<th>poverilacPrimalac</th>
+			<th>datumPrijema</th>
+			<th>datumValute</th>
+			<th>racunDuznika</th>
+			<th>modelZaduzenja</th>
+			<th>pozivNaProjZaduzenja</th>
+			<th>racunPoverioca</th>
+			<th>modelOdobrenja</th>
+			<th>pozivNaBrojOdobrenja</th>
+			<th>hitno</th>
+			<th>iznos</th>
+			<th>tipGreske</th>
+			<th>status</th>
+			<th>Opcija</th>
+			
+
+		</tr>
+		<tr ng-repeat="analitikaIzvoda in analitikeIzvoda track by $index ">
+			<td>{{analitikaIzvoda.analitikaIzvodaId}}</td>
+			<td>{{analitikaIzvoda.naseljenoMesto.naziv}}</td>
+			<td>{{analitikaIzvoda.duznikNalogodavac}}</td>
+			<td>{{analitikaIzvoda.svrhaPlacanja}}</td>
+			<td>{{analitikaIzvoda.poverilacPrimalac}}</td>
+			<td>{{analitikaIzvoda.datumPrijema}}</td>
+			<td>{{analitikaIzvoda.datumValute}}</td>
+			<td>{{analitikaIzvoda.racunDuznika}}</td>
+			<td>{{analitikaIzvoda.modelZaduzenja}}</td>
+			<td>{{analitikaIzvoda.pozivNaProjZaduzenja}}</td>
+			<td>{{analitikaIzvoda.racunPoverioca}}</td>
+			<td>{{analitikaIzvoda.modelOdobrenja}}</td>
+			<td>{{analitikaIzvoda.pozivNaBrojOdobrenja}}</td>
+			<td>{{analitikaIzvoda.hitno}}</td>
+			<td>{{analitikaIzvoda.iznos}}</td>
+			<td>{{analitikaIzvoda.tipGreske}}</td>
+			<td>{{analitikaIzvoda.status}}</td>
+
+			
+			<td><button type="button" class="btn btn-default"
+				ng-click="remove(analitikaIzvoda)">Obrisi</button>
+				<button type="button" class="btn btn-default"
+				ng-click="edit(analitikaIzvoda)">Izmeni</button></td>
+
+
+			</tr>
+		</table>
+
+	</div>

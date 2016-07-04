@@ -17,8 +17,15 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonIgnoreProperties(ignoreUnknown = true)
+//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property="analitikaIzvodaId",scope=AnalitikaIzvoda.class)
 public class AnalitikaIzvoda {
 
 	@Id
@@ -51,9 +58,9 @@ public class AnalitikaIzvoda {
 	@JsonBackReference(value="valutaAnalitikaIzvoda")
 	private Valuta valuta;
 
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name = "naseljenomesto_id")
-	@JsonBackReference("naseljenoMestoAnalitikaIzvoda")
+//	@JsonBackReference("naseljenoMestoAnalitikaIzvoda")
 	private NaseljenoMesto naseljenoMesto;
 
 	@ManyToOne
@@ -71,12 +78,13 @@ public class AnalitikaIzvoda {
 
 
 
-	public AnalitikaIzvoda(String duznikNalogodavac, String svrhaPlacanja, String poverilacPrimalac, Date datumPrijema,
+	public AnalitikaIzvoda(int analitikaIzvodaId, String duznikNalogodavac, String svrhaPlacanja, String poverilacPrimalac, Date datumPrijema,
 			Date datumValute, String racunDuznika, double modelZaduzenja, String pozivNaProjZaduzenja,
 			String racunPoverioca, double modelOdobrenja, String pozivNaBrojOdobrenja, boolean hitno, double iznos,
 			double tipGreske, String status, DnevnoStanjeRacuna dnevnoStanjeRacuna, Valuta valuta,
 			NaseljenoMesto naseljenoMesto, VrstePlacanja vrstePlacanja) {
 		super();
+		this.analitikaIzvodaId = analitikaIzvodaId;
 		this.duznikNalogodavac = duznikNalogodavac;
 		this.svrhaPlacanja = svrhaPlacanja;
 		this.poverilacPrimalac = poverilacPrimalac;

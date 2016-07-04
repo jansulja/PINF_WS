@@ -6,9 +6,10 @@
 
 package com.tim15.model;
 
-import java.util.*;
+import java.io.Serializable;
+import java.util.Collection;
+import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -19,30 +20,35 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 @Entity
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonIgnoreProperties(ignoreUnknown = true)
+//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property="naseljenoMestoId",scope=NaseljenoMesto.class)
+public class NaseljenoMesto implements Serializable{
 
-public class NaseljenoMesto {
+	private static final long serialVersionUID = 1879487028154453181L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "naseljenomesto_id", unique = true)
+	//@JsonProperty(value = "naseljenoMestoId")
+	//@JsonIgnore
 	private int naseljenoMestoId;
 	private java.lang.String naziv;
 	private java.lang.String pTToznaka;
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "naseljenoMesto", cascade = CascadeType.ALL)
-	@JsonManagedReference(value="naseljenoMestoAnalitikaIzvoda")
-	@Fetch(FetchMode.SELECT)
-	private java.util.Collection<AnalitikaIzvoda> analitikaIzvoda;
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "naseljenoMesto", orphanRemoval=true)
+//	@JsonManagedReference(value="naseljenoMestoAnalitikaIzvoda")
+//	@Fetch(FetchMode.SELECT) //Solved cannot simultaniously fetch multiple bags
+	@JsonIgnore
+	private Set<AnalitikaIzvoda> analitikaIzvoda;
 
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name = "drzava_id")
-	@JsonBackReference(value="drzavaNaseljenoMesto")
+	//@JsonBackReference(value="drzavaNaseljenoMesto")
 	private Drzava drzava;
 
 	public NaseljenoMesto() {
@@ -50,13 +56,15 @@ public class NaseljenoMesto {
 		// TODO Auto-generated constructor stub
 	}
 
-	public NaseljenoMesto(String naziv, String pTToznaka, Collection<AnalitikaIzvoda> analitikaIzvoda, Drzava drzava) {
+	public NaseljenoMesto(int naseljenoMestoId, String naziv, String pTToznaka, Set<AnalitikaIzvoda> analitikaIzvoda, Drzava drzava) {
 		super();
+		this.naseljenoMestoId = naseljenoMestoId;
 		this.naziv = naziv;
 		this.pTToznaka = pTToznaka;
 		this.analitikaIzvoda = analitikaIzvoda;
 		this.drzava = drzava;
 	}
+
 
 	public int getNaseljenoMestoId() {
 		return naseljenoMestoId;
@@ -81,7 +89,7 @@ public class NaseljenoMesto {
 	public void setpTToznaka(java.lang.String pTToznaka) {
 		this.pTToznaka = pTToznaka;
 	}
-
+	@JsonInclude
 	public Drzava getDrzava() {
 		return drzava;
 	}
@@ -90,14 +98,14 @@ public class NaseljenoMesto {
 		this.drzava = drzava;
 	}
 
-	/** @pdGenerated default getter */
+	@JsonIgnore
 	public java.util.Collection<AnalitikaIzvoda> getAnalitikaIzvoda() {
 		if (analitikaIzvoda == null)
 			analitikaIzvoda = new java.util.HashSet<AnalitikaIzvoda>();
 		return analitikaIzvoda;
 	}
 
-	/** @pdGenerated default iterator getter */
+	@JsonIgnore
 	public java.util.Iterator getIteratorAnalitikaIzvoda() {
 		if (analitikaIzvoda == null)
 			analitikaIzvoda = new java.util.HashSet<AnalitikaIzvoda>();

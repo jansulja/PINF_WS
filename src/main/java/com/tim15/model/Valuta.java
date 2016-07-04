@@ -26,9 +26,13 @@ import org.hibernate.annotations.FetchMode;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Valuta {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,9 +42,9 @@ public class Valuta {
 	private java.lang.String naziv;
 	private boolean domicilna = false;
 
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name = "drzava_id")
-	@JsonBackReference(value="drzavaValuta")
+//	@JsonBackReference(value="drzavaValuta")
 	private Drzava drzava;
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "valutaOsnovna", cascade = CascadeType.ALL)
