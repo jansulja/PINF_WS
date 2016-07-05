@@ -7,8 +7,8 @@
 package com.tim15.model;
 
 import java.util.Collection;
+import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -17,12 +17,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
-
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 @Entity
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Banka {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,15 +40,13 @@ public class Banka {
 	private boolean banka;
 
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "banka", cascade = CascadeType.ALL)
-	@JsonManagedReference(value="bankaRacuni")
-	@Fetch(FetchMode.SELECT)
-	private java.util.Collection<Racuni> racuni;
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "banka", orphanRemoval = true)
+	@JsonIgnore
+	private Set<Racuni> racuni;
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "banka", cascade = CascadeType.ALL)
-	@JsonManagedReference(value="bankaKursnaLista")
-	@Fetch(FetchMode.SELECT)
-	private java.util.Collection<KursnaLista> kursnaLista;
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "banka", orphanRemoval = true)
+	@JsonIgnore
+	private Set<KursnaLista> kursnaLista;
 
 
 
@@ -61,7 +60,7 @@ public class Banka {
 
 
 	public Banka(String sifraBanke, String pib, String naziv, String adresa, String eMail, String web, String telefon,
-			String fax, boolean banka, Collection<Racuni> racuni, Collection<KursnaLista> kursnaLista) {
+			String fax, boolean banka, Set<Racuni> racuni, Set<KursnaLista> kursnaLista) {
 		super();
 		this.sifraBanke = sifraBanke;
 		this.pib = pib;
@@ -159,7 +158,7 @@ public class Banka {
 	}
 
 	/** @pdGenerated default getter */
-	public java.util.Collection<Racuni> getRacuni() {
+	public Set<Racuni> getRacuni() {
 		if (racuni == null)
 			racuni = new java.util.HashSet<Racuni>();
 		return racuni;
@@ -176,10 +175,8 @@ public class Banka {
 	 * @pdGenerated default setter
 	 * @param newRacuni
 	 */
-	public void setRacuni(java.util.Collection<Racuni> newRacuni) {
-		removeAllRacuni();
-		for (java.util.Iterator iter = newRacuni.iterator(); iter.hasNext();)
-			addRacuni((Racuni) iter.next());
+	public void setRacuni(Set<Racuni> newRacuni) {
+		racuni = newRacuni;
 	}
 
 	/**
@@ -214,9 +211,9 @@ public class Banka {
 	}
 
 	/** @pdGenerated default getter */
-	public java.util.Collection<KursnaLista> getKursnaLista() {
-		if (kursnaLista == null)
-			kursnaLista = new java.util.HashSet<KursnaLista>();
+	public Set<KursnaLista> getKursnaLista() {
+//		if (kursnaLista == null)
+//			kursnaLista = new java.util.HashSet<KursnaLista>();
 		return kursnaLista;
 	}
 
@@ -231,10 +228,9 @@ public class Banka {
 	 * @pdGenerated default setter
 	 * @param newKursnaLista
 	 */
-	public void setKursnaLista(java.util.Collection<KursnaLista> newKursnaLista) {
-		removeAllKursnaLista();
-		for (java.util.Iterator iter = newKursnaLista.iterator(); iter.hasNext();)
-			addKursnaLista((KursnaLista) iter.next());
+	public void setKursnaLista(Set<KursnaLista> newKursnaLista) {
+		kursnaLista = newKursnaLista;
+
 	}
 
 	/**

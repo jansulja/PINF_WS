@@ -37,9 +37,8 @@ public class KursnaLista {
 	private int brojKursneListe;
 	private Date primenjujeSeOd;
 
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name = "banka_id")
-	@JsonBackReference(value="bankaKursnaLista")
 	private Banka banka;
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "kursnaLista", orphanRemoval=true)

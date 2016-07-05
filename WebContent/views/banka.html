@@ -1,0 +1,59 @@
+<div class="col-md-3"></div>
+<div class="col-md-6">
+
+	<div class="textintro">
+		<h1>{{title}}</h1>
+
+	</div>
+
+	<form ng-submit="save()" name="myform" novalidate>
+
+		<div class="form-group">
+			<label for="sifraBanke">sifraBanke</label>
+			<input type="text" class="form-control" id="sifraBanke" ng-model="banka.sifraBanke" ng-required="true">
+		</div>
+		<div class="form-group">
+			<label for="pib">pib</label>
+			<input type="text" class="form-control" id="pib" ng-model="banka.pib" ng-required="true">
+		</div>
+		<div class="form-group">
+			<label for="naziv">naziv</label>
+			<input type="text" class="form-control" id="naziv" ng-model="banka.naziv" ng-required="true">
+		</div>
+		<div class="form-group">
+			<label for="adresa">adresa</label>
+			<input type="text" class="form-control" id="adresa" ng-model="banka.adresa" ng-required="true">
+		</div>
+		<div class="form-group">
+			<label for="eMail">eMail</label>
+			<input type="text" class="form-control" id="eMail" ng-model="banka.eMail" ng-required="true">
+		</div>
+		<div class="form-group">
+			<label for="web">web</label>
+			<input type="text" class="form-control" id="web" ng-model="banka.web" ng-required="true">
+		</div>
+		<div class="form-group">
+			<label for="telefon">telefon</label>
+			<input type="text" class="form-control" id="telefon" ng-model="banka.telefon" ng-required="true">
+		</div>
+		<div class="form-group">
+			<label for="fax">fax</label>
+			<input type="text" class="form-control" id="fax" ng-model="banka.fax" ng-required="true">
+		</div>
+
+
+
+
+		<div class="checkbox">
+			<label>
+				<input type="checkbox" ng-model="banka.banka"> Banka 
+			</label>
+		</div>
+
+		
+		<div class="alert alert-danger" role="alert" ng-show="errorMessage">{{errorMessage}}</div>
+
+		<button type="submit" class="btn btn-default" ng-disabled="myform.$invalid">{{buttonText}}</button>
+	</form>
+</div>
+<div class="col-md-3"></div>

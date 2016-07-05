@@ -58,9 +58,8 @@ public class Racuni {
 	@Fetch(FetchMode.SELECT)
 	private java.util.Collection<Ukidanje> ukidanje;
 
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name = "banka_id")
-	@JsonBackReference(value="bankaRacuni")
 	private Banka banka;
 
 	@ManyToOne(optional=false)

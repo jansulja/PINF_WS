@@ -1,6 +1,7 @@
 package com.tim15.service;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.ejb.EJB;
 import javax.ws.rs.Consumes;
@@ -18,11 +19,10 @@ import javax.ws.rs.core.Response.Status;
 import org.apache.log4j.Logger;
 
 import com.tim15.model.Banka;
-import com.tim15.model.Drzava;
+import com.tim15.model.KursnaLista;
 import com.tim15.model.Racuni;
 import com.tim15.model.view.NalogZaUplatu;
 import com.tim15.sessionbeans.BankaDaoLocal;
-
 import com.tim15.sessionbeans.RacuniDaoLocal;
 
 @Path("/banka")
@@ -39,7 +39,11 @@ public class BankaService {
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Banka> izlistajDrzave() {
+	public List<Banka> findAll() {
+
+		@SuppressWarnings("unused")
+		List<Banka> lista = bankaDao.findAll();
+
 		return bankaDao.findAll();
 	}
 
@@ -81,6 +85,14 @@ public class BankaService {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Banka update(Banka entity) {
+
+		Banka originalEntity = bankaDao.findById(entity.getBankaId());
+
+		Set<KursnaLista> kursnaLista = originalEntity.getKursnaLista();
+		Set<Racuni> racuni = originalEntity.getRacuni();
+
+		entity.setKursnaLista(kursnaLista);
+		entity.setRacuni(racuni);
 
 		Banka retVal = null;
         try {

@@ -1,0 +1,54 @@
+<div class="card meetings cf">
+	<h3>Valute</h3>
+
+	<button type="button" class="btn btn-default"
+	ng-click="new()">Dodaj</button>
+
+	<table class="table table-striped table-bordered table-condensed table-hover">
+		<tr>
+			<td>id</td>
+			<td>sifraBanke</td>
+			<td>pib</td>
+			<td>naziv</td>
+			<td>adresa</td>
+			<td>eMail</td>
+			<td>web</td>
+			<td>telefon</td>
+			<td>fax</td>
+			<td>banka</td>
+
+
+
+			<th>Opcija</th>
+			<th ng-if="isZoomActive()">Pick up</th>
+		</tr>
+		<tr ng-repeat="banka in banke track by $index ">
+			
+			<td>{{banka.bankaId}}</td>
+			<td>{{banka.sifraBanke}}</td>
+			<td>{{banka.pib}}</td>
+			<td>{{banka.naziv}}</td>
+			<td>{{banka.adresa}}</td>
+			<td>{{banka.eMail}}</td>
+			<td>{{banka.web}}</td>
+			<td>{{banka.telefon}}</td>
+			<td>{{banka.fax}}</td>
+			<td>{{banka.banka}}</td>
+
+			
+			
+			<td><button type="button" class="btn btn-default"
+				ng-click="remove(banka)">Obrisi</button>
+				<button type="button" class="btn btn-default"
+				ng-click="edit(banka)">Izmeni</button></td>
+
+
+				<td ng-if="isZoomActive()">
+					<button ng-click="genericPickUp(banka,'banka')" type="button" class="btn btn-default" aria-label="Left Align">
+						<span class="glyphicon glyphicon-log-out" aria-hidden="true"  ></span>
+					</button>
+				</td>
+			</tr>
+		</table>
+
+	</div>

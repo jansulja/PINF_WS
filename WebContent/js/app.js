@@ -13,7 +13,8 @@ angular
 ,'analitika-izvoda-list','resource.analitikaIzvoda','analitika-izvoda'
 ,'kurs-u-valuti-list','resource.kursUValuti','kurs-u-valuti'
 ,'racuni-list','resource.racuni','racuni'
-,'kursna-lista-list','resource.kursnaLista','kursna-lista'])
+,'kursna-lista-list','resource.kursnaLista','kursna-lista'
+,'resource.banka','banka-list','banka'])
 
 
 
@@ -95,6 +96,14 @@ angular
 		when('/kursnaLista/:kursnaListaId', {
 			templateUrl: 'views/kursna-lista.html',
 			controller: 'kursna-listaCtrl'
+		}).
+		when('/banka-list', {
+			templateUrl: 'views/banka-list.html',
+			controller: 'banka-listCtrl'
+		}).
+		when('/banka/:bankaId', {
+			templateUrl: 'views/banka.html',
+			controller: 'bankaCtrl'
 		}).
 		otherwise({
 			redirectTo: '/login'
