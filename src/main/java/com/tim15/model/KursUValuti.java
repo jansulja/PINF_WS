@@ -16,9 +16,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @Entity
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class KursUValuti {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,9 +41,8 @@ public class KursUValuti {
 	//@JsonBackReference(value="valutaPremaKursUValuti")
 	private Valuta valutaPrema;
 
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name = "kursnalista_id")
-	@JsonBackReference(value="kursnaListaKursUValuti")
 	private KursnaLista kursnaLista;
 
 	public KursUValuti() {

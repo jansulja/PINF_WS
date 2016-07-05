@@ -1,0 +1,51 @@
+<div class="col-md-3"></div>
+<div class="col-md-6">
+
+	<div class="textintro">
+		<h1>{{title}}</h1>
+
+	</div>
+
+
+
+	<form ng-submit="save()" name="myform" novalidate>
+	
+	
+		
+		
+
+		<div class="form-group">
+			<label>datum</label>
+			<div class="input-group">
+			<span class="input-group-btn">
+					<button type="button" class="btn btn-default" ng-click="openDatepicker($event, 'dateOpened')"><i class="glyphicon glyphicon-calendar"></i></button>
+				</span>
+				<input type="text" class="form-control" datepicker-popup="dd/MM/yyyy" ng-model="kursnaLista.datum" is-open="dateOpened" close-text="Close" />
+				
+			</div>
+		</div>
+		
+		<div class="form-group">
+			<label for="brojKursneListe">brojKursneListe</label>
+			<input type="text" class="form-control" id="brojKursneListe" ng-model="kursnaLista.brojKursneListe" ng-required="true">
+		</div>
+
+
+		<div class="form-group">
+			<label>primenjujeSeOd</label>
+			<div class="input-group">
+			<span class="input-group-btn">
+					<button type="button" class="btn btn-default" ng-click="openDatepicker($event, 'dateOpened2')"><i class="glyphicon glyphicon-calendar"></i></button>
+				</span>
+				<input type="text" class="form-control" datepicker-popup="dd/MM/yyyy" ng-model="kursnaLista.primenjujeSeOd" is-open="dateOpened2" close-text="Close" />
+				
+			</div>
+		</div>
+		
+
+		<div class="alert alert-danger" role="alert" ng-show="errorMessage">{{errorMessage}}</div>
+
+		<button type="submit" class="btn btn-default" ng-disabled="myform.$invalid">{{buttonText}}</button>
+	</form>
+</div>
+<div class="col-md-3"></div>

@@ -12,7 +12,8 @@ angular
 ,'naseljeno-mesto-list','resource.naseljenoMesto','naseljeno-mesto'
 ,'analitika-izvoda-list','resource.analitikaIzvoda','analitika-izvoda'
 ,'kurs-u-valuti-list','resource.kursUValuti','kurs-u-valuti'
-,'racuni-list','resource.racuni','racuni'])
+,'racuni-list','resource.racuni','racuni'
+,'kursna-lista-list','resource.kursnaLista','kursna-lista'])
 
 
 
@@ -86,6 +87,14 @@ angular
 		when('/racuni/:racuniId', {
 			templateUrl: 'views/racuni.html',
 			controller: 'racuniCtrl'
+		}).
+		when('/kursnaLista-list', {
+			templateUrl: 'views/kursna-lista-list.html',
+			controller: 'kursna-lista-listCtrl'
+		}).
+		when('/kursnaLista/:kursnaListaId', {
+			templateUrl: 'views/kursna-lista.html',
+			controller: 'kursna-listaCtrl'
 		}).
 		otherwise({
 			redirectTo: '/login'

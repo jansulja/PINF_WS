@@ -1,6 +1,10 @@
 package com.tim15.service;
 
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import javax.ejb.EJB;
 import javax.persistence.criteria.CriteriaBuilder.In;
@@ -18,6 +22,7 @@ import javax.ws.rs.core.Response.Status;
 
 import org.apache.log4j.Logger;
 
+import com.tim15.model.KursUValuti;
 import com.tim15.model.KursnaLista;
 import com.tim15.sessionbeans.KursnaListaDaoLocal;
 
@@ -79,6 +84,7 @@ public class KursnaListaService {
 
     	KursnaLista retVal = null;
         try {
+        	entity.setKursUValuti(new HashSet<KursUValuti>());
         	retVal = kursnaListaDao.merge(entity);
         } catch (Exception e) {
 			log.error(e.getMessage(), e);

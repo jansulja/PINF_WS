@@ -5,10 +5,10 @@
  ***********************************************************************/
 
 package com.tim15.model;
+import java.sql.Date;
+import java.util.HashSet;
+import java.util.Set;
 
-import java.util.*;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -19,39 +19,40 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
-
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 @Entity
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class KursnaLista {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "kursnalista_id", unique = true)
 	private int kursnaListaId;
-	private java.util.Date datum;
-	private double brojKursneListe;
-	private java.util.Date primenjujeSeOd;
+	private Date datum;
+	private int brojKursneListe;
+	private Date primenjujeSeOd;
 
 	@ManyToOne
 	@JoinColumn(name = "banka_id")
 	@JsonBackReference(value="bankaKursnaLista")
 	private Banka banka;
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "kursnaLista", cascade = CascadeType.ALL)
-	@JsonManagedReference(value="kursnaListaKursUValuti")
-	@Fetch(FetchMode.SELECT)
-	private java.util.Collection<KursUValuti> kursUValuti;
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "kursnaLista", orphanRemoval=true)
+	@JsonIgnore
+	private Set<KursUValuti> kursUValuti;
 
 	public KursnaLista() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public KursnaLista(Date datum, double brojKursneListe, Date primenjujeSeOd, Banka banka,
-			Collection<KursUValuti> kursUValuti) {
+	public KursnaLista(Date datum, int brojKursneListe, Date primenjujeSeOd, Banka banka,
+			Set<KursUValuti> kursUValuti) {
 		super();
 		this.datum = datum;
 		this.brojKursneListe = brojKursneListe;
@@ -68,11 +69,11 @@ public class KursnaLista {
 		this.kursnaListaId = kursnaListaId;
 	}
 
-	public java.util.Date getDatum() {
+	public Date getDatum() {
 		return datum;
 	}
 
-	public void setDatum(java.util.Date datum) {
+	public void setDatum(Date datum) {
 		this.datum = datum;
 	}
 
@@ -80,15 +81,15 @@ public class KursnaLista {
 		return brojKursneListe;
 	}
 
-	public void setBrojKursneListe(double brojKursneListe) {
+	public void setBrojKursneListe(int brojKursneListe) {
 		this.brojKursneListe = brojKursneListe;
 	}
 
-	public java.util.Date getPrimenjujeSeOd() {
+	public Date getPrimenjujeSeOd() {
 		return primenjujeSeOd;
 	}
 
-	public void setPrimenjujeSeOd(java.util.Date primenjujeSeOd) {
+	public void setPrimenjujeSeOd(Date primenjujeSeOd) {
 		this.primenjujeSeOd = primenjujeSeOd;
 	}
 
@@ -100,34 +101,34 @@ public class KursnaLista {
 		this.banka = banka;
 	}
 
-	/** @pdGenerated default getter */
-	public java.util.Collection<KursUValuti> getKursUValuti() {
-		if (kursUValuti == null)
-			kursUValuti = new java.util.HashSet<KursUValuti>();
+
+
+
+
+	public Set<KursUValuti> getKursUValuti() {
 		return kursUValuti;
 	}
 
+	public void setKursUValuti(Set<KursUValuti> kursUValuti) {
+		if(this.kursUValuti!=null){
+			this.kursUValuti.clear();
+		}else{
+			this.kursUValuti = new HashSet<KursUValuti>();
+		}
+
+	    if (kursUValuti != null) {
+	        this.kursUValuti.addAll(kursUValuti);
+	    }
+	}
+
 	/** @pdGenerated default iterator getter */
+	@JsonIgnore
 	public java.util.Iterator getIteratorKursUValuti() {
 		if (kursUValuti == null)
 			kursUValuti = new java.util.HashSet<KursUValuti>();
 		return kursUValuti.iterator();
 	}
 
-	/**
-	 * @pdGenerated default setter
-	 * @param newKursUValuti
-	 */
-	public void setKursUValuti(java.util.Collection<KursUValuti> newKursUValuti) {
-		removeAllKursUValuti();
-		for (java.util.Iterator iter = newKursUValuti.iterator(); iter.hasNext();)
-			addKursUValuti((KursUValuti) iter.next());
-	}
-
-	/**
-	 * @pdGenerated default add
-	 * @param newKursUValuti
-	 */
 	public void addKursUValuti(KursUValuti newKursUValuti) {
 		if (newKursUValuti == null)
 			return;

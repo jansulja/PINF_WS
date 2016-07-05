@@ -6,7 +6,7 @@ import javax.ejb.Stateless;
 import com.tim15.model.KursnaLista;
 
 @Stateless
-@Local(BankaDaoLocal.class)
+@Local(KursnaListaDaoLocal.class)
 public class KursnaListaDaoBean extends GenericDaoBean<KursnaLista, Integer> implements KursnaListaDaoLocal{
 
 }
