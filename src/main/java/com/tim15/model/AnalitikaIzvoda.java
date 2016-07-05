@@ -62,9 +62,8 @@ public class AnalitikaIzvoda {
 //	@JsonBackReference("naseljenoMestoAnalitikaIzvoda")
 	private NaseljenoMesto naseljenoMesto;
 
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name = "vrsteplacanja_id")
-	@JsonBackReference(value="vrstePlacanjaAnalitikaIzvoda")
 	private VrstePlacanja vrstePlacanja;
 
 

@@ -14,7 +14,8 @@ angular
 ,'kurs-u-valuti-list','resource.kursUValuti','kurs-u-valuti'
 ,'racuni-list','resource.racuni','racuni'
 ,'kursna-lista-list','resource.kursnaLista','kursna-lista'
-,'resource.banka','banka-list','banka'])
+,'resource.banka','banka-list','banka'
+,'resource.vrstePlacanja','vrste-placanja-list','vrste-placanja'])
 
 
 
@@ -104,6 +105,14 @@ angular
 		when('/banka/:bankaId', {
 			templateUrl: 'views/banka.html',
 			controller: 'bankaCtrl'
+		}).
+		when('/vrstePlacanja-list', {
+			templateUrl: 'views/vrste-placanja-list.html',
+			controller: 'vrste-placanja-listCtrl'
+		}).
+		when('/vrstePlacanja/:vrstaPlacanjaId', {
+			templateUrl: 'views/vrste-placanja.html',
+			controller: 'vrste-placanjaCtrl'
 		}).
 		otherwise({
 			redirectTo: '/login'

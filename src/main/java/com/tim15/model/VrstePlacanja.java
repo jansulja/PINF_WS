@@ -6,9 +6,9 @@
 
 package com.tim15.model;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -17,12 +17,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
-
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 @Entity
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class VrstePlacanja {
 
 	@Id
@@ -31,17 +32,16 @@ public class VrstePlacanja {
 	private int vrstaPlacanjaId;
 	private java.lang.String nazivVrstePlacanja;
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "vrstePlacanja", cascade = CascadeType.ALL)
-	@JsonManagedReference(value="vrstePlacanjaAnalitikaIzvoda")
-	@Fetch(FetchMode.SELECT)
-	private java.util.Collection<AnalitikaIzvoda> analitikaIzvoda;
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "vrstePlacanja", orphanRemoval=true)
+	@JsonIgnore
+	private Set<AnalitikaIzvoda> analitikaIzvoda;
 
 	public VrstePlacanja() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public VrstePlacanja(String nazivVrstePlacanja, Collection<AnalitikaIzvoda> analitikaIzvoda) {
+	public VrstePlacanja(String nazivVrstePlacanja, Set<AnalitikaIzvoda> analitikaIzvoda) {
 		super();
 		this.nazivVrstePlacanja = nazivVrstePlacanja;
 		this.analitikaIzvoda = analitikaIzvoda;
@@ -64,7 +64,7 @@ public class VrstePlacanja {
 	}
 
 	/** @pdGenerated default getter */
-	public java.util.Collection<AnalitikaIzvoda> getAnalitikaIzvoda() {
+	public Set<AnalitikaIzvoda> getAnalitikaIzvoda() {
 		if (analitikaIzvoda == null)
 			analitikaIzvoda = new java.util.HashSet<AnalitikaIzvoda>();
 		return analitikaIzvoda;
@@ -81,10 +81,11 @@ public class VrstePlacanja {
 	 * @pdGenerated default setter
 	 * @param newAnalitikaIzvoda
 	 */
-	public void setAnalitikaIzvoda(java.util.Collection<AnalitikaIzvoda> newAnalitikaIzvoda) {
-		removeAllAnalitikaIzvoda();
-		for (java.util.Iterator iter = newAnalitikaIzvoda.iterator(); iter.hasNext();)
-			addAnalitikaIzvoda((AnalitikaIzvoda) iter.next());
+	public void setAnalitikaIzvoda(Set<AnalitikaIzvoda> newAnalitikaIzvoda) {
+//		removeAllAnalitikaIzvoda();
+//		for (java.util.Iterator iter = newAnalitikaIzvoda.iterator(); iter.hasNext();)
+//			addAnalitikaIzvoda((AnalitikaIzvoda) iter.next());
+		analitikaIzvoda = newAnalitikaIzvoda;
 	}
 
 	/**

@@ -1,0 +1,30 @@
+<div class="card meetings cf">
+	<h3>Analitika izvoda</h3>
+
+	<button type="button" class="btn btn-default"
+	ng-click="new()">Dodaj</button>
+
+	<table class="table table-striped table-bordered table-condensed table-hover">
+		<tr>
+			<th>Sifra</th>
+			<th>Naziv</th>
+			<th>Opcija</th>
+			
+
+		</tr>
+		<tr ng-repeat="vrstePlacanja in vrstePlacanjaa track by $index ">
+			<td>{{vrstePlacanja.vrstaPlacanjaId}}</td>
+			<td>{{vrstePlacanja.nazivVrstePlacanja}}</td>
+		
+
+			
+			<td><button type="button" class="btn btn-default"
+				ng-click="remove(vrstePlacanja)">Obrisi</button>
+				<button type="button" class="btn btn-default"
+				ng-click="edit(vrstePlacanja)">Izmeni</button></td>
+
+
+			</tr>
+		</table>
+
+	</div>
