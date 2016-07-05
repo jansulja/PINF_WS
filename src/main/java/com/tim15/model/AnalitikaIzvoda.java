@@ -53,9 +53,8 @@ public class AnalitikaIzvoda {
 	@JsonBackReference(value="dnevnoStanjeRacunaAnalitikaIzvoda")
 	private DnevnoStanjeRacuna dnevnoStanjeRacuna;
 
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name = "valuta_id")
-	@JsonBackReference(value="valutaAnalitikaIzvoda")
 	private Valuta valuta;
 
 	@ManyToOne(optional=false)

@@ -40,7 +40,8 @@ public abstract class GenericDaoBean<T, ID extends Serializable> implements
 		Criteria criteria = session.createCriteria(entityType);
 		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 
-
+		@SuppressWarnings("unused")
+		List<T> lista = criteria.list();
 
 		return criteria.list();
 	}

@@ -25,15 +25,19 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Racuni {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "racuni_id", unique = true)
-	private long racuniId;
+	private int racuniId;
 	private java.lang.String brojRacuna;
 	private java.util.Date datumOtvaranja;
 	private boolean vazeci = false;
@@ -59,9 +63,9 @@ public class Racuni {
 	@JsonBackReference(value="bankaRacuni")
 	private Banka banka;
 
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name="valuta_id")
-	@JsonBackReference(value="valutaRacuni")
+	//@JsonBackReference(value="valutaRacuni")
 	private Valuta valuta;
 
 	public Racuni() {
@@ -69,8 +73,9 @@ public class Racuni {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Racuni(String brojRacuna, Date datumOtvaranja, boolean vazeci, Klijent klijent, Banka banka, double stanje) {
+	public Racuni(int racuniId,String brojRacuna, Date datumOtvaranja, boolean vazeci, Klijent klijent, Banka banka, double stanje) {
 		super();
+		this.racuniId = racuniId;
 		this.brojRacuna = brojRacuna;
 		this.datumOtvaranja = datumOtvaranja;
 		this.vazeci = vazeci;
@@ -82,11 +87,11 @@ public class Racuni {
 
 
 
-	public long getRacuniId() {
+	public int getRacuniId() {
 		return racuniId;
 	}
 
-	public void setRacuniId(long racuniId) {
+	public void setRacuniId(int racuniId) {
 		this.racuniId = racuniId;
 	}
 

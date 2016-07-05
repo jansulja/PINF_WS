@@ -13,8 +13,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 @Entity
 public class KursUValuti {
@@ -24,15 +26,16 @@ public class KursUValuti {
 	private int kursUValutiId;
 	private double kupovni = 0;
 	private double srednji = 0;
-
-	@ManyToOne
-	@JoinColumn(name = "valuta_id",insertable = false,updatable = false)
-	@JsonBackReference(value="valutaOsnovnaKursUValuti")
+	private double prodajni = 0;
+	@ManyToOne(optional=false)
+	//@JoinColumn(name = "valuta_id",insertable = false,updatable = false)
+	@PrimaryKeyJoinColumn(name="valuta_osnovna_id", referencedColumnName="valuta_id")
+	//@JsonBackReference(value="valutaOsnovnaKursUValuti")
 	private Valuta valutaOsnovna;
 
-	@ManyToOne
-	@JoinColumn(name = "valuta_id",insertable = false,updatable = false)
-	@JsonBackReference(value="valutaPremaKursUValuti")
+	@ManyToOne(optional=false)
+	@PrimaryKeyJoinColumn(name="valuta_prema_id", referencedColumnName="valuta_id")
+	//@JsonBackReference(value="valutaPremaKursUValuti")
 	private Valuta valutaPrema;
 
 	@ManyToOne
@@ -43,6 +46,42 @@ public class KursUValuti {
 	public KursUValuti() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+
+
+	public KursUValuti(int kursUValutiId, double kupovni, double srednji, double prodajni, Valuta valutaOsnovna,
+			Valuta valutaPrema, KursnaLista kursnaLista) {
+		super();
+		this.kursUValutiId = kursUValutiId;
+		this.kupovni = kupovni;
+		this.srednji = srednji;
+		this.prodajni = prodajni;
+		this.valutaOsnovna = valutaOsnovna;
+		this.valutaPrema = valutaPrema;
+		this.kursnaLista = kursnaLista;
+	}
+
+
+	public Valuta getValutaOsnovna() {
+		return valutaOsnovna;
+	}
+
+
+
+	public void setValutaOsnovna(Valuta valutaOsnovna) {
+		this.valutaOsnovna = valutaOsnovna;
+	}
+
+
+
+	public Valuta getValutaPrema() {
+		return valutaPrema;
+	}
+
+
+
+	public void setValutaPrema(Valuta valutaPrema) {
+		this.valutaPrema = valutaPrema;
 	}
 
 
@@ -89,6 +128,6 @@ public class KursUValuti {
 		this.prodajni = prodajni;
 	}
 
-	private double prodajni = 0;
+
 
 }

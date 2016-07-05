@@ -40,4 +40,7 @@ angular.module('drzava-new',['resource.drzava'])
 		}
 
 	}
+
+	console.log($scope.drzava);
+
 });

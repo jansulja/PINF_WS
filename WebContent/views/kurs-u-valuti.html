@@ -1,0 +1,53 @@
+<div class="col-md-3"></div>
+<div class="col-md-6">
+
+	<div class="textintro">
+		<h1>{{title}}</h1>
+
+	</div>
+
+	<form ng-submit="save()" name="myform" novalidate>
+		<div class="form-group">
+			<label for="kupovni">Kupovni</label>
+			<input type="text" class="form-control" id="kupovni" ng-model="kursUValuti.kupovni" ng-required="true">
+		</div>
+		
+		<div class="form-group">
+			<label for="srednji">Srednji</label>
+			<input type="text" class="form-control" id="srednji" ng-model="kursUValuti.srednji" ng-required="true">
+		</div>
+
+		<div class="form-group">
+			<label for="prodajni">Prodajni</label>
+			<input type="text" class="form-control" id="prodajni" ng-model="kursUValuti.prodajni" ng-required="true">
+		</div>
+
+
+		<div class="form-group">
+			<label for="valutaOsnovna">Sifra osnovne valute</label>
+			<div class="form-inline">
+					<input ng-click="errorMessage = undefined" type="text" class="form-control" id="valutaOsnovna" ng-model="kursUValuti.valutaOsnovna.valutaId" ng-required="true">
+					
+					<button type="button" class="btn btn-default" aria-label="Left Align" ng-click="genericZoom(kursUValuti,'/valuta-list','/kursUValuti/','kursUValutiId','valutaOsnovna')">
+						<span class="glyphicon glyphicon-option-horizontal" aria-hidden="true"></span>
+					</button>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label for="valutaPrema">Sifra prema valute</label>
+			<div class="form-inline">
+					<input ng-click="errorMessage = undefined" type="text" class="form-control" id="valutaPrema" ng-model="kursUValuti.valutaPrema.valutaId" ng-required="true">
+					
+					<button type="button" class="btn btn-default" aria-label="Left Align" ng-click="genericZoom(kursUValuti,'/valuta-list','/kursUValuti/','kursUValutiId','valutaPrema')">
+						<span class="glyphicon glyphicon-option-horizontal" aria-hidden="true"></span>
+					</button>
+			</div>
+		</div>
+
+		<div class="alert alert-danger" role="alert" ng-show="errorMessage">{{errorMessage}}</div>
+
+		<button type="submit" class="btn btn-default" ng-disabled="myform.$invalid">{{buttonText}}</button>
+	</form>
+</div>
+<div class="col-md-3"></div>

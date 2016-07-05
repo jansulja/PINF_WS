@@ -6,13 +6,16 @@
 
 	<table class="table table-striped table-bordered table-condensed table-hover">
 		<tr>
+			<th>Sifra</th>
 			<th>Naziv</th>
 			<th>Domicilna</th>
 			<th>Zvanicna Sifra</th>
 			<th>Drzava</th>
 			<th>Opcija</th>
+			<th ng-if="isZoomActive()">Pick up</th>
 		</tr>
 		<tr ng-repeat="valuta in valute track by $index ">
+			<td>{{valuta.valutaId}}</td>
 			<td>{{valuta.naziv}}</td>
 			<td>{{valuta.domicilna}}</td>
 			<td>{{valuta.zvanicnaSifra}}</td>
@@ -24,6 +27,11 @@
 					ng-click="edit(valuta)">Izmeni</button></td>
 
 
+			<td ng-if="isZoomActive()">
+				<button ng-click="genericPickUp(valuta,'valuta')" type="button" class="btn btn-default" aria-label="Left Align">
+				<span class="glyphicon glyphicon-log-out" aria-hidden="true"  ></span>
+				</button>
+			</td>
 		</tr>
 	</table>
 

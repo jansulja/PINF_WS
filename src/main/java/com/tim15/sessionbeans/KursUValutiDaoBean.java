@@ -8,7 +8,7 @@ import com.tim15.model.KursUValuti;
 
 
 @Stateless
-@Local(BankaDaoLocal.class)
+@Local(KursUValutiDaoLocal.class)
 public class KursUValutiDaoBean extends GenericDaoBean<KursUValuti, Integer> implements KursUValutiDaoLocal{
 
 }

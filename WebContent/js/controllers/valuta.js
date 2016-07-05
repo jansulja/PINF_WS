@@ -60,7 +60,7 @@ angular.module('valuta',['resource.valuta'])
 
 
 
-
+	console.log($scope.valuta);
 //	$scope.drzavaZoom = function(){
 //		$rootScope.zoom = true;
 //		$rootScope.valutaSaved = $scope.valuta;

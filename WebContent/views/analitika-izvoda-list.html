@@ -8,6 +8,7 @@
 		<tr>
 			<th>Sifra</th>
 			<th>Naseljeno mesto</th>
+			<th>Valuta</th>
 			<th>duznikNalogodavac</th>
 			<th>svrhaPlacanja</th>
 			<th>poverilacPrimalac</th>
@@ -30,6 +31,7 @@
 		<tr ng-repeat="analitikaIzvoda in analitikeIzvoda track by $index ">
 			<td>{{analitikaIzvoda.analitikaIzvodaId}}</td>
 			<td>{{analitikaIzvoda.naseljenoMesto.naziv}}</td>
+			<td>{{analitikaIzvoda.valuta.naziv}}</td>
 			<td>{{analitikaIzvoda.duznikNalogodavac}}</td>
 			<td>{{analitikaIzvoda.svrhaPlacanja}}</td>
 			<td>{{analitikaIzvoda.poverilacPrimalac}}</td>

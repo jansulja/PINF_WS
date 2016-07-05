@@ -9,7 +9,10 @@ angular
 'ui.bootstrap',
 'registration',
 'success','drzava-list','resource.drzava','drzava-new','resource.valuta','valuta-list','valuta'
-,'naseljeno-mesto-list','resource.naseljenoMesto','naseljeno-mesto','analitika-izvoda-list','resource.analitikaIzvoda','analitika-izvoda'])
+,'naseljeno-mesto-list','resource.naseljenoMesto','naseljeno-mesto'
+,'analitika-izvoda-list','resource.analitikaIzvoda','analitika-izvoda'
+,'kurs-u-valuti-list','resource.kursUValuti','kurs-u-valuti'
+,'racuni-list','resource.racuni','racuni'])
 
 
 
@@ -66,6 +69,23 @@ angular
 		when('/analitikaIzvoda/:analitikaIzvodaId', {
 			templateUrl: 'views/analitika-izvoda.html',
 			controller: 'analitika-izvodaCtrl'
+		})
+		.
+		when('/kursUValuti-list', {
+			templateUrl: 'views/kurs-u-valuti-list.html',
+			controller: 'kurs-u-valuti-listCtrl'
+		}).
+		when('/kursUValuti/:kursUValutiId', {
+			templateUrl: 'views/kurs-u-valuti.html',
+			controller: 'kurs-u-valutiCtrl'
+		}).
+		when('/racuni-list', {
+			templateUrl: 'views/racuni-list.html',
+			controller: 'racuni-listCtrl'
+		}).
+		when('/racuni/:racuniId', {
+			templateUrl: 'views/racuni.html',
+			controller: 'racuniCtrl'
 		}).
 		otherwise({
 			redirectTo: '/login'
@@ -84,6 +104,10 @@ angular
 	}
 
 	$rootScope.genericPickUp = function(pickUpObject,propertyName){
+
+		if($rootScope.propertyName){
+			propertyName = $rootScope.propertyName;
+		}
 
 		$rootScope.assign($rootScope.savedObject,propertyName,pickUpObject)
 
@@ -110,10 +134,10 @@ angular
 	        obj[prop[0]] = value;
 	}
 
-	$rootScope.genericZoom = function(savedObject,pickUpPath,returnPath,id){
+	$rootScope.genericZoom = function(savedObject,pickUpPath,returnPath,id,propertyName){
 
 
-
+			$rootScope.propertyName = propertyName;
 			$rootScope.zoom = true;
 			$rootScope.savedObject = savedObject;
 			$rootScope.returnPath = returnPath + $routeParams[id];
@@ -121,6 +145,14 @@ angular
 
 
 	}
+
+
+	$rootScope.openDatepicker = function($event, opened) {
+		$event.preventDefault();
+		$event.stopPropagation();
+		$rootScope[opened] = true;
+	};
+
 }).controller('myAppCtrl', function ($scope,$location, Drzava, $rootScope){
 
 

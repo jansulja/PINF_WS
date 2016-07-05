@@ -1,0 +1,36 @@
+<div class="card meetings cf">
+	<h3>Naseljena mesta</h3>
+
+	<button type="button" class="btn btn-default"
+					ng-click="new()">Dodaj</button>
+
+	<table class="table table-striped table-bordered table-condensed table-hover">
+		<tr>
+			<th>Sifra</th>
+			<th>Valuta osnovna</th>
+			<th>Valuta prema</th>
+			<th>Kupovni</th>
+			<th>Srednji</th>
+			<th>Prodajni</th>
+			<th>Opcija</th>
+			
+			
+		</tr>
+		<tr ng-repeat="kursUValuti in kurseviUValuti track by $index ">
+			<td>{{kursUValuti.kursUValutiId}}</td>
+			<td>{{kursUValuti.valutaOsnovna.naziv}}</td>
+			<td>{{kursUValuti.valutaPrema.naziv}}</td>
+			<td>{{kursUValuti.kupovni}}</td>
+			<td>{{kursUValuti.srednji}}</td>
+			<td>{{kursUValuti.prodajni}}</td>
+			
+			<td><button type="button" class="btn btn-default"
+					ng-click="remove(kursUValuti)">Obrisi</button>
+			<button type="button" class="btn btn-default"
+					ng-click="edit(kursUValuti)">Izmeni</button></td>
+
+			
+		</tr>
+	</table>
+
+</div>

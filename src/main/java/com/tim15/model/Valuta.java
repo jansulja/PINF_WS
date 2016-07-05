@@ -47,25 +47,23 @@ public class Valuta {
 //	@JsonBackReference(value="drzavaValuta")
 	private Drzava drzava;
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "valutaOsnovna", cascade = CascadeType.ALL)
-	@JsonManagedReference(value="valutaOsnovnaKursUValuti")
-	@Fetch(FetchMode.SELECT)
-	private java.util.Collection<KursUValuti> kursUValutiOsnovna;
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "valutaOsnovna", orphanRemoval=true)
+	@JsonIgnore
+	private Set<KursUValuti> kursUValutiOsnovna;
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "valutaPrema", cascade = CascadeType.ALL)
-	@JsonManagedReference(value="valutaPremaKursUValuti")
-	@Fetch(FetchMode.SELECT)
-	private java.util.Collection<KursUValuti> kursUValutiPrema;
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "valutaPrema", orphanRemoval=true)
+	@JsonIgnore
+	private Set<KursUValuti> kursUValutiPrema;
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "valuta", cascade = CascadeType.ALL)
-	@JsonManagedReference(value="valutaRacuni")
-	@Fetch(FetchMode.SELECT)
-	private java.util.Collection<Racuni> racuni;
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "valuta", orphanRemoval=true)
+	@JsonIgnore
+//	@JsonManagedReference(value="valutaRacuni")
+//	@Fetch(FetchMode.SELECT)
+	private Set<Racuni> racuni;
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "valuta", cascade = CascadeType.ALL)
-	@JsonManagedReference(value="valutaAnalitikaIzvoda")
-	@Fetch(FetchMode.SELECT)
-	private java.util.Collection<AnalitikaIzvoda> analitikaIzvoda;
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "valuta", orphanRemoval=true)
+	@JsonIgnore
+	private Set<AnalitikaIzvoda> analitikaIzvoda;
 
 	public Valuta() {
 		super();
@@ -73,8 +71,8 @@ public class Valuta {
 	}
 
 	public Valuta(String zvanicnaSifra, String naziv, boolean domicilna, Drzava drzava,
-			Collection<KursUValuti> kursUValutiOsnovna, Collection<KursUValuti> kursUValutiPrema,
-			Collection<Racuni> racuni, Collection<AnalitikaIzvoda> analitikaIzvoda) {
+			Set<KursUValuti> kursUValutiOsnovna, Set<KursUValuti> kursUValutiPrema,
+			Set<Racuni> racuni, Set<AnalitikaIzvoda> analitikaIzvoda) {
 		super();
 		this.zvanicnaSifra = zvanicnaSifra;
 		this.naziv = naziv;
@@ -130,7 +128,7 @@ public class Valuta {
 		return kursUValutiOsnovna;
 	}
 
-	public void setKursUValutiOsnovna(java.util.Collection<KursUValuti> kursUValutiOsnovna) {
+	public void setKursUValutiOsnovna(Set<KursUValuti> kursUValutiOsnovna) {
 		this.kursUValutiOsnovna = kursUValutiOsnovna;
 	}
 
@@ -138,7 +136,7 @@ public class Valuta {
 		return kursUValutiPrema;
 	}
 
-	public void setKursUValutiPrema(java.util.Collection<KursUValuti> kursUValutiPrema) {
+	public void setKursUValutiPrema(Set<KursUValuti> kursUValutiPrema) {
 		this.kursUValutiPrema = kursUValutiPrema;
 	}
 
