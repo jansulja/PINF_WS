@@ -15,7 +15,9 @@ angular
 ,'racuni-list','resource.racuni','racuni'
 ,'kursna-lista-list','resource.kursnaLista','kursna-lista'
 ,'resource.banka','banka-list','banka'
-,'resource.vrstePlacanja','vrste-placanja-list','vrste-placanja'])
+,'resource.vrstePlacanja','vrste-placanja-list','vrste-placanja'
+,'resource.dnevnoStanjeRacuna','dnevno-stanje-racuna-list','dnevno-stanje-racuna'
+,'resource.pravnoLice','pravno-lice-list','pravno-lice'])
 
 
 
@@ -113,6 +115,22 @@ angular
 		when('/vrstePlacanja/:vrstaPlacanjaId', {
 			templateUrl: 'views/vrste-placanja.html',
 			controller: 'vrste-placanjaCtrl'
+		}).
+		when('/dnevnoStanjeRacuna-list', {
+			templateUrl: 'views/dnevno-stanje-racuna-list.html',
+			controller: 'dnevno-stanje-racuna-listCtrl'
+		}).
+		when('/dnevnoStanjeRacuna/:dnevnoStanjeRacunaId', {
+			templateUrl: 'views/dnevno-stanje-racuna.html',
+			controller: 'dnevno-stanje-racunaCtrl'
+		}).
+		when('/pravnoLice-list', {
+			templateUrl: 'views/pravno-lice-list.html',
+			controller: 'pravno-lice-listCtrl'
+		}).
+		when('/pravnoLice/:pravnoLiceId', {
+			templateUrl: 'views/pravno-lice.html',
+			controller: 'pravno-liceCtrl'
 		}).
 		otherwise({
 			redirectTo: '/login'

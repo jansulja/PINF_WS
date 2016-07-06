@@ -24,24 +24,27 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class DnevnoStanjeRacuna {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "dnevno_stanje_racuna_id", unique = true)
-	private long dnevnoStanjeRacunaId;
+	private int dnevnoStanjeRacunaId;
 	private java.util.Date datumPrometa;
 	private double prethodnoStanje = 0;
 	private double prometUKorist = 0;
 	private double prometNaTeret = 0;
 	private double novoStanje = 0;
 
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name = "racuni_id")
-	@JsonBackReference(value="racuniDnevnoStanjeRacuna")
 	private Racuni racuni;
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "dnevnoStanjeRacuna", cascade = CascadeType.ALL)
@@ -66,11 +69,11 @@ public class DnevnoStanjeRacuna {
 		this.analitikaIzvoda = analitikaIzvoda;
 	}
 
-	public long getDnevnoStanjeRacunaId() {
+	public int getDnevnoStanjeRacunaId() {
 		return dnevnoStanjeRacunaId;
 	}
 
-	public void setDnevnoStanjeRacunaId(long dnevnoStanjeRacunaId) {
+	public void setDnevnoStanjeRacunaId(int dnevnoStanjeRacunaId) {
 		this.dnevnoStanjeRacunaId = dnevnoStanjeRacunaId;
 	}
 

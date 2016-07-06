@@ -6,8 +6,8 @@
 
 package com.tim15.model;
 
-import java.util.Collection;
 import java.util.Date;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -19,12 +19,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -48,10 +48,9 @@ public class Racuni {
 	@JsonBackReference(value="klijentRacuni")
 	private Klijent klijent;
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "racuni", cascade = CascadeType.ALL)
-	@JsonManagedReference(value="racuniDnevnoStanjeRacuna")
-	@Fetch(FetchMode.SELECT)
-	private java.util.Collection<DnevnoStanjeRacuna> dnevnoStanjeRacuna;
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "racuni", orphanRemoval=true)
+	@JsonIgnore
+	private Set<DnevnoStanjeRacuna> dnevnoStanjeRacuna;
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "racuni", cascade = CascadeType.ALL)
 	@JsonManagedReference(value="racuniUkidanje")
@@ -139,7 +138,7 @@ public class Racuni {
 		return dnevnoStanjeRacuna;
 	}
 
-	/** @pdGenerated default iterator getter */
+	@JsonIgnore
 	public java.util.Iterator getIteratorDnevnoStanjeRacuna() {
 		if (dnevnoStanjeRacuna == null)
 			dnevnoStanjeRacuna = new java.util.HashSet<DnevnoStanjeRacuna>();

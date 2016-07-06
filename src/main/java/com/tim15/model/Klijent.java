@@ -61,6 +61,16 @@ public class Klijent {
 		this.racuni = racuni;
 	}
 
+
+
+	public int getKlijentId() {
+		return klijentId;
+	}
+
+	public void setKlijentId(int klijentId) {
+		this.klijentId = klijentId;
+	}
+
 	public Integer getIdBanka() {
 		return idBanka;
 	}

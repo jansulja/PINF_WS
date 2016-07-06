@@ -1,0 +1,62 @@
+<div class="col-md-3"></div>
+<div class="col-md-6">
+
+	<div class="textintro">
+		<h1>{{title}}</h1>
+
+	</div>
+
+
+
+	<form ng-submit="save()" name="myform" novalidate>
+
+
+
+		<div class="form-group">
+			<label for="telefon">telefon</label>
+			<input type="text" class="form-control" id="telefon" ng-model="pravnoLice.telefon" ng-required="true">
+		</div>
+		<div class="form-group">
+			<label for="email">email</label>
+			<input type="text" class="form-control" id="email" ng-model="pravnoLice.email" ng-required="true">
+		</div>
+		<div class="form-group">
+			<label for="adresa">adresa</label>
+			<input type="text" class="form-control" id="adresa" ng-model="pravnoLice.adresa" ng-required="true">
+		</div>
+		<div class="form-group">
+			<label for="password">password</label>
+			<input type="text" class="form-control" id="password" ng-model="pravnoLice.password" ng-required="true">
+		</div>
+		<div class="form-group">
+			<label for="idBanka">idBanka</label>
+			<input type="text" class="form-control" id="idBanka" ng-model="pravnoLice.idBanka" ng-required="true">
+		</div>
+		<div class="form-group">
+			<label for="naziv">naziv</label>
+			<input type="text" class="form-control" id="naziv" ng-model="pravnoLice.naziv" ng-required="true">
+		</div>
+		<div class="form-group">
+			<label for="maticniBroj">maticniBroj</label>
+			<input type="text" class="form-control" id="maticniBroj" ng-model="pravnoLice.maticniBroj" ng-required="true">
+		</div>
+		<div class="form-group">
+			<label for="pib">pib</label>
+			<input type="text" class="form-control" id="pib" ng-model="pravnoLice.pib" ng-required="true">
+		</div>
+		<div class="form-group">
+			<label for="sifraPretezneDelatnosti">sifraPretezneDelatnosti</label>
+			<input type="text" class="form-control" id="sifraPretezneDelatnosti" ng-model="pravnoLice.sifraPretezneDelatnosti" ng-required="true">
+		</div>
+		<div class="form-group">
+			<label for="klasifikacija">klasifikacija</label>
+			<input type="text" class="form-control" id="klasifikacija" ng-model="pravnoLice.klasifikacija" ng-required="true">
+		</div>
+
+
+		<div class="alert alert-danger" role="alert" ng-show="errorMessage">{{errorMessage}}</div>
+
+		<button type="submit" class="btn btn-default" ng-disabled="myform.$invalid">{{buttonText}}</button>
+	</form>
+</div>
+<div class="col-md-3"></div>

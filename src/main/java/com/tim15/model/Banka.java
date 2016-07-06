@@ -164,7 +164,7 @@ public class Banka {
 		return racuni;
 	}
 
-	/** @pdGenerated default iterator getter */
+	@JsonIgnore
 	public java.util.Iterator getIteratorRacuni() {
 		if (racuni == null)
 			racuni = new java.util.HashSet<Racuni>();

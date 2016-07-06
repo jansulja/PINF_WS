@@ -1,0 +1,48 @@
+<div class="card meetings cf">
+	<h3>Pravna lica</h3>
+
+	<button type="button" class="btn btn-default"
+	ng-click="new()">Dodaj</button>
+
+	<table class="table table-striped table-bordered table-condensed table-hover">
+		<tr>
+<td>klijentId</td>
+<td>telefon</td>
+<td>email</td>
+<td>adresa</td>
+<td>password</td>
+<td>idBanka</td>
+<td>naziv</td>
+<td>maticniBroj</td>
+<td>pib</td>
+<td>sifraPretezneDelatnosti</td>
+<td>klasifikacija</td>
+<td>Opcija</td>
+			
+
+		</tr>
+		<tr ng-repeat="pravnoLice in pravnaLica track by $index ">
+			
+			<td>{{pravnoLice.klijentId}}</td>
+			<td>{{pravnoLice.telefon}}</td>
+			<td>{{pravnoLice.email}}</td>
+			<td>{{pravnoLice.adresa}}</td>
+			<td>{{pravnoLice.password}}</td>
+			<td>{{pravnoLice.idBanka}}</td>
+			<td>{{pravnoLice.naziv}}</td>
+			<td>{{pravnoLice.maticniBroj}}</td>
+			<td>{{pravnoLice.pib}}</td>
+			<td>{{pravnoLice.sifraPretezneDelatnosti}}</td>
+			<td>{{pravnoLice.klasifikacija}}</td>
+
+			
+			<td><button type="button" class="btn btn-default"
+				ng-click="remove(pravnoLice)">Obrisi</button>
+				<button type="button" class="btn btn-default"
+				ng-click="edit(pravnoLice)">Izmeni</button></td>
+
+
+			</tr>
+		</table>
+
+	</div>
