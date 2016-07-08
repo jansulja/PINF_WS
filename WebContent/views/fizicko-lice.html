@@ -1,0 +1,73 @@
+<div class="col-md-3"></div>
+<div class="col-md-6">
+
+	<div class="textintro">
+		<h1>{{title}}</h1>
+
+	</div>
+
+
+
+	<form ng-submit="save()" name="myform" novalidate>
+
+
+
+		<div class="form-group">
+			<label for="telefon">telefon</label>
+			<input type="text" class="form-control" id="telefon" ng-model="fizickoLice.telefon" ng-required="true">
+		</div>
+		<div class="form-group">
+			<label for="email">email</label>
+			<input type="text" class="form-control" id="email" ng-model="fizickoLice.email" ng-required="true">
+		</div>
+		<div class="form-group">
+			<label for="adresa">adresa</label>
+			<input type="text" class="form-control" id="adresa" ng-model="fizickoLice.adresa" ng-required="true">
+		</div>
+		<div class="form-group">
+			<label for="password">password</label>
+			<input type="text" class="form-control" id="password" ng-model="fizickoLice.password" ng-required="true">
+		</div>
+		<div class="form-group">
+			<label for="idBanka">idBanka</label>
+			<input type="text" class="form-control" id="idBanka" ng-model="fizickoLice.idBanka" ng-required="true">
+		</div>
+		
+		<div class="form-group">
+			<label for="punoIme">punoIme</label>
+			<input type="text" class="form-control" id="punoIme" ng-model="fizickoLice.punoIme" ng-required="true">
+		</div>
+		
+
+		<div class="form-group">
+			<label>datumRodjenja</label>
+			<div class="input-group">
+			<span class="input-group-btn">
+					<button type="button" class="btn btn-default" ng-click="openDatepicker($event, 'dateOpened')"><i class="glyphicon glyphicon-calendar"></i></button>
+				</span>
+				<input type="text" class="form-control" datepicker-popup="dd/MM/yyyy" ng-model="fizickoLice.datumRodjenja" is-open="dateOpened" close-text="Close" />
+				
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label for="pol">pol</label>
+			<input type="text" class="form-control" id="pol" ng-model="fizickoLice.pol" ng-required="true">
+		</div>
+		<div class="form-group">
+			<label for="registarskiBroj">registarskiBroj</label>
+			<input type="text" class="form-control" id="registarskiBroj" ng-model="fizickoLice.registarskiBroj" ng-required="true">
+		</div>
+		<div class="form-group">
+			<label for="jmbg">jmbg</label>
+			<input type="text" class="form-control" id="jmbg" ng-model="fizickoLice.jmbg" ng-required="true">
+		</div>
+
+
+
+		<div class="alert alert-danger" role="alert" ng-show="errorMessage">{{errorMessage}}</div>
+
+		<button type="submit" class="btn btn-default" ng-disabled="myform.$invalid">{{buttonText}}</button>
+	</form>
+</div>
+<div class="col-md-3"></div>

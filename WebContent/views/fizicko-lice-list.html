@@ -1,0 +1,50 @@
+<div class="card meetings cf">
+	<h3>Fizicka lica</h3>
+
+	<button type="button" class="btn btn-default"
+	ng-click="new()">Dodaj</button>
+
+	<table class="table table-striped table-bordered table-condensed table-hover">
+		<tr>
+<td>klijentId</td>
+<td>telefon</td>
+<td>email</td>
+<td>adresa</td>
+<td>password</td>
+<td>idBanka</td>
+
+<td>punoIme</td>
+<td>datumRodjenja</td>
+<td>pol</td>
+<td>registarskiBroj</td>
+<td>jmbg</td>
+<td>Opcija</td>
+			
+
+		</tr>
+		<tr ng-repeat="fizickoLice in fizickaLica track by $index ">
+			
+			<td>{{fizickoLice.klijentId}}</td>
+			<td>{{fizickoLice.telefon}}</td>
+			<td>{{fizickoLice.email}}</td>
+			<td>{{fizickoLice.adresa}}</td>
+			<td>{{fizickoLice.password}}</td>
+			<td>{{fizickoLice.idBanka}}</td>
+
+<td>{{fizickoLice.punoIme}}</td>
+<td>{{fizickoLice.datumRodjenja}}</td>
+<td>{{fizickoLice.pol}}</td>
+<td>{{fizickoLice.registarskiBroj}}</td>
+<td>{{fizickoLice.jmbg}}</td>
+			
+			
+			<td><button type="button" class="btn btn-default"
+				ng-click="remove(fizickoLice)">Obrisi</button>
+				<button type="button" class="btn btn-default"
+				ng-click="edit(fizickoLice)">Izmeni</button></td>
+
+
+			</tr>
+		</table>
+
+	</div>
