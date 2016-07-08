@@ -6,7 +6,9 @@
 
 package com.tim15.model;
 
-import java.util.Date;
+
+
+import java.sql.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,21 +18,23 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 @Entity
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Ukidanje {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ukidanje_id", unique = true)
 	private int ukidanjeId;
-	private java.util.Date datumUkidanja;
+	private Date datumUkidanja;
 	private java.lang.String sredstvaSePrenoseNaRacun;
 
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name = "racuni_id")
-	@JsonBackReference(value="racuniUkidanje")
 	private Racuni racuni;
 
 	public Ukidanje() {
@@ -53,11 +57,11 @@ public class Ukidanje {
 		this.ukidanjeId = ukidanjeId;
 	}
 
-	public java.util.Date getDatumUkidanja() {
+	public Date getDatumUkidanja() {
 		return datumUkidanja;
 	}
 
-	public void setDatumUkidanja(java.util.Date datumUkidanja) {
+	public void setDatumUkidanja(Date datumUkidanja) {
 		this.datumUkidanja = datumUkidanja;
 	}
 

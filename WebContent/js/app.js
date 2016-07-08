@@ -18,7 +18,8 @@ angular
 ,'resource.vrstePlacanja','vrste-placanja-list','vrste-placanja'
 ,'resource.dnevnoStanjeRacuna','dnevno-stanje-racuna-list','dnevno-stanje-racuna'
 ,'resource.pravnoLice','pravno-lice-list','pravno-lice'
-,'resource.fizickoLice','fizicko-lice-list','fizicko-lice'])
+,'resource.fizickoLice','fizicko-lice-list','fizicko-lice'
+,'resource.ukidanje','ukidanje-list','ukidanje'])
 
 
 
@@ -140,6 +141,14 @@ angular
 		when('/fizickoLice/:fizickoLiceId', {
 			templateUrl: 'views/fizicko-lice.html',
 			controller: 'fizicko-liceCtrl'
+		}).
+		when('/ukidanje-list', {
+			templateUrl: 'views/ukidanje-list.html',
+			controller: 'ukidanje-listCtrl'
+		}).
+		when('/ukidanje/:ukidanjeId', {
+			templateUrl: 'views/ukidanje.html',
+			controller: 'ukidanjeCtrl'
 		}).
 		otherwise({
 			redirectTo: '/login'

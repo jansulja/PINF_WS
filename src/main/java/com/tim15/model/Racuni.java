@@ -52,10 +52,9 @@ public class Racuni {
 	@JsonIgnore
 	private Set<DnevnoStanjeRacuna> dnevnoStanjeRacuna;
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "racuni", cascade = CascadeType.ALL)
-	@JsonManagedReference(value="racuniUkidanje")
-	@Fetch(FetchMode.SELECT)
-	private java.util.Collection<Ukidanje> ukidanje;
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "racuni", orphanRemoval=true)
+	@JsonIgnore
+	private Set<Ukidanje> ukidanje;
 
 	@ManyToOne(optional=false)
 	@JoinColumn(name = "banka_id")
@@ -217,7 +216,7 @@ public class Racuni {
 		this.valuta = valuta;
 	}
 
-	/** @pdGenerated default iterator getter */
+	@JsonIgnore
 	public java.util.Iterator getIteratorUkidanje() {
 		if (ukidanje == null)
 			ukidanje = new java.util.HashSet<Ukidanje>();
