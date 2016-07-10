@@ -11,7 +11,7 @@
 			<th>PTT Oznaka</th>
 			<th>Drzava</th>
 			<th>Opcija</th>
-			<th ng-if="isZoomActive()">Pick up</th>
+			<th ng-if="isZoomActive('/naseljenoMesto-list')">Pick up</th>
 			
 		</tr>
 		<tr ng-repeat="naseljenoMesto in naseljenaMesta track by $index ">
@@ -25,7 +25,7 @@
 			<button type="button" class="btn btn-default"
 					ng-click="edit(naseljenoMesto)">Izmeni</button></td>
 
-			<td ng-if="isZoomActive()">
+			<td ng-if="isZoomActive('/naseljenoMesto-list')">
 				<button ng-click="genericPickUp(naseljenoMesto,'naseljenoMesto')" type="button" class="btn btn-default" aria-label="Left Align">
 				<span class="glyphicon glyphicon-log-out" aria-hidden="true"  ></span>
 				</button>

@@ -11,10 +11,12 @@ angular.module('kurs-u-valuti',['resource.kursUValuti'])
 		//preuzimanje parametra iz URL
 		var kursUValutiId = $routeParams.kursUValutiId;
 
-		if($rootScope.savedObject){
+		var zoomInfo = $rootScope.activeZoom[$rootScope.activeZoom.length-1];
+		if(zoomInfo && zoomInfo.savedObjectName == 'kursUValuti'){
 
-			$scope.kursUValuti = $rootScope.savedObject
-			$rootScope.savedObject = undefined;
+			$scope.kursUValuti = zoomInfo.savedObject;
+			$rootScope.activeZoom.splice(-1,1);
+
 		}else{
 			KursUValuti.get({'kursUValutiId':kursUValutiId}).$promise.then(function (data) {
 				$scope.kursUValuti = data;
@@ -28,10 +30,12 @@ angular.module('kurs-u-valuti',['resource.kursUValuti'])
 		$scope.title = "Dodavanje"
 		$scope.buttonText = "Dodaj"
 
-		if($rootScope.savedObject){
+			var zoomInfo = $rootScope.activeZoom[$rootScope.activeZoom.length-1];
+		if(zoomInfo && zoomInfo.savedObjectName == 'kursUValuti'){
 
-			$scope.kursUValuti = $rootScope.savedObject;
-			$rootScope.savedObject = undefined;
+			$scope.kursUValuti = zoomInfo.savedObject;
+			$rootScope.activeZoom.splice(-1,1);
+
 		}else{
 			$scope.kursUValuti = new KursUValuti();
 		}

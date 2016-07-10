@@ -11,7 +11,7 @@
 			<td>prometNaTeret</td>
 			<td>novoStanje</td>
 			<td>Opcija</td>
-			
+			<th ng-if="isZoomActive('/dnevnoStanjeRacuna-list')">Pick up</th>
 		</tr>
 		<tr ng-repeat="dnevnoStanjeRacuna in dnevnaStanjaRacuna track by $index ">
 			
@@ -26,6 +26,11 @@
 				ng-click="remove(dnevnoStanjeRacuna)">Obrisi</button>
 				<button type="button" class="btn btn-default"
 				ng-click="edit(dnevnoStanjeRacuna)">Izmeni</button></td>
+			<td ng-if="isZoomActive('/dnevnoStanjeRacuna-list')">
+				<button ng-click="genericPickUp(dnevnoStanjeRacuna,'dnevnoStanjeRacuna')" type="button" class="btn btn-default" aria-label="Left Align">
+				<span class="glyphicon glyphicon-log-out" aria-hidden="true"  ></span>
+				</button>
+			</td>
 			</tr>
 		</table>
 	</div>

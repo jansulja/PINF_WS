@@ -3,7 +3,6 @@ package com.tim15.service;
 import java.util.List;
 
 import javax.ejb.EJB;
-import javax.persistence.criteria.CriteriaBuilder.In;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -19,7 +18,10 @@ import javax.ws.rs.core.Response.Status;
 import org.apache.log4j.Logger;
 
 import com.tim15.model.Racuni;
+import com.tim15.sessionbeans.BankaDaoLocal;
+import com.tim15.sessionbeans.KlijentDaoLocal;
 import com.tim15.sessionbeans.RacuniDaoLocal;
+import com.tim15.sessionbeans.ValutaDaoLocal;
 
 
 
@@ -28,6 +30,15 @@ public class RacuniService {
 
 	@EJB
 	private RacuniDaoLocal racuniDao;
+
+	@EJB
+	private KlijentDaoLocal klijentDao;
+
+	@EJB
+	private BankaDaoLocal bankaDao;
+
+	@EJB
+	private ValutaDaoLocal valutaDao;
 
 
 	private static Logger log = Logger.getLogger(RacuniService.class);
@@ -77,9 +88,12 @@ public class RacuniService {
     @Produces(MediaType.APPLICATION_JSON)
     public Racuni update(Racuni entity) {
 
+		Racuni racuni = racuniDao.findById(entity.getRacuniId());
+		racuni.setAll(entity.getBrojRacuna(), entity.getDatumOtvaranja(), entity.isVazeci(), entity.getStanje(), klijentDao.findById(entity.getKlijent().getKlijentId()), bankaDao.findById(entity.getBanka().getBankaId()), valutaDao.findById(entity.getValuta().getValutaId()));
+
     	Racuni retVal = null;
         try {
-        	retVal = racuniDao.merge(entity);
+        	retVal = racuniDao.merge(racuni);
         } catch (Exception e) {
 			log.error(e.getMessage(), e);
 		}

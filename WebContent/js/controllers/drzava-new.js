@@ -4,14 +4,14 @@ angular.module('drzava-new',['resource.drzava'])
 
 .controller('drzava-newCtrl', function(Drzava,$scope, $rootScope, $routeParams, $log, $location, $q, $http){
 
-	if($routeParams.sifraDrzave!='new'){
+	if($routeParams.drzavaId!='new'){
 
 		$scope.title = "Izmena"
 		$scope.buttonText = "Izmeni"
 		//preuzimanje parametra iz URL
-		var sifraDrzave = $routeParams.sifraDrzave;
+		var drzavaId = $routeParams.drzavaId;
 
-		Drzava.get({'drzavaId':sifraDrzave}).$promise.then(function (data) {
+		Drzava.get({'drzavaId':drzavaId}).$promise.then(function (data) {
 			$scope.drzava = data;
 		});
 	}
@@ -25,9 +25,9 @@ angular.module('drzava-new',['resource.drzava'])
 
 
 	$scope.save = function () {
-		if($scope.drzava.sifraDrzave){
+		if($scope.drzava.drzavaId){
 			//zbog cega redirekcija ide na callback?
-			$scope.drzava.$update({drzavaId:$scope.drzava.sifraDrzave},function () {
+			$scope.drzava.$update({drzavaId:$scope.drzava.drzavaId},function () {
 				$location.path('/drzava-list');
 			});
 		}

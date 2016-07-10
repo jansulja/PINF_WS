@@ -19,6 +19,7 @@ import javax.ws.rs.core.Response.Status;
 import org.apache.log4j.Logger;
 
 import com.tim15.model.Valuta;
+import com.tim15.sessionbeans.DrzavaDaoLocal;
 import com.tim15.sessionbeans.ValutaDaoLocal;
 
 
@@ -28,6 +29,9 @@ public class ValutaService {
 
 	@EJB
 	private ValutaDaoLocal valutaDao;
+
+	@EJB
+	private DrzavaDaoLocal drzavaDao;
 
 
 	private static Logger log = Logger.getLogger(ValutaService.class);
@@ -77,9 +81,12 @@ public class ValutaService {
     @Produces(MediaType.APPLICATION_JSON)
     public Valuta update(Valuta entity) {
 
+		Valuta valuta = valutaDao.findById(entity.getValutaId());
+		valuta.setAll(entity.getZvanicnaSifra(), entity.getNaziv(), entity.isDomicilna(), drzavaDao.findById(entity.getDrzava().getDrzavaId()));
+
     	Valuta retVal = null;
         try {
-        	retVal = valutaDao.merge(entity);
+        	retVal = valutaDao.merge(valuta);
         } catch (Exception e) {
 			log.error(e.getMessage(), e);
 		}

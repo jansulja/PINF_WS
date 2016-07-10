@@ -13,10 +13,12 @@ angular.module('kursna-lista',['resource.kursnaLista'])
 		//preuzimanje parametra iz URL
 		var kursnaListaId = $routeParams.kursnaListaId;
 
-		if($rootScope.savedObject){
+		var zoomInfo = $rootScope.activeZoom[$rootScope.activeZoom.length-1];
+		if(zoomInfo && zoomInfo.savedObjectName == 'kursnaLista'){
 
-			$scope.kursnaLista = $rootScope.savedObject
-			$rootScope.savedObject = undefined;
+			$scope.kursnaLista = zoomInfo.savedObject;
+			$rootScope.activeZoom.splice(-1,1);
+
 		}else{
 			KursnaLista.get({'kursnaListaId':kursnaListaId}).$promise.then(function (data) {
 				$scope.kursnaLista = data;
@@ -30,10 +32,12 @@ angular.module('kursna-lista',['resource.kursnaLista'])
 		$scope.title = "Dodavanje"
 		$scope.buttonText = "Dodaj"
 
-		if($rootScope.savedObject){
+			var zoomInfo = $rootScope.activeZoom[$rootScope.activeZoom.length-1];
+		if(zoomInfo && zoomInfo.savedObjectName == 'kursnaLista'){
 
-			$scope.kursnaLista = $rootScope.savedObject;
-			$rootScope.savedObject = undefined;
+			$scope.kursnaLista = zoomInfo.savedObject;
+			$rootScope.activeZoom.splice(-1,1);
+
 		}else{
 			$scope.kursnaLista = new KursnaLista();
 		}

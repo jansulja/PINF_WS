@@ -6,9 +6,8 @@
 
 package com.tim15.model;
 
-import java.util.Collection;
+import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -20,14 +19,15 @@ import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
-
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 @Entity
 @Table(name = "klijent")
 @Inheritance(strategy = InheritanceType.JOINED)
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Klijent {
 
 	@Id
@@ -40,10 +40,8 @@ public class Klijent {
 	private java.lang.String password;
 	private Integer idBanka;
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "klijent", cascade = CascadeType.ALL)
-	@JsonManagedReference(value="klijentRacuni")
-	@Fetch(FetchMode.SELECT)
-	private java.util.Collection<Racuni> racuni;
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "klijent", orphanRemoval=true)
+	private Set<Racuni> racuni;
 
 	public Klijent() {
 		super();
@@ -51,7 +49,7 @@ public class Klijent {
 	}
 
 	public Klijent(String telefon, String email, String adresa, String password, Integer idBanka,
-			Collection<Racuni> racuni) {
+			Set<Racuni> racuni) {
 		super();
 		this.telefon = telefon;
 		this.email = email;
@@ -117,57 +115,59 @@ public class Klijent {
 				+ ", password=" + password + ", racuni=" + racuni + "]";
 	}
 
-	/** @pdGenerated default getter */
-	// public java.util.Collection<Racuni> getRacuni() {
-	// if (racuni == null)
-	// racuni = new java.util.HashSet<Racuni>();
-	// return racuni;
-	// }
-	//
-	// /** @pdGenerated default iterator getter */
-	// public java.util.Iterator getIteratorRacuni() {
-	// if (racuni == null)
-	// racuni = new java.util.HashSet<Racuni>();
-	// return racuni.iterator();
-	// }
+	@JsonIgnore
+	 public java.util.Collection<Racuni> getRacuni() {
+	 if (racuni == null)
+	 racuni = new java.util.HashSet<Racuni>();
+	 return racuni;
+	 }
+
+	 @JsonIgnore
+	 public java.util.Iterator getIteratorRacuni() {
+	 if (racuni == null)
+	 racuni = new java.util.HashSet<Racuni>();
+	 return racuni.iterator();
+	 }
 
 	/**
 	 * @pdGenerated default setter
 	 * @param newRacuni
 	 */
-	// public void setRacuni(java.util.Collection<Racuni> newRacuni) {
-	// removeAllRacuni();
-	// for (java.util.Iterator iter = newRacuni.iterator(); iter.hasNext();)
-	// addRacuni((Racuni)iter.next());
-	// }
+	 public void setRacuni(java.util.Collection<Racuni> newRacuni) {
+	 removeAllRacuni();
+	 for (java.util.Iterator iter = newRacuni.iterator(); iter.hasNext();)
+	 addRacuni((Racuni)iter.next());
+	 }
+
+
 
 	/**
 	 * @pdGenerated default add
 	 * @param newRacuni
 	 */
-	// public void addRacuni(Racuni newRacuni) {
-	// if (newRacuni == null)
-	// return;
-	// if (this.racuni == null)
-	// this.racuni = new java.util.HashSet<Racuni>();
-	// if (!this.racuni.contains(newRacuni))
-	// this.racuni.add(newRacuni);
-	// }
-	//
-	// /** @pdGenerated default remove
-	// * @param oldRacuni */
-	// public void removeRacuni(Racuni oldRacuni) {
-	// if (oldRacuni == null)
-	// return;
-	// if (this.racuni != null)
-	// if (this.racuni.contains(oldRacuni))
-	// this.racuni.remove(oldRacuni);
-	// }
-	//
-	// /** @pdGenerated default removeAll */
-	// public void removeAllRacuni() {
-	// if (racuni != null)
-	// racuni.clear();
-	// }
+	 public void addRacuni(Racuni newRacuni) {
+	 if (newRacuni == null)
+	 return;
+	 if (this.racuni == null)
+	 this.racuni = new java.util.HashSet<Racuni>();
+	 if (!this.racuni.contains(newRacuni))
+	 this.racuni.add(newRacuni);
+	 }
+
+	 /** @pdGenerated default remove
+	 * @param oldRacuni */
+	 public void removeRacuni(Racuni oldRacuni) {
+	 if (oldRacuni == null)
+	 return;
+	 if (this.racuni != null)
+	 if (this.racuni.contains(oldRacuni))
+	 this.racuni.remove(oldRacuni);
+	 }
+
+	 /** @pdGenerated default removeAll */
+	 public void removeAllRacuni() {
+	 if (racuni != null)
+	 racuni.clear();
+	 }
 
 }

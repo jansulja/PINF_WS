@@ -11,7 +11,7 @@
 			<th>Sredstva se prenose na racun</th>
 			<th>Racun</th>
 			<th>Opcija</th>			
-			<th ng-if="isZoomActive()">Pick up</th>
+			<th ng-if="isZoomActive('/ukidanje-list')">Pick up</th>
 		</tr>
 		<tr ng-repeat="ukidanje in ukidanja track by $index ">
 			<td>{{ukidanje.ukidanjeId}}</td>
@@ -26,7 +26,7 @@
 					ng-click="edit(ukidanje)">Izmeni</button></td>
 
 
-			<td ng-if="isZoomActive()">
+			<td ng-if="isZoomActive('/ukidanje-list')">
 				<button ng-click="genericPickUp(ukidanje,'ukidanje')" type="button" class="btn btn-default" aria-label="Left Align">
 				<span class="glyphicon glyphicon-log-out" aria-hidden="true"  ></span>
 				</button>

@@ -18,6 +18,7 @@ import javax.ws.rs.core.Response.Status;
 import org.apache.log4j.Logger;
 
 import com.tim15.model.Klijent;
+import com.tim15.model.Drzava;
 import com.tim15.model.FizickoLice;
 import com.tim15.model.Klijent;
 import com.tim15.model.PravnoLice;
@@ -100,6 +101,23 @@ public class KlijentService {
 		}
 		return response;
 	}
+
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Klijent> findAll() {
+		return klijentDao.findAll();
+	}
+
+
+
+
+
+
+
+
+
+
+
 
 
 

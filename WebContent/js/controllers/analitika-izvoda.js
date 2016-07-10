@@ -13,13 +13,16 @@ angular.module('analitika-izvoda',['resource.analitikaIzvoda'])
 		//preuzimanje parametra iz URL
 		var analitikaIzvodaId = $routeParams.analitikaIzvodaId;
 
-		if($rootScope.savedObject){
+		var zoomInfo = $rootScope.activeZoom[$rootScope.activeZoom.length-1];
+		if(zoomInfo && zoomInfo.savedObjectName == 'analitikaIzvoda'){
 
-			$scope.analitikaIzvoda = $rootScope.savedObject
-			$rootScope.savedObject = undefined;
+			$scope.analitikaIzvoda = zoomInfo.savedObject;
+			$rootScope.activeZoom.splice(-1,1);
+
 		}else{
 			AnalitikaIzvoda.get({'analitikaIzvodaId':analitikaIzvodaId}).$promise.then(function (data) {
 				$scope.analitikaIzvoda = data;
+
 			});
 		}
 
@@ -30,10 +33,13 @@ angular.module('analitika-izvoda',['resource.analitikaIzvoda'])
 		$scope.title = "Dodavanje"
 		$scope.buttonText = "Dodaj"
 
-		if($rootScope.savedObject){
 
-			$scope.analitikaIzvoda = $rootScope.savedObject;
-			$rootScope.savedObject = undefined;
+			var zoomInfo = $rootScope.activeZoom[$rootScope.activeZoom.length-1];
+		if(zoomInfo && zoomInfo.savedObjectName == 'analitikaIzvoda'){
+
+			$scope.analitikaIzvoda = zoomInfo.savedObject;
+			$rootScope.activeZoom.splice(-1,1);
+
 		}else{
 			$scope.analitikaIzvoda = new AnalitikaIzvoda();
 		}

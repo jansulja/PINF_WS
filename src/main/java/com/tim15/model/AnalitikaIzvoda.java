@@ -48,9 +48,8 @@ public class AnalitikaIzvoda {
 	private double tipGreske = 1;
 	private java.lang.String status;
 
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name = "dnevno_stanje_racuna_id")
-	@JsonBackReference(value="dnevnoStanjeRacunaAnalitikaIzvoda")
 	private DnevnoStanjeRacuna dnevnoStanjeRacuna;
 
 	@ManyToOne(optional=false)
@@ -59,7 +58,6 @@ public class AnalitikaIzvoda {
 
 	@ManyToOne(optional=false)
 	@JoinColumn(name = "naseljenomesto_id")
-//	@JsonBackReference("naseljenoMestoAnalitikaIzvoda")
 	private NaseljenoMesto naseljenoMesto;
 
 	@ManyToOne(optional=false)

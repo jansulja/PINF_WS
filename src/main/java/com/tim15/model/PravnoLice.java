@@ -26,22 +26,6 @@ public class PravnoLice extends Klijent {
 		// TODO Auto-generated constructor stub
 	}
 
-	public PravnoLice(String telefon, String email, String adresa, String password, Integer idBanka,
-			Collection<Racuni> racuni, String naziv, double maticniBroj, double pib, String sifraPretezneDelatnosti,
-			String klasifikacija) {
-		super(telefon, email, adresa, password, idBanka, racuni);
-		this.naziv = naziv;
-		this.maticniBroj = maticniBroj;
-		this.pib = pib;
-		this.sifraPretezneDelatnosti = sifraPretezneDelatnosti;
-		this.klasifikacija = klasifikacija;
-	}
-
-	public PravnoLice(String telefon, String email, String adresa, String password, Integer idBanka,
-			Collection<Racuni> racuni) {
-		super(telefon, email, adresa, password, idBanka, racuni);
-		// TODO Auto-generated constructor stub
-	}
 
 	public java.lang.String getNaziv() {
 		return naziv;
@@ -88,6 +72,19 @@ public class PravnoLice extends Klijent {
 		return "PravnoLice [naziv=" + naziv + ", maticniBroj=" + maticniBroj + ", pib=" + pib
 				+ ", sifraPretezneDelatnosti=" + sifraPretezneDelatnosti + ", klasifikacija=" + klasifikacija
 				+ ", toString()=" + super.toString() + "]";
+	}
+
+	public void setAll(PravnoLice pravnoLice) {
+		super.setTelefon(pravnoLice.getTelefon());
+		super.setAdresa(pravnoLice.getAdresa());
+		super.setEmail(pravnoLice.getEmail());
+		super.setIdBanka(pravnoLice.getIdBanka());
+		super.setTelefon(pravnoLice.getTelefon());
+		this.klasifikacija = pravnoLice.klasifikacija;
+		this.maticniBroj = pravnoLice.maticniBroj;
+		this.naziv = pravnoLice.naziv;
+		this.pib = pravnoLice.pib;
+		this.sifraPretezneDelatnosti = pravnoLice.sifraPretezneDelatnosti;
 	}
 
 }

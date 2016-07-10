@@ -11,10 +11,12 @@ angular.module('naseljeno-mesto',['resource.naseljenoMesto'])
 		//preuzimanje parametra iz URL
 		var naseljenoMestoId = $routeParams.naseljenoMestoId;
 
-		if($rootScope.savedObject){
+		var zoomInfo = $rootScope.activeZoom[$rootScope.activeZoom.length-1];
+		if(zoomInfo && zoomInfo.savedObjectName == 'naseljenoMesto'){
 
-			$scope.naseljenoMesto = $rootScope.savedObject
-			$rootScope.savedObject = undefined;
+			$scope.naseljenoMesto = zoomInfo.savedObject;
+			$rootScope.activeZoom.splice(-1,1);
+
 		}else{
 			NaseljenoMesto.get({'naseljenoMestoId':naseljenoMestoId}).$promise.then(function (data) {
 				$scope.naseljenoMesto = data;
@@ -28,11 +30,13 @@ angular.module('naseljeno-mesto',['resource.naseljenoMesto'])
 		$scope.title = "Dodavanje"
 		$scope.buttonText = "Dodaj"
 
-		if($rootScope.savedObject){
+			var zoomInfo = $rootScope.activeZoom[$rootScope.activeZoom.length-1];
+			if(zoomInfo && zoomInfo.savedObjectName == 'naseljenoMesto'){
 
-			$scope.naseljenoMesto = $rootScope.savedObject;
-			$rootScope.savedObject = undefined;
-		}else{
+				$scope.naseljenoMesto = zoomInfo.savedObject;
+				$rootScope.activeZoom.splice(-1,1);
+
+			}else{
 			$scope.naseljenoMesto = new NaseljenoMesto();
 		}
 
@@ -70,7 +74,7 @@ angular.module('naseljeno-mesto',['resource.naseljenoMesto'])
 		}
 
 
-		$rootScope.genericZoom($rootScope.savedObject,'/drzava-list',pathToReturn)
+		$rootScope.genericZoom($rootScope[$rootScope.savedObjectName],'/drzava-list',pathToReturn)
 
 	}
 

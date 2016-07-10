@@ -42,6 +42,17 @@
 			</div>
 		</div>
 		
+		<div class="form-group">
+			<label for="bankaId">Sifra banke</label>
+			<div class="form-inline">
+					<input ng-click="errorMessage = undefined" type="text" class="form-control" id="bankaId" ng-model="kursnaLista.banka.bankaId" ng-required="true">
+					
+					<button type="button" class="btn btn-default" aria-label="Left Align" ng-click="genericZoom(kursnaLista,'kursnaLista','/banka-list','/kursnaLista/','kursnaListaId')">
+						<span class="glyphicon glyphicon-option-horizontal" aria-hidden="true"></span>
+					</button>
+			</div>
+		</div>
+		
 
 		<div class="alert alert-danger" role="alert" ng-show="errorMessage">{{errorMessage}}</div>
 

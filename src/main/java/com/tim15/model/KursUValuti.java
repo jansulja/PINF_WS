@@ -31,14 +31,11 @@ public class KursUValuti {
 	private double srednji = 0;
 	private double prodajni = 0;
 	@ManyToOne(optional=false)
-	//@JoinColumn(name = "valuta_id",insertable = false,updatable = false)
 	@PrimaryKeyJoinColumn(name="valuta_osnovna_id", referencedColumnName="valuta_id")
-	//@JsonBackReference(value="valutaOsnovnaKursUValuti")
 	private Valuta valutaOsnovna;
 
 	@ManyToOne(optional=false)
 	@PrimaryKeyJoinColumn(name="valuta_prema_id", referencedColumnName="valuta_id")
-	//@JsonBackReference(value="valutaPremaKursUValuti")
 	private Valuta valutaPrema;
 
 	@ManyToOne(optional=false)

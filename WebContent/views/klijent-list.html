@@ -1,0 +1,43 @@
+<div class="card meetings cf">
+	<h3>Klijenti</h3>
+
+<!-- 	<button type="button" class="btn btn-default" -->
+<!-- 	ng-click="new()">Dodaj</button> -->
+
+	<table class="table table-striped table-bordered table-condensed table-hover">
+		<tr>
+			<td>klijentId</td>
+			<td>telefon</td>
+			<td>email</td>
+			<td>adresa</td>
+			<td>password</td>
+			<td>idBanka</td>
+
+		
+<!-- 			<td>Opcija</td> -->
+			<th ng-if="isZoomActive('/klijent-list')">Pick up</th>
+
+		</tr>
+		<tr ng-repeat="klijent in klijenti track by $index ">
+			
+			<td>{{klijent.klijentId}}</td>
+			<td>{{klijent.telefon}}</td>
+			<td>{{klijent.email}}</td>
+			<td>{{klijent.adresa}}</td>
+			<td>{{klijent.password}}</td>
+			<td>{{klijent.idBanka}}</td>
+	
+<!-- 			<td><button type="button" class="btn btn-default" -->
+<!-- 				ng-click="remove(klijent)">Obrisi</button> -->
+<!-- 				<button type="button" class="btn btn-default" -->
+<!-- 				ng-click="edit(klijent)">Izmeni</button></td> -->
+
+<td ng-if="isZoomActive('/klijent-list')">
+				<button ng-click="genericPickUp(klijent,'klijent')" type="button" class="btn btn-default" aria-label="Left Align">
+				<span class="glyphicon glyphicon-log-out" aria-hidden="true"  ></span>
+				</button>
+			</td>
+			</tr>
+		</table>
+
+	</div>

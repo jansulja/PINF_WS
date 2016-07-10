@@ -1,5 +1,5 @@
 <div class="card meetings cf">
-	<h3>Valute</h3>
+	<h3>Racuni</h3>
 
 	<button type="button" class="btn btn-default"
 					ng-click="new()">Dodaj</button>
@@ -14,7 +14,7 @@
 			<td>vazeci</td>
 			<td>stanje</td>
 			<th>Opcija</th>
-			<th ng-if="isZoomActive()">Pick up</th>
+			<th ng-if="isZoomActive('/racuni-list')">Pick up</th>
 		</tr>
 		<tr ng-repeat="racuni in racunii track by $index ">
 
@@ -31,7 +31,7 @@
 					ng-click="edit(racuni)">Izmeni</button></td>
 
 
-			<td ng-if="isZoomActive()">
+			<td ng-if="isZoomActive('/racuni-list')">
 				<button ng-click="genericPickUp(racuni,'racuni')" type="button" class="btn btn-default" aria-label="Left Align">
 				<span class="glyphicon glyphicon-log-out" aria-hidden="true"  ></span>
 				</button>

@@ -44,7 +44,6 @@ public class Valuta {
 
 	@ManyToOne(optional=false)
 	@JoinColumn(name = "drzava_id")
-//	@JsonBackReference(value="drzavaValuta")
 	private Drzava drzava;
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "valutaOsnovna", orphanRemoval=true)
@@ -57,8 +56,6 @@ public class Valuta {
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "valuta", orphanRemoval=true)
 	@JsonIgnore
-//	@JsonManagedReference(value="valutaRacuni")
-//	@Fetch(FetchMode.SELECT)
 	private Set<Racuni> racuni;
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "valuta", orphanRemoval=true)
@@ -196,7 +193,7 @@ public class Valuta {
 			racuni.clear();
 	}
 
-	/** @pdGenerated default getter */
+	@JsonIgnore
 	public java.util.Collection<AnalitikaIzvoda> getAnalitikaIzvoda() {
 		if (analitikaIzvoda == null)
 			analitikaIzvoda = new java.util.HashSet<AnalitikaIzvoda>();
@@ -251,5 +248,16 @@ public class Valuta {
 		if (analitikaIzvoda != null)
 			analitikaIzvoda.clear();
 	}
+
+	public void setAll(String zvanicnaSifra, String naziv, boolean domicilna, Drzava drzava) {
+
+		this.zvanicnaSifra = zvanicnaSifra;
+		this.naziv = naziv;
+		this.domicilna = domicilna;
+		this.drzava = drzava;
+
+	}
+
+
 
 }

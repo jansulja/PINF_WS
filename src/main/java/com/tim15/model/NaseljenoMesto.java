@@ -34,21 +34,16 @@ public class NaseljenoMesto implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "naseljenomesto_id", unique = true)
-	//@JsonProperty(value = "naseljenoMestoId")
-	//@JsonIgnore
 	private int naseljenoMestoId;
 	private java.lang.String naziv;
 	private java.lang.String pTToznaka;
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "naseljenoMesto", orphanRemoval=true)
-//	@JsonManagedReference(value="naseljenoMestoAnalitikaIzvoda")
-//	@Fetch(FetchMode.SELECT) //Solved cannot simultaniously fetch multiple bags
 	@JsonIgnore
 	private Set<AnalitikaIzvoda> analitikaIzvoda;
 
 	@ManyToOne(optional=false)
 	@JoinColumn(name = "drzava_id")
-	//@JsonBackReference(value="drzavaNaseljenoMesto")
 	private Drzava drzava;
 
 	public NaseljenoMesto() {

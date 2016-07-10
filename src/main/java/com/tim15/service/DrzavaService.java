@@ -77,9 +77,12 @@ public class DrzavaService {
     @Produces(MediaType.APPLICATION_JSON)
     public Drzava update(Drzava entity) {
 
+		Drzava drzava = drzavaDao.findById(entity.getDrzavaId());
+		drzava.setNazivDrzave(entity.getNazivDrzave());
+
     	Drzava retVal = null;
         try {
-        	retVal = drzavaDao.merge(entity);
+        	retVal = drzavaDao.merge(drzava);
         } catch (Exception e) {
 			log.error(e.getMessage(), e);
 		}

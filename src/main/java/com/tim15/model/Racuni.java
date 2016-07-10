@@ -43,9 +43,8 @@ public class Racuni {
 	private boolean vazeci = false;
 	private double stanje;
 
-	@ManyToOne
+	@ManyToOne(optional=false)
 	@JoinColumn(name = "klijent_id")
-	@JsonBackReference(value="klijentRacuni")
 	private Klijent klijent;
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "racuni", orphanRemoval=true)
@@ -130,7 +129,7 @@ public class Racuni {
 
 	}
 
-	/** @pdGenerated default getter */
+	@JsonIgnore
 	public java.util.Collection<DnevnoStanjeRacuna> getDnevnoStanjeRacuna() {
 		if (dnevnoStanjeRacuna == null)
 			dnevnoStanjeRacuna = new java.util.HashSet<DnevnoStanjeRacuna>();
@@ -185,7 +184,7 @@ public class Racuni {
 			dnevnoStanjeRacuna.clear();
 	}
 
-	/** @pdGenerated default getter */
+	@JsonIgnore
 	public java.util.Collection<Ukidanje> getUkidanje() {
 		if (ukidanje == null)
 			ukidanje = new java.util.HashSet<Ukidanje>();
@@ -263,5 +262,18 @@ public class Racuni {
 		if (ukidanje != null)
 			ukidanje.clear();
 	}
+
+	public void setAll(String brojRacuna, Date datumOtvaranja, boolean vazeci, double stanje, Klijent klijent, Banka banka, Valuta valuta) {
+
+		this.brojRacuna = brojRacuna;
+		this.datumOtvaranja = datumOtvaranja;
+		this.vazeci = vazeci;
+		this.stanje = stanje;
+		this.klijent = klijent;
+		this.banka = banka;
+		this.valuta = valuta;
+	}
+
+
 
 }

@@ -15,7 +15,7 @@ angular.module('drzava-list',['resource.drzava'])
 
 	$scope.edit = function(drzava){
 
-		$location.path('drzava-new/' + drzava.sifraDrzave);
+		$location.path('drzava-new/' + drzava.drzavaId);
 
 	}
 

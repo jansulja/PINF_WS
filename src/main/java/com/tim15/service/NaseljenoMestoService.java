@@ -19,6 +19,7 @@ import org.apache.log4j.Logger;
 
 import com.tim15.model.Drzava;
 import com.tim15.model.NaseljenoMesto;
+import com.tim15.sessionbeans.DrzavaDaoLocal;
 import com.tim15.sessionbeans.NaseljenoMestoDaoLocal;
 
 
@@ -29,7 +30,8 @@ public class NaseljenoMestoService {
 	@EJB
 	private NaseljenoMestoDaoLocal naseljenoMestoDao;
 
-
+	@EJB
+	private DrzavaDaoLocal drzavaDao;
 
 	private static Logger log = Logger.getLogger(NaseljenoMestoService.class);
 
@@ -85,16 +87,25 @@ public class NaseljenoMestoService {
     }
 
 
+
 	@PUT
     @Path("{naseljenoMestiId}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public NaseljenoMesto update(NaseljenoMesto entity ) {
 
+
+
     	NaseljenoMesto retVal = null;
+
+    	NaseljenoMesto naseljenoMesto = naseljenoMestoDao.findById(entity.getNaseljenoMestoId());
+    	naseljenoMesto.setNaziv(entity.getNaziv());
+    	naseljenoMesto.setpTToznaka(entity.getpTToznaka());
+    	naseljenoMesto.setDrzava(drzavaDao.findById(entity.getDrzava().getDrzavaId()));
+
         try {
         	//entity.setNaseljenoMestoId(id);
-        	retVal = naseljenoMestoDao.merge(entity);
+        	retVal = naseljenoMestoDao.merge(naseljenoMesto);
         } catch (Exception e) {
 			log.error(e.getMessage(), e);
 		}

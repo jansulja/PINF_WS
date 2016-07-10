@@ -18,6 +18,7 @@
 <td>sifraPretezneDelatnosti</td>
 <td>klasifikacija</td>
 <td>Opcija</td>
+<th ng-if="isZoomActive('/pravnoLice-list')">Pick up</th>
 			
 
 		</tr>
@@ -40,6 +41,12 @@
 				ng-click="remove(pravnoLice)">Obrisi</button>
 				<button type="button" class="btn btn-default"
 				ng-click="edit(pravnoLice)">Izmeni</button></td>
+
+<td ng-if="isZoomActive('/pravnoLice-list')">
+				<button ng-click="genericPickUp(pravnoLice,'pravnoLice')" type="button" class="btn btn-default" aria-label="Left Align">
+				<span class="glyphicon glyphicon-log-out" aria-hidden="true"  ></span>
+				</button>
+			</td>
 
 
 			</tr>

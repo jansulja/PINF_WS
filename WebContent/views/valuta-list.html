@@ -12,7 +12,7 @@
 			<th>Zvanicna Sifra</th>
 			<th>Drzava</th>
 			<th>Opcija</th>
-			<th ng-if="isZoomActive()">Pick up</th>
+			<th ng-if="isZoomActive('/valuta-list')">Pick up</th>
 		</tr>
 		<tr ng-repeat="valuta in valute track by $index ">
 			<td>{{valuta.valutaId}}</td>
@@ -27,7 +27,7 @@
 					ng-click="edit(valuta)">Izmeni</button></td>
 
 
-			<td ng-if="isZoomActive()">
+			<td ng-if="isZoomActive('/valuta-list')">
 				<button ng-click="genericPickUp(valuta,'valuta')" type="button" class="btn btn-default" aria-label="Left Align">
 				<span class="glyphicon glyphicon-log-out" aria-hidden="true"  ></span>
 				</button>

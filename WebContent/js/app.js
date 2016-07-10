@@ -5,7 +5,6 @@ angular
 .module('myApp', [
 'ngRoute',
 'ngResource',
-'ngRoute',
 'ui.bootstrap',
 'registration',
 'success','drzava-list','resource.drzava','drzava-new','resource.valuta','valuta-list','valuta'
@@ -19,7 +18,8 @@ angular
 ,'resource.dnevnoStanjeRacuna','dnevno-stanje-racuna-list','dnevno-stanje-racuna'
 ,'resource.pravnoLice','pravno-lice-list','pravno-lice'
 ,'resource.fizickoLice','fizicko-lice-list','fizicko-lice'
-,'resource.ukidanje','ukidanje-list','ukidanje'])
+,'resource.ukidanje','ukidanje-list','ukidanje'
+,'resource.klijent','klijent-list'])
 
 
 
@@ -33,7 +33,7 @@ angular
 			templateUrl: 'views/register.html',
 			controller: 'RegistrationController'
 		}).
-		when('/drzava-new/:sifraDrzave',{
+		when('/drzava-new/:drzavaId',{
 			templateUrl: 'views/drzava-new.html',
 			controller: 'drzava-newCtrl'
 		}).
@@ -150,35 +150,57 @@ angular
 			templateUrl: 'views/ukidanje.html',
 			controller: 'ukidanjeCtrl'
 		}).
+		when('/klijent-list', {
+			templateUrl: 'views/klijent-list.html',
+			controller: 'klijent-listCtrl'
+		}).
 		otherwise({
 			redirectTo: '/login'
 		});
 }).run(function($rootScope,$location,$routeParams) {
-	$rootScope.isZoomActive = function(){
+
+	$rootScope.activeZoom = [];
+
+	$rootScope.isZoomActive = function(path){
 
 		var zoom = false;
+		var zoomInfo = $rootScope.activeZoom[$rootScope.activeZoom.length-1];
 
-		if($rootScope.zoom){
-			zoom = true;
+		if(zoomInfo){
+			if(zoomInfo.zoom = true && path == zoomInfo.pickUpPath){
+
+				zoom = true;
+
+			}
 		}
 
 		return zoom;
+
+
 
 	}
 
 	$rootScope.genericPickUp = function(pickUpObject,propertyName){
 
-		if($rootScope.propertyName){
-			propertyName = $rootScope.propertyName;
+
+		var zoomInfo = $rootScope.activeZoom[$rootScope.activeZoom.length-1];
+
+		if(zoomInfo.propertyName){
+			propertyName = zoomInfo.propertyName;
 		}
 
-		$rootScope.assign($rootScope.savedObject,propertyName,pickUpObject)
+		$rootScope.assign($rootScope.activeZoom[$rootScope.activeZoom.length-1].savedObject,propertyName,pickUpObject)
 
-		$rootScope.zoom = false;
+//		$rootScope.savedObjectName.splice(-1,1);
+//
+//		console.log($routeParams);
+//		//$rootScope.zoom[$rootScope.savedObjectName[$rootScope.savedObjectName.length-1]] = false;
 
 
 
-		$location.path($rootScope.returnPath);
+
+
+		$location.path(zoomInfo.returnPath);
 	}
 
 	$rootScope.assign = function (obj, prop, value) {
@@ -196,14 +218,30 @@ angular
 	    } else
 	        obj[prop[0]] = value;
 	}
+	//prop name optional
+	$rootScope.genericZoom = function(savedObject,savedObjectName,pickUpPath,returnPath,id,propertyName){
 
-	$rootScope.genericZoom = function(savedObject,pickUpPath,returnPath,id,propertyName){
+
+			var zoomInfo = { 'propertyName':propertyName,'savedObject':savedObject,
+					'savedObjectName':savedObjectName,'pickUpPath':pickUpPath,'returnPath':returnPath+$routeParams[id],
+					'id':id,'zoom':true};
 
 
-			$rootScope.propertyName = propertyName;
-			$rootScope.zoom = true;
-			$rootScope.savedObject = savedObject;
-			$rootScope.returnPath = returnPath + $routeParams[id];
+
+			$rootScope.activeZoom.push(zoomInfo);
+//			$rootScope.propertyName = propertyName;
+//			$rootScope.assign($rootScope.zoom,pickUpPath,true);
+//			if($rootScope.savedObjectName == null){
+//				$rootScope.savedObjectName = [];
+//				$rootScope.savedObjectName.push(savedObjectName);
+//			}else{
+//				$rootScope.savedObjectName.push(savedObjectName);
+//			}
+//			//$rootScope.savedObjectName = savedObjectName;
+//			$rootScope.assign($rootScope,savedObjectName,savedObject);
+//
+//			//$rootScope.savedObject = savedObject;
+//			$rootScope.returnPath = returnPath + $routeParams[id];
 			$location.path(pickUpPath);
 
 

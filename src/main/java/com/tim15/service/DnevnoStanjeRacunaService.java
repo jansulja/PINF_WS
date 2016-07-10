@@ -19,6 +19,7 @@ import org.apache.log4j.Logger;
 
 import com.tim15.model.DnevnoStanjeRacuna;
 import com.tim15.sessionbeans.DnevnoStanjeRacunaDaoLocal;
+import com.tim15.sessionbeans.RacuniDaoLocal;
 
 
 
@@ -28,6 +29,8 @@ public class DnevnoStanjeRacunaService {
 	@EJB
 	private DnevnoStanjeRacunaDaoLocal dnevnoStanjeRacunaDao;
 
+	@EJB
+	private RacuniDaoLocal racuniDao;
 
 	private static Logger log = Logger.getLogger(DnevnoStanjeRacunaService.class);
 
@@ -72,20 +75,25 @@ public class DnevnoStanjeRacunaService {
     }
 
 
-//	@PUT
-//    @Path("{id}")
-//    @Consumes(MediaType.APPLICATION_JSON)
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public DnevnoStanjeRacuna update(DnevnoStanjeRacuna entity) {
-//
-//    	DnevnoStanjeRacuna retVal = null;
-//        try {
-//        	retVal = dnevnoStanjeRacunaDao.merge(entity);
-//        } catch (Exception e) {
-//			log.error(e.getMessage(), e);
-//		}
-//		return retVal;
-//    }
+	@PUT
+    @Path("{id}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public DnevnoStanjeRacuna update(DnevnoStanjeRacuna entity) {
+
+		entity.setRacuni(racuniDao.findById(entity.getRacuni().getRacuniId()));
+
+		DnevnoStanjeRacuna dnevnoStanjeRacuna = dnevnoStanjeRacunaDao.findById(entity.getDnevnoStanjeRacunaId());
+		dnevnoStanjeRacuna.setAll(entity);
+
+    	DnevnoStanjeRacuna retVal = null;
+        try {
+        	retVal = dnevnoStanjeRacunaDao.merge(dnevnoStanjeRacuna);
+        } catch (Exception e) {
+			log.error(e.getMessage(), e);
+		}
+		return retVal;
+    }
 
 
 	@DELETE

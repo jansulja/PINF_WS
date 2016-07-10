@@ -157,7 +157,7 @@ public class Banka {
 		this.banka = banka;
 	}
 
-	/** @pdGenerated default getter */
+	@JsonIgnore
 	public Set<Racuni> getRacuni() {
 		if (racuni == null)
 			racuni = new java.util.HashSet<Racuni>();
@@ -210,14 +210,14 @@ public class Banka {
 			racuni.clear();
 	}
 
-	/** @pdGenerated default getter */
+	@JsonIgnore
 	public Set<KursnaLista> getKursnaLista() {
 //		if (kursnaLista == null)
 //			kursnaLista = new java.util.HashSet<KursnaLista>();
 		return kursnaLista;
 	}
 
-	/** @pdGenerated default iterator getter */
+	@JsonIgnore
 	public java.util.Iterator getIteratorKursnaLista() {
 		if (kursnaLista == null)
 			kursnaLista = new java.util.HashSet<KursnaLista>();

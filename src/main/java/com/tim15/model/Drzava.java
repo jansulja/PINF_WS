@@ -44,13 +44,9 @@ public class Drzava implements Serializable{
 	private java.lang.String nazivDrzave;
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "drzava",orphanRemoval=true)
-//	@JsonManagedReference(value="drzavaValuta")
-//	@Fetch(FetchMode.SELECT)
 	private java.util.Collection<Valuta> valuta;
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "drzava",orphanRemoval=true)
-	//@Fetch(FetchMode.SELECT)
-	//@JsonManagedReference(value="drzavaNaseljenoMesto")
 	private Set<NaseljenoMesto> naseljenoMesto;
 
 

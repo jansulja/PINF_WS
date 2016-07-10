@@ -63,14 +63,14 @@ public class VrstePlacanja {
 		this.nazivVrstePlacanja = nazivVrstePlacanja;
 	}
 
-	/** @pdGenerated default getter */
+	@JsonIgnore
 	public Set<AnalitikaIzvoda> getAnalitikaIzvoda() {
 		if (analitikaIzvoda == null)
 			analitikaIzvoda = new java.util.HashSet<AnalitikaIzvoda>();
 		return analitikaIzvoda;
 	}
 
-	/** @pdGenerated default iterator getter */
+	@JsonIgnore
 	public java.util.Iterator getIteratorAnalitikaIzvoda() {
 		if (analitikaIzvoda == null)
 			analitikaIzvoda = new java.util.HashSet<AnalitikaIzvoda>();

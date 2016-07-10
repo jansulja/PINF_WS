@@ -81,13 +81,13 @@ public class PravnoLiceService {
     @Produces(MediaType.APPLICATION_JSON)
     public PravnoLice update(PravnoLice entity) {
 
-		@SuppressWarnings("unused")
-		int id = entity.getKlijentId();
+
+		PravnoLice pravnoLice = pravnoLiceDao.findById(entity.getKlijentId());
+		pravnoLice.setAll(entity);
 
     	PravnoLice retVal = null;
         try {
-        	//retVal = (PravnoLice) klijentDao.merge(entity);
-        	pravnoLiceDao.merge(entity);
+        	pravnoLiceDao.merge(pravnoLice);
         } catch (Exception e) {
 			log.error(e.getMessage(), e);
 		}

@@ -1,5 +1,5 @@
 <div class="card meetings cf">
-	<h3>Analitika izvoda</h3>
+	<h3>Kursna Lista</h3>
 
 	<button type="button" class="btn btn-default"
 	ng-click="new()">Dodaj</button>
@@ -12,7 +12,7 @@
 			<td>brojKursneListe</td>
 			<td>primenjujeSeOd</td>
 			<td>Opcija</td>
-
+			<th ng-if="isZoomActive('/kursnaLista-list')">Pick up</th>
 
 		</tr>
 		<tr ng-repeat="kursnaLista in kursneListe track by $index ">
@@ -31,7 +31,11 @@
 				<button type="button" class="btn btn-default"
 				ng-click="edit(kursnaLista)">Izmeni</button></td>
 
-
+				<td ng-if="isZoomActive('/kursnaLista-list')">
+				<button ng-click="genericPickUp(kursnaLista,'kursnaLista')" type="button" class="btn btn-default" aria-label="Left Align">
+				<span class="glyphicon glyphicon-log-out" aria-hidden="true"  ></span>
+				</button>
+			</td>
 			</tr>
 		</table>
 

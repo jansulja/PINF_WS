@@ -13,10 +13,12 @@ angular.module('dnevno-stanje-racuna',['resource.dnevnoStanjeRacuna'])
 		//preuzimanje parametra iz URL
 		var dnevnoStanjeRacunaId = $routeParams.dnevnoStanjeRacunaId;
 
-		if($rootScope.savedObject){
+		var zoomInfo = $rootScope.activeZoom[$rootScope.activeZoom.length-1];
+		if(zoomInfo && zoomInfo.savedObjectName == 'dnevnoStanjeRacuna'){
 
-			$scope.dnevnoStanjeRacuna = $rootScope.savedObject
-			$rootScope.savedObject = undefined;
+			$scope.dnevnoStanjeRacuna = zoomInfo.savedObject;
+			$rootScope.activeZoom.splice(-1,1);
+
 		}else{
 			DnevnoStanjeRacuna.get({'dnevnoStanjeRacunaId':dnevnoStanjeRacunaId}).$promise.then(function (data) {
 				$scope.dnevnoStanjeRacuna = data;
@@ -30,10 +32,12 @@ angular.module('dnevno-stanje-racuna',['resource.dnevnoStanjeRacuna'])
 		$scope.title = "Dodavanje"
 		$scope.buttonText = "Dodaj"
 
-		if($rootScope.savedObject){
+			var zoomInfo = $rootScope.activeZoom[$rootScope.activeZoom.length-1];
+		if(zoomInfo && zoomInfo.savedObjectName == 'dnevnoStanjeRacuna'){
 
-			$scope.dnevnoStanjeRacuna = $rootScope.savedObject;
-			$rootScope.savedObject = undefined;
+			$scope.dnevnoStanjeRacuna = zoomInfo.savedObject;
+			$rootScope.activeZoom.splice(-1,1);
+
 		}else{
 			$scope.dnevnoStanjeRacuna = new DnevnoStanjeRacuna();
 		}

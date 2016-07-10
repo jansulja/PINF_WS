@@ -11,10 +11,12 @@ angular.module('racuni',['resource.racuni'])
 		//preuzimanje parametra iz URL
 		var racuniId = $routeParams.racuniId;
 
-		if($rootScope.savedObject){
+		var zoomInfo = $rootScope.activeZoom[$rootScope.activeZoom.length-1];
+		if(zoomInfo && zoomInfo.savedObjectName == 'racuni'){
 
-			$scope.racuni = $rootScope.savedObject
-			$rootScope.savedObject = undefined;
+			$scope.racuni = zoomInfo.savedObject;
+			$rootScope.activeZoom.splice(-1,1);
+
 		}else{
 
 			Racuni.get({'racuniId':racuniId}).$promise.then(function (data) {
@@ -27,10 +29,12 @@ angular.module('racuni',['resource.racuni'])
 		$scope.title = "Dodavanje"
 		$scope.buttonText = "Dodaj"
 
-		if($rootScope.savedObject){
+			var zoomInfo = $rootScope.activeZoom[$rootScope.activeZoom.length-1];
+		if(zoomInfo && zoomInfo.savedObjectName == 'racuni'){
 
-			$scope.racuni = $rootScope.savedObject;
-			$rootScope.savedObject = undefined;
+			$scope.racuni = zoomInfo.savedObject;
+			$rootScope.activeZoom.splice(-1,1);
+
 		}else{
 			$scope.racuni = new Racuni();
 		}

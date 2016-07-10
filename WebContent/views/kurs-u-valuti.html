@@ -28,7 +28,7 @@
 			<div class="form-inline">
 					<input ng-click="errorMessage = undefined" type="text" class="form-control" id="valutaOsnovna" ng-model="kursUValuti.valutaOsnovna.valutaId" ng-required="true">
 					
-					<button type="button" class="btn btn-default" aria-label="Left Align" ng-click="genericZoom(kursUValuti,'/valuta-list','/kursUValuti/','kursUValutiId','valutaOsnovna')">
+					<button type="button" class="btn btn-default" aria-label="Left Align" ng-click="genericZoom(kursUValuti,'kursUValuti','/valuta-list','/kursUValuti/','kursUValutiId','valutaOsnovna')">
 						<span class="glyphicon glyphicon-option-horizontal" aria-hidden="true"></span>
 					</button>
 			</div>
@@ -39,7 +39,18 @@
 			<div class="form-inline">
 					<input ng-click="errorMessage = undefined" type="text" class="form-control" id="valutaPrema" ng-model="kursUValuti.valutaPrema.valutaId" ng-required="true">
 					
-					<button type="button" class="btn btn-default" aria-label="Left Align" ng-click="genericZoom(kursUValuti,'/valuta-list','/kursUValuti/','kursUValutiId','valutaPrema')">
+					<button type="button" class="btn btn-default" aria-label="Left Align" ng-click="genericZoom(kursUValuti,'kursUValuti','/valuta-list','/kursUValuti/','kursUValutiId','valutaPrema')">
+						<span class="glyphicon glyphicon-option-horizontal" aria-hidden="true"></span>
+					</button>
+			</div>
+		</div>
+		
+		<div class="form-group">
+			<label for="kursnaListaId">Sifra kursne liste</label>
+			<div class="form-inline">
+					<input ng-click="errorMessage = undefined" type="text" class="form-control" id="kursnaListaId" ng-model="kursUValuti.kursnaLista.kursnaListaId" ng-required="true">
+					
+					<button type="button" class="btn btn-default" aria-label="Left Align" ng-click="genericZoom(kursUValuti,'kursUValuti','/kursnaLista-list','/kursUValuti/','kursUValutiId')">
 						<span class="glyphicon glyphicon-option-horizontal" aria-hidden="true"></span>
 					</button>
 			</div>

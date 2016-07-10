@@ -11,10 +11,12 @@ angular.module('valuta',['resource.valuta'])
 		//preuzimanje parametra iz URL
 		var valutaId = $routeParams.valutaId;
 
-		if($rootScope.savedObject){
+		var zoomInfo = $rootScope.activeZoom[$rootScope.activeZoom.length-1];
+		if(zoomInfo && zoomInfo.savedObjectName == 'valuta'){
 
-			$scope.valuta = $rootScope.savedObject
-			$rootScope.savedObject = undefined;
+			$scope.valuta = zoomInfo.savedObject;
+			$rootScope.activeZoom.splice(-1,1);
+
 		}else{
 
 			Valuta.get({'valutaId':valutaId}).$promise.then(function (data) {
@@ -27,10 +29,12 @@ angular.module('valuta',['resource.valuta'])
 		$scope.title = "Dodavanje"
 		$scope.buttonText = "Dodaj"
 
-		if($rootScope.savedObject){
+			var zoomInfo = $rootScope.activeZoom[$rootScope.activeZoom.length-1];
+		if(zoomInfo && zoomInfo.savedObjectName == 'valuta'){
 
-			$scope.valuta = $rootScope.savedObject;
-			$rootScope.savedObject = undefined;
+			$scope.valuta = zoomInfo.savedObject;
+			$rootScope.activeZoom.splice(-1,1);
+
 		}else{
 			$scope.valuta = new Valuta();
 		}

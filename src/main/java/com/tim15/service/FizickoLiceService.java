@@ -80,13 +80,13 @@ public class FizickoLiceService {
     @Produces(MediaType.APPLICATION_JSON)
     public FizickoLice update(FizickoLice entity) {
 
-		@SuppressWarnings("unused")
-		int id = entity.getKlijentId();
+		FizickoLice fizickoLice = fizickoLiceDao.findById(entity.getKlijentId());
+		fizickoLice.setAll(entity);
 
     	FizickoLice retVal = null;
         try {
         	//retVal = (FizickoLice) klijentDao.merge(entity);
-        	fizickoLiceDao.merge(entity);
+        	fizickoLiceDao.merge(fizickoLice);
         } catch (Exception e) {
 			log.error(e.getMessage(), e);
 		}

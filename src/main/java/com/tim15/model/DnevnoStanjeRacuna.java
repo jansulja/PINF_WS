@@ -6,10 +6,9 @@
 
 package com.tim15.model;
 
-import java.util.Collection;
 import java.util.Date;
+import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -20,13 +19,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -47,10 +42,8 @@ public class DnevnoStanjeRacuna {
 	@JoinColumn(name = "racuni_id")
 	private Racuni racuni;
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "dnevnoStanjeRacuna", cascade = CascadeType.ALL)
-	@JsonManagedReference(value="dnevnoStanjeRacunaAnalitikaIzvoda")
-	@Fetch(FetchMode.SELECT)
-	private java.util.Collection<AnalitikaIzvoda> analitikaIzvoda;
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "dnevnoStanjeRacuna", orphanRemoval=true)
+	private Set<AnalitikaIzvoda> analitikaIzvoda;
 
 	public DnevnoStanjeRacuna() {
 		super();
@@ -58,7 +51,7 @@ public class DnevnoStanjeRacuna {
 	}
 
 	public DnevnoStanjeRacuna(Date datumPrometa, double prethodnoStanje, double prometUKorist, double prometNaTeret,
-			double novoStanje, Racuni racuni, Collection<AnalitikaIzvoda> analitikaIzvoda) {
+			double novoStanje, Racuni racuni, Set<AnalitikaIzvoda> analitikaIzvoda) {
 		super();
 		this.datumPrometa = datumPrometa;
 		this.prethodnoStanje = prethodnoStanje;
@@ -125,14 +118,14 @@ public class DnevnoStanjeRacuna {
 		this.racuni = racuni;
 	}
 
-	/** @pdGenerated default getter */
-	public java.util.Collection<AnalitikaIzvoda> getAnalitikaIzvoda() {
+	@JsonIgnore
+	public Set<AnalitikaIzvoda> getAnalitikaIzvoda() {
 		if (analitikaIzvoda == null)
 			analitikaIzvoda = new java.util.HashSet<AnalitikaIzvoda>();
 		return analitikaIzvoda;
 	}
 
-	/** @pdGenerated default iterator getter */
+	@JsonIgnore
 	public java.util.Iterator getIteratorAnalitikaIzvoda() {
 		if (analitikaIzvoda == null)
 			analitikaIzvoda = new java.util.HashSet<AnalitikaIzvoda>();
@@ -178,6 +171,16 @@ public class DnevnoStanjeRacuna {
 	public void removeAllAnalitikaIzvoda() {
 		if (analitikaIzvoda != null)
 			analitikaIzvoda.clear();
+	}
+
+	public void setAll(DnevnoStanjeRacuna dnevnoStanjeRacuna){
+
+		this.datumPrometa = dnevnoStanjeRacuna.datumPrometa;
+		this.novoStanje = dnevnoStanjeRacuna.novoStanje;
+		this.prethodnoStanje = dnevnoStanjeRacuna.prethodnoStanje;
+		this.prometNaTeret = dnevnoStanjeRacuna.prometNaTeret;
+		this.prometUKorist = dnevnoStanjeRacuna.prometUKorist;
+		this.racuni = dnevnoStanjeRacuna.racuni;
 	}
 
 }

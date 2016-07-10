@@ -43,11 +43,34 @@
 			<div class="form-inline">
 					<input ng-click="errorMessage = undefined" type="text" class="form-control" id="valutaId" ng-model="racuni.valuta.valutaId" ng-required="true">
 					
-					<button type="button" class="btn btn-default" aria-label="Left Align" ng-click="genericZoom(racuni,'/valuta-list','/racuni/','racuniId')">
+					<button type="button" class="btn btn-default" aria-label="Left Align" ng-click="genericZoom(racuni,'racuni','/valuta-list','/racuni/','racuniId')">
 						<span class="glyphicon glyphicon-option-horizontal" aria-hidden="true"></span>
 					</button>
 			</div>
 		</div>
+		
+		<div class="form-group">
+			<label for="bankaId">Sifra banke</label>
+			<div class="form-inline">
+					<input ng-click="errorMessage = undefined" type="text" class="form-control" id="bankaId" ng-model="racuni.banka.bankaId" ng-required="true">
+					
+					<button type="button" class="btn btn-default" aria-label="Left Align" ng-click="genericZoom(racuni,'racuni','/banka-list','/racuni/','racuniId')">
+						<span class="glyphicon glyphicon-option-horizontal" aria-hidden="true"></span>
+					</button>
+			</div>
+		</div>
+		
+		<div class="form-group">
+			<label for="klijentId">Sifra klijenta</label>
+			<div class="form-inline">
+					<input ng-click="errorMessage = undefined" type="text" class="form-control" id="klijentId" ng-model="racuni.klijent.klijentId" ng-required="true">
+					
+					<button type="button" class="btn btn-default" aria-label="Left Align" ng-click="genericZoom(racuni,'racuni','/klijent-list','/racuni/','racuniId')">
+						<span class="glyphicon glyphicon-option-horizontal" aria-hidden="true"></span>
+					</button>
+			</div>
+		</div>
+		
 		<div class="alert alert-danger" role="alert" ng-show="errorMessage">{{errorMessage}}</div>
 
 		<button type="submit" class="btn btn-default" ng-disabled="myform.$invalid">{{buttonText}}</button>

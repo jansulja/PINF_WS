@@ -29,7 +29,7 @@
 			<span class="input-group-btn">
 					<button type="button" class="btn btn-default" ng-click="openDatepicker($event, 'dateOpened')"><i class="glyphicon glyphicon-calendar"></i></button>
 				</span>
-				<input type="text" class="form-control" datepicker-popup="dd/MM/yyyy" ng-model="analitikaIzvoda.datumPrijema" is-open="dateOpened" close-text="Close" />
+				<input type="text" class="form-control" datepicker-popup="dd/MM/yyyy" ng-model="analitikaIzvoda.datumPrijema" is-open="dateOpened" close-text="Close" ng-required="true"/>
 				
 			</div>
 		</div>
@@ -40,7 +40,7 @@
 			<span class="input-group-btn">
 					<button type="button" class="btn btn-default" ng-click="openDatepicker($event, 'dateOpened2')"><i class="glyphicon glyphicon-calendar"></i></button>
 				</span>
-				<input type="text" class="form-control" datepicker-popup="dd/MM/yyyy" ng-model="analitikaIzvoda.datumValute" is-open="dateOpened2" close-text="Close" />
+				<input type="text" class="form-control" datepicker-popup="dd/MM/yyyy" ng-model="analitikaIzvoda.datumValute" is-open="dateOpened2" close-text="Close" ng-required="true"/>
 				
 			</div>
 		</div>
@@ -90,11 +90,22 @@
 		</div>
 
 		<div class="form-group">
-			<label for="naseljenoMestoId">Sifra drzave</label>
+			<label for="naseljenoMestoId">Sifra naseljenog mesta</label>
 			<div class="form-inline">
 					<input ng-click="errorMessage = undefined" type="text" class="form-control" id="naseljenoMestoId" ng-model="analitikaIzvoda.naseljenoMesto.naseljenoMestoId" ng-required="true">
 					
-					<button type="button" class="btn btn-default" aria-label="Left Align" ng-click="genericZoom(analitikaIzvoda,'/naseljenoMesto-list','/analitikaIzvoda/','analitikaIzvodaId')">
+					<button type="button" class="btn btn-default" aria-label="Left Align" ng-click="genericZoom(analitikaIzvoda,'analitikaIzvoda','/naseljenoMesto-list','/analitikaIzvoda/','analitikaIzvodaId')">
+						<span class="glyphicon glyphicon-option-horizontal" aria-hidden="true"></span>
+					</button>
+			</div>
+		</div>
+		
+		<div class="form-group">
+			<label for="dnevnoStanjeRacunaId">Sifra dnevnog stanja racuna</label>
+			<div class="form-inline">
+					<input ng-click="errorMessage = undefined" type="text" class="form-control" id="dnevnoStanjeRacunaId" ng-model="analitikaIzvoda.dnevnoStanjeRacuna.dnevnoStanjeRacunaId" ng-required="true">
+					
+					<button type="button" class="btn btn-default" aria-label="Left Align" ng-click="genericZoom(analitikaIzvoda,'analitikaIzvoda','/dnevnoStanjeRacuna-list','/analitikaIzvoda/','analitikaIzvodaId')">
 						<span class="glyphicon glyphicon-option-horizontal" aria-hidden="true"></span>
 					</button>
 			</div>
@@ -105,11 +116,23 @@
 			<div class="form-inline">
 					<input ng-click="errorMessage = undefined" type="text" class="form-control" id="valutaId" ng-model="analitikaIzvoda.valuta.valutaId" ng-required="true">
 					
-					<button type="button" class="btn btn-default" aria-label="Left Align" ng-click="genericZoom(analitikaIzvoda,'/valuta-list','/analitikaIzvoda/','analitikaIzvodaId')">
+					<button type="button" class="btn btn-default" aria-label="Left Align" ng-click="genericZoom(analitikaIzvoda,'analitikaIzvoda','/valuta-list','/analitikaIzvoda/','analitikaIzvodaId')">
 						<span class="glyphicon glyphicon-option-horizontal" aria-hidden="true"></span>
 					</button>
 			</div>
 		</div>
+
+		<div class="form-group">
+			<label for="vrstaPlacanjaId">Sifra vrste placanja</label>
+			<div class="form-inline">
+					<input ng-click="errorMessage = undefined" type="text" class="form-control" id="vrstaPlacanjaId" ng-model="analitikaIzvoda.vrstePlacanja.vrstaPlacanjaId" ng-required="true">
+					
+					<button type="button" class="btn btn-default" aria-label="Left Align" ng-click="genericZoom(analitikaIzvoda,'analitikaIzvoda','/vrstePlacanja-list','/analitikaIzvoda/','analitikaIzvodaId')">
+						<span class="glyphicon glyphicon-option-horizontal" aria-hidden="true"></span>
+					</button>
+			</div>
+		</div>
+		
 
 
 		<div class="alert alert-danger" role="alert" ng-show="errorMessage">{{errorMessage}}</div>

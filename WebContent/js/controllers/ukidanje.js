@@ -11,10 +11,12 @@ angular.module('ukidanje',['resource.ukidanje'])
 		//preuzimanje parametra iz URL
 		var ukidanjeId = $routeParams.ukidanjeId;
 
-		if($rootScope.savedObject){
+		var zoomInfo = $rootScope.activeZoom[$rootScope.activeZoom.length-1];
+		if(zoomInfo && zoomInfo.savedObjectName == 'ukidanje'){
 
-			$scope.ukidanje = $rootScope.savedObject
-			$rootScope.savedObject = undefined;
+			$scope.ukidanje = zoomInfo.savedObject;
+			$rootScope.activeZoom.splice(-1,1);
+
 		}else{
 
 			Ukidanje.get({'ukidanjeId':ukidanjeId}).$promise.then(function (data) {
@@ -27,10 +29,12 @@ angular.module('ukidanje',['resource.ukidanje'])
 		$scope.title = "Dodavanje"
 		$scope.buttonText = "Dodaj"
 
-		if($rootScope.savedObject){
+			var zoomInfo = $rootScope.activeZoom[$rootScope.activeZoom.length-1];
+		if(zoomInfo && zoomInfo.savedObjectName == 'ukidanje'){
 
-			$scope.ukidanje = $rootScope.savedObject;
-			$rootScope.savedObject = undefined;
+			$scope.ukidanje = zoomInfo.savedObject;
+			$rootScope.activeZoom.splice(-1,1);
+
 		}else{
 			$scope.ukidanje = new Ukidanje();
 		}
