@@ -31,6 +31,7 @@ public class VrstePlacanja {
 	@Column(name = "vrstaplacanja_id", unique = true)
 	private int vrstaPlacanjaId;
 	private java.lang.String nazivVrstePlacanja;
+	private int oznaka;
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "vrstePlacanja", orphanRemoval=true)
 	@JsonIgnore
@@ -41,11 +42,30 @@ public class VrstePlacanja {
 		// TODO Auto-generated constructor stub
 	}
 
-	public VrstePlacanja(String nazivVrstePlacanja, Set<AnalitikaIzvoda> analitikaIzvoda) {
+
+
+	public VrstePlacanja(int vrstaPlacanjaId, String nazivVrstePlacanja, int oznaka,
+			Set<AnalitikaIzvoda> analitikaIzvoda) {
 		super();
+		this.vrstaPlacanjaId = vrstaPlacanjaId;
 		this.nazivVrstePlacanja = nazivVrstePlacanja;
+		this.oznaka = oznaka;
 		this.analitikaIzvoda = analitikaIzvoda;
 	}
+
+
+
+	public int getOznaka() {
+		return oznaka;
+	}
+
+
+
+	public void setOznaka(int oznaka) {
+		this.oznaka = oznaka;
+	}
+
+
 
 	public int getVrstaPlacanjaId() {
 		return vrstaPlacanjaId;

@@ -5,6 +5,7 @@
 	<table class="table table-striped table-bordered table-condensed table-hover">
 		<tr>
 			<td>dnevnoStanjeRacunaId</td>
+			<td>Broj Racuna</td>
 			<td>datumPrometa</td>
 			<td>prethodnoStanje</td>
 			<td>prometUKorist</td>
@@ -16,6 +17,7 @@
 		<tr ng-repeat="dnevnoStanjeRacuna in dnevnaStanjaRacuna track by $index ">
 			
 			<td>{{dnevnoStanjeRacuna.dnevnoStanjeRacunaId}}</td>
+			<td>{{dnevnoStanjeRacuna.racuni.brojRacuna}}</td>
 			<td>{{dnevnoStanjeRacuna.datumPrometa}}</td>
 			<td>{{dnevnoStanjeRacuna.prethodnoStanje}}</td>
 			<td>{{dnevnoStanjeRacuna.prometUKorist}}</td>

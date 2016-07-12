@@ -6,18 +6,23 @@
 
 package com.tim15.model;
 
+import java.math.BigInteger;
 import java.util.Date;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -35,8 +40,8 @@ public class AnalitikaIzvoda {
 	private java.lang.String duznikNalogodavac;
 	private java.lang.String svrhaPlacanja;
 	private java.lang.String poverilacPrimalac;
-	private java.util.Date datumPrijema;
-	private java.util.Date datumValute;
+	private java.sql.Date datumPrijema;
+	private java.sql.Date datumValute;
 	private java.lang.String racunDuznika;
 	private double modelZaduzenja;
 	private java.lang.String pozivNaProjZaduzenja;
@@ -45,7 +50,7 @@ public class AnalitikaIzvoda {
 	private java.lang.String pozivNaBrojOdobrenja;
 	private boolean hitno = false;
 	private double iznos = 0;
-	private double tipGreske = 1;
+	private int tipGreske = 1;
 	private java.lang.String status;
 
 	@ManyToOne(optional=false)
@@ -64,7 +69,9 @@ public class AnalitikaIzvoda {
 	@JoinColumn(name = "vrsteplacanja_id")
 	private VrstePlacanja vrstePlacanja;
 
-
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "analitikaIzvoda", orphanRemoval=true)
+	@JsonIgnore
+	private Set<StavkaKliringa> stavkaKliringa;
 
 
 	public AnalitikaIzvoda() {
@@ -74,10 +81,10 @@ public class AnalitikaIzvoda {
 
 
 
-	public AnalitikaIzvoda(int analitikaIzvodaId, String duznikNalogodavac, String svrhaPlacanja, String poverilacPrimalac, Date datumPrijema,
-			Date datumValute, String racunDuznika, double modelZaduzenja, String pozivNaProjZaduzenja,
+	public AnalitikaIzvoda(int analitikaIzvodaId, String duznikNalogodavac, String svrhaPlacanja, String poverilacPrimalac, java.sql.Date datumPrijema,
+			java.sql.Date datumValute, String racunDuznika, double modelZaduzenja, String pozivNaProjZaduzenja,
 			String racunPoverioca, double modelOdobrenja, String pozivNaBrojOdobrenja, boolean hitno, double iznos,
-			double tipGreske, String status, DnevnoStanjeRacuna dnevnoStanjeRacuna, Valuta valuta,
+			int tipGreske, String status, DnevnoStanjeRacuna dnevnoStanjeRacuna, Valuta valuta,
 			NaseljenoMesto naseljenoMesto, VrstePlacanja vrstePlacanja) {
 		super();
 		this.analitikaIzvodaId = analitikaIzvodaId;
@@ -101,7 +108,6 @@ public class AnalitikaIzvoda {
 		this.naseljenoMesto = naseljenoMesto;
 		this.vrstePlacanja = vrstePlacanja;
 	}
-
 
 
 	public int getAnalitikaIzvodaId() {
@@ -136,19 +142,19 @@ public class AnalitikaIzvoda {
 		this.poverilacPrimalac = poverilacPrimalac;
 	}
 
-	public java.util.Date getDatumPrijema() {
+	public java.sql.Date getDatumPrijema() {
 		return datumPrijema;
 	}
 
-	public void setDatumPrijema(java.util.Date datumPrijema) {
+	public void setDatumPrijema(java.sql.Date datumPrijema) {
 		this.datumPrijema = datumPrijema;
 	}
 
-	public java.util.Date getDatumValute() {
+	public java.sql.Date getDatumValute() {
 		return datumValute;
 	}
 
-	public void setDatumValute(java.util.Date datumValute) {
+	public void setDatumValute(java.sql.Date datumValute) {
 		this.datumValute = datumValute;
 	}
 
@@ -216,11 +222,11 @@ public class AnalitikaIzvoda {
 		this.iznos = iznos;
 	}
 
-	public double getTipGreske() {
+	public int getTipGreske() {
 		return tipGreske;
 	}
 
-	public void setTipGreske(double tipGreske) {
+	public void setTipGreske(int tipGreske) {
 		this.tipGreske = tipGreske;
 	}
 

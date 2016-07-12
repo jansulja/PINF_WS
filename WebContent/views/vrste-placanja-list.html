@@ -8,6 +8,7 @@
 		<tr>
 			<th>Sifra</th>
 			<th>Naziv</th>
+			<th>Oznaka</th>
 			<th>Opcija</th>
 				<th ng-if="isZoomActive('/vrstePlacanja-list')">Pick up</th>
 
@@ -15,6 +16,7 @@
 		<tr ng-repeat="vrstePlacanja in vrstePlacanjaa track by $index ">
 			<td>{{vrstePlacanja.vrstaPlacanjaId}}</td>
 			<td>{{vrstePlacanja.nazivVrstePlacanja}}</td>
+			<td>{{vrstePlacanja.oznaka}}</td>
 		
 
 			

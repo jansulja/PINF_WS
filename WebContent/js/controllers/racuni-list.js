@@ -41,7 +41,11 @@ angular.module('racuni-list',['resource.racuni'])
 
 	}
 
+	$scope.exportNalog = function(racuni){
 
+		$location.path('nalog/' + racuni.racuniId);
+
+	}
 
 
 

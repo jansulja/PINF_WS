@@ -19,7 +19,8 @@ angular
 ,'resource.pravnoLice','pravno-lice-list','pravno-lice'
 ,'resource.fizickoLice','fizicko-lice-list','fizicko-lice'
 ,'resource.ukidanje','ukidanje-list','ukidanje'
-,'resource.klijent','klijent-list'])
+,'resource.klijent','klijent-list'
+,'nalog'])
 
 
 
@@ -153,6 +154,10 @@ angular
 		when('/klijent-list', {
 			templateUrl: 'views/klijent-list.html',
 			controller: 'klijent-listCtrl'
+		}).
+		when('/nalog/:racuniId', {
+			templateUrl: 'views/nalog.html',
+			controller: 'nalogCtrl'
 		}).
 		otherwise({
 			redirectTo: '/login'

@@ -7,6 +7,8 @@
 	<table class="table table-striped table-bordered table-condensed table-hover">
 		<tr>
 			<th>Sifra</th>
+			<th>Dnevno Stanje Racuna</th>
+			<th>Racun </th>
 			<th>Naseljeno mesto</th>
 			<th>Valuta</th>
 			<th>duznikNalogodavac</th>
@@ -30,6 +32,8 @@
 		</tr>
 		<tr ng-repeat="analitikaIzvoda in analitikeIzvoda track by $index ">
 			<td>{{analitikaIzvoda.analitikaIzvodaId}}</td>
+			<td>{{analitikaIzvoda.dnevnoStanjeRacuna.dnevnoStanjeRacunaId}}</td>
+			<td>{{analitikaIzvoda.dnevnoStanjeRacuna.racuni.brojRacuna}}</td>
 			<td>{{analitikaIzvoda.naseljenoMesto.naziv}}</td>
 			<td>{{analitikaIzvoda.valuta.naziv}}</td>
 			<td>{{analitikaIzvoda.duznikNalogodavac}}</td>

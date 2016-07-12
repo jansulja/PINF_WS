@@ -47,6 +47,18 @@ public class FizickoLice extends Klijent {
 		this.jmbg = jmbg;
 	}
 
+
+
+	public FizickoLice(String telefon, String email, String adresa, String password, Integer idBanka,
+			Set<Racuni> racuni, String punoIme, Date datumRodjenja, String pol, double registarskiBroj, double jmbg) {
+		super(telefon, email, adresa, password, idBanka, racuni);
+		this.punoIme = punoIme;
+		this.datumRodjenja = datumRodjenja;
+		this.pol = pol;
+		this.registarskiBroj = registarskiBroj;
+		this.jmbg = jmbg;
+	}
+
 	public FizickoLice() {
 		super();
 		// TODO Auto-generated constructor stub

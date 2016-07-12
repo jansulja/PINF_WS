@@ -6,7 +6,8 @@
 
 package com.tim15.model;
 
-import java.util.Date;
+
+import java.sql.Date;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -32,7 +33,7 @@ public class DnevnoStanjeRacuna {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "dnevno_stanje_racuna_id", unique = true)
 	private int dnevnoStanjeRacunaId;
-	private java.util.Date datumPrometa;
+	private Date datumPrometa;
 	private double prethodnoStanje = 0;
 	private double prometUKorist = 0;
 	private double prometNaTeret = 0;
@@ -70,11 +71,11 @@ public class DnevnoStanjeRacuna {
 		this.dnevnoStanjeRacunaId = dnevnoStanjeRacunaId;
 	}
 
-	public java.util.Date getDatumPrometa() {
+	public Date getDatumPrometa() {
 		return datumPrometa;
 	}
 
-	public void setDatumPrometa(java.util.Date datumPrometa) {
+	public void setDatumPrometa(Date datumPrometa) {
 		this.datumPrometa = datumPrometa;
 	}
 
