@@ -26,6 +26,7 @@ import com.tim15.model.StavkaKliringa;
 import com.tim15.model.Valuta;
 import com.tim15.model.VrstePlacanja;
 import com.tim15.model.obrade.Nalog;
+import com.tim15.model.xml.util.XmlManager;
 import com.tim15.sessionbeans.AnalitikaIzvodaDaoLocal;
 import com.tim15.sessionbeans.BankaDaoLocal;
 import com.tim15.sessionbeans.DnevnoStanjeRacunaDaoLocal;
@@ -269,6 +270,8 @@ public class NalogService {
 							analitikaIzvodaDao.persist(analitikaIzvoda);
 							rtgsDao.persist(rtgs);
 
+							XmlManager.generateMT103(rtgs, analitikaIzvoda);
+
 						} catch (NoSuchFieldException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -283,6 +286,9 @@ public class NalogService {
 
 							analitikaIzvodaDao.persist(analitikaIzvoda);
 							rtgsDao.persist(rtgs);
+
+							XmlManager.generateMT103(rtgs, analitikaIzvoda);
+
 
 						} catch (NoSuchFieldException e) {
 							// TODO Auto-generated catch block

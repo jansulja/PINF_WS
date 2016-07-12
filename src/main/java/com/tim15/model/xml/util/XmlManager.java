@@ -17,28 +17,26 @@ import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 
-import org.apache.openejb.loader.Files;
-
 import com.tim15.model.AnalitikaIzvoda;
 import com.tim15.model.Kliring;
+import com.tim15.model.Rtgs;
 import com.tim15.model.StavkaKliringa;
 import com.tim15.model.xml.mt102.MT102;
 import com.tim15.model.xml.mt102.ZaglavljeMT102;
+import com.tim15.model.xml.mt103.MT103;
 
 public class XmlManager {
 
-
-	public static void generateMT102(Kliring kliring){
+	public static void generateMT102(Kliring kliring) {
 
 		Set<StavkaKliringa> stavkeKliringa = kliring.getStavkaKliringa();
 		List<MT102> listaMT102 = new ArrayList<MT102>();
 
+		for (StavkaKliringa stavka : stavkeKliringa) {
 
-		for(StavkaKliringa stavka : stavkeKliringa){
+			MT102 mt102 = findMT102(stavka, listaMT102);
 
-			MT102 mt102 = findMT102(stavka,listaMT102);
-
-			if(mt102 == null){
+			if (mt102 == null) {
 
 				ZaglavljeMT102 zaglavljeMT102 = new ZaglavljeMT102();
 				zaglavljeMT102.setIdKliringa(kliring.getKliringId());
@@ -57,9 +55,9 @@ public class XmlManager {
 				stavkaKliringaMT102.setDatumPrijema(dateToXmlGrgorianCalendar(analitikaIzvoda.getDatumPrijema()));
 				stavkaKliringaMT102.setDuznik(analitikaIzvoda.getDuznikNalogodavac());
 				stavkaKliringaMT102.setIdStavke(String.valueOf(stavka.getStavkaKliringaId()));
-				stavkaKliringaMT102.setIznos(BigDecimal.valueOf( analitikaIzvoda.getIznos()));
-				stavkaKliringaMT102.setModelOdobrenja(BigInteger.valueOf( analitikaIzvoda.getModelOdobrenja()));
-				stavkaKliringaMT102.setModelZaduzenja(BigInteger.valueOf( analitikaIzvoda.getModelZaduzenja()));
+				stavkaKliringaMT102.setIznos(BigDecimal.valueOf(analitikaIzvoda.getIznos()));
+				stavkaKliringaMT102.setModelOdobrenja(BigInteger.valueOf(analitikaIzvoda.getModelOdobrenja()));
+				stavkaKliringaMT102.setModelZaduzenja(BigInteger.valueOf(analitikaIzvoda.getModelZaduzenja()));
 				stavkaKliringaMT102.setPozivNaBrojOdobrenja(analitikaIzvoda.getPozivNaBrojOdobrenja());
 				stavkaKliringaMT102.setPozivNaBrojZaduzenja(analitikaIzvoda.getPozivNaProjZaduzenja());
 				stavkaKliringaMT102.setPrimalac(analitikaIzvoda.getPoverilacPrimalac());
@@ -71,8 +69,7 @@ public class XmlManager {
 				mt102 = new MT102();
 				mt102.setZaglavljeKliringa(zaglavljeMT102);
 				mt102.getStavkeKliringa().add(stavkaKliringaMT102);
-			}else{
-
+			} else {
 
 				AnalitikaIzvoda analitikaIzvoda = stavka.getAnalitikaIzvoda();
 
@@ -80,9 +77,9 @@ public class XmlManager {
 				stavkaKliringaMT102.setDatumPrijema(dateToXmlGrgorianCalendar(analitikaIzvoda.getDatumPrijema()));
 				stavkaKliringaMT102.setDuznik(analitikaIzvoda.getDuznikNalogodavac());
 				stavkaKliringaMT102.setIdStavke(String.valueOf(stavka.getStavkaKliringaId()));
-				stavkaKliringaMT102.setIznos(BigDecimal.valueOf( analitikaIzvoda.getIznos()));
-				stavkaKliringaMT102.setModelOdobrenja(BigInteger.valueOf( analitikaIzvoda.getModelOdobrenja()));
-				stavkaKliringaMT102.setModelZaduzenja(BigInteger.valueOf( analitikaIzvoda.getModelZaduzenja()));
+				stavkaKliringaMT102.setIznos(BigDecimal.valueOf(analitikaIzvoda.getIznos()));
+				stavkaKliringaMT102.setModelOdobrenja(BigInteger.valueOf(analitikaIzvoda.getModelOdobrenja()));
+				stavkaKliringaMT102.setModelZaduzenja(BigInteger.valueOf(analitikaIzvoda.getModelZaduzenja()));
 				stavkaKliringaMT102.setPozivNaBrojOdobrenja(analitikaIzvoda.getPozivNaBrojOdobrenja());
 				stavkaKliringaMT102.setPozivNaBrojZaduzenja(analitikaIzvoda.getPozivNaProjZaduzenja());
 				stavkaKliringaMT102.setPrimalac(analitikaIzvoda.getPoverilacPrimalac());
@@ -91,34 +88,59 @@ public class XmlManager {
 				stavkaKliringaMT102.setSifraValute(stavka.getSifraValute());
 				stavkaKliringaMT102.setSvrhaPlacanja(analitikaIzvoda.getSvrhaPlacanja());
 
-				double ukupno = mt102.getZaglavljeKliringa().getUkupanIznos().doubleValue() + analitikaIzvoda.getIznos();
+				double ukupno = mt102.getZaglavljeKliringa().getUkupanIznos().doubleValue()
+						+ analitikaIzvoda.getIznos();
 
 				mt102.getZaglavljeKliringa().setUkupanIznos(BigDecimal.valueOf(ukupno));
 				mt102.getStavkeKliringa().add(stavkaKliringaMT102);
 			}
 
-
 			listaMT102.add(mt102);
 		}
 
+		for (MT102 mt102 : listaMT102) {
 
-		for(MT102 mt102 : listaMT102){
-
-			//objectToXmlFile(mt102,"MT102_"+mt102.getZaglavljeKliringa().getDatumKliringa().toString().split("T")[0]);
-			objectToXmlFile(mt102,"MT102_"+getFormatedDateTimeForKliring(mt102.getZaglavljeKliringa().getDatumKliringa()));
+			// objectToXmlFile(mt102,"MT102_"+mt102.getZaglavljeKliringa().getDatumKliringa().toString().split("T")[0]);
+			objectToXmlFile(mt102,
+					"MT102_" + getFormatedDateTimeForKliring(mt102.getZaglavljeKliringa().getDatumKliringa()));
 
 		}
 
+	}
 
 
+	public static void generateMT103(Rtgs rtgs,AnalitikaIzvoda analitikaIzvoda){
+
+		MT103 mt103 = new MT103();
+		mt103.setDatumNaloga(dateToXmlGrgorianCalendar(analitikaIzvoda.getDatumPrijema()));
+		mt103.setDatumValute(dateToXmlGrgorianCalendar(analitikaIzvoda.getDatumValute()));
+		mt103.setDuznik(analitikaIzvoda.getDuznikNalogodavac());
+		mt103.setIdPoruke(String.valueOf(rtgs.getRtgsId()));
+		mt103.setIznos(BigDecimal.valueOf(analitikaIzvoda.getIznos()));
+		mt103.setModelOdobrenja(BigInteger.valueOf(analitikaIzvoda.getModelOdobrenja()));
+		mt103.setModelZaduzenja(BigInteger.valueOf(analitikaIzvoda.getModelZaduzenja()));
+		mt103.setPozivNaBrojOdobrenja(analitikaIzvoda.getPozivNaBrojOdobrenja());
+		mt103.setPozivNaBrojZaduzenja(analitikaIzvoda.getPozivNaProjZaduzenja());
+		mt103.setPrimalac(analitikaIzvoda.getPoverilacPrimalac());
+		mt103.setRacunBankeDuznika(rtgs.getRacunBankeDuznika());
+		mt103.setRacunBankePoverioca(rtgs.getRacunBankePoverioca());
+		mt103.setRacunDuznika(analitikaIzvoda.getRacunDuznika());
+		mt103.setRacunPrimaoca(analitikaIzvoda.getRacunPoverioca());
+		mt103.setSifraValute(analitikaIzvoda.getValuta().getZvanicnaSifra());
+		mt103.setSvrhaPlacanja(analitikaIzvoda.getSvrhaPlacanja());
+		mt103.setSwiftKodBankeDuznika(rtgs.getSwiftBankeDuznika());
+		mt103.setSwiftKodBankePrimaoca(rtgs.getSwiftBankePoverioca());
 
 
+		objectToXmlFile(mt103, "MT103_" );
 
 	}
 
+
 	private static String getFormatedDateTimeForKliring(XMLGregorianCalendar datumKliringa) {
 
-		String formatedDate = datumKliringa.getDay() + "_" + datumKliringa.getMonth() + "_" + datumKliringa.getYear() + "_" + datumKliringa.getHour() + "_" + datumKliringa.getMinute();
+		String formatedDate = datumKliringa.getDay() + "_" + datumKliringa.getMonth() + "_" + datumKliringa.getYear()
+				+ "_" + datumKliringa.getHour() + "_" + datumKliringa.getMinute();
 
 		return formatedDate;
 	}
@@ -126,15 +148,14 @@ public class XmlManager {
 	private static MT102 findMT102(StavkaKliringa stavka, List<MT102> listaMT102) {
 		MT102 mt102ret = null;
 
-		for(MT102 mt102 : listaMT102){
+		for (MT102 mt102 : listaMT102) {
 
-			if(mt102.getZaglavljeKliringa().getSwiftKodBankePrimaoca().equals(stavka.getSwiftBankePoverioca())){
+			if (mt102.getZaglavljeKliringa().getSwiftKodBankePrimaoca().equals(stavka.getSwiftBankePoverioca())) {
 
 				mt102ret = mt102;
 				break;
 
 			}
-
 
 		}
 
@@ -147,7 +168,7 @@ public class XmlManager {
 		c.setTime(datumKliringa);
 		XMLGregorianCalendar date2 = null;
 		try {
-			 date2 = DatatypeFactory.newInstance().newXMLGregorianCalendar(c);
+			date2 = DatatypeFactory.newInstance().newXMLGregorianCalendar(c);
 		} catch (DatatypeConfigurationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -163,7 +184,7 @@ public class XmlManager {
 
 		XMLGregorianCalendar date2 = null;
 		try {
-			 date2 = DatatypeFactory.newInstance().newXMLGregorianCalendar(c);
+			date2 = DatatypeFactory.newInstance().newXMLGregorianCalendar(c);
 		} catch (DatatypeConfigurationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -172,7 +193,7 @@ public class XmlManager {
 		return date2;
 	}
 
-	public static void objectToXmlFile(Object object,String fileName){
+	public static void objectToXmlFile(Object object, String fileName) {
 
 		JAXBContext jaxbContext;
 		try {
@@ -182,11 +203,7 @@ public class XmlManager {
 			// output pretty printed
 			jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 
-
-
-			File xmlFile = new File(System.getProperty("user.home") + "/Desktop/" +fileName+".xml" );
-
-
+			File xmlFile = new File(System.getProperty("user.home") + "/Desktop/" + fileName + ".xml");
 
 			jaxbMarshaller.marshal(object, xmlFile);
 		} catch (JAXBException e) {
@@ -195,6 +212,5 @@ public class XmlManager {
 		}
 
 	}
-
 
 }
