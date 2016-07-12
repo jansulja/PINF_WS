@@ -16,6 +16,7 @@ import javax.ws.rs.core.Response;
 import org.apache.log4j.Logger;
 
 import com.tim15.model.AnalitikaIzvoda;
+import com.tim15.model.Banka;
 import com.tim15.model.DnevnoStanjeRacuna;
 import com.tim15.model.NaseljenoMesto;
 import com.tim15.model.Racuni;
@@ -23,6 +24,7 @@ import com.tim15.model.Valuta;
 import com.tim15.model.VrstePlacanja;
 import com.tim15.model.obrade.Nalog;
 import com.tim15.sessionbeans.AnalitikaIzvodaDaoLocal;
+import com.tim15.sessionbeans.BankaDaoLocal;
 import com.tim15.sessionbeans.DnevnoStanjeRacunaDaoLocal;
 import com.tim15.sessionbeans.NaseljenoMestoDaoLocal;
 import com.tim15.sessionbeans.RacuniDaoLocal;
@@ -42,6 +44,9 @@ public class NalogService {
 
 	@EJB
 	private ValutaDaoLocal valutaDao;
+
+	@EJB
+	private BankaDaoLocal bankaDao;
 
 	@EJB
 	private NaseljenoMestoDaoLocal naseljenoMestoDao;
@@ -85,12 +90,10 @@ public class NalogService {
 			if (poslednjeDnevnoStanje != null) {
 
 				dnevnoStanjeRacuna = new DnevnoStanjeRacuna(new java.sql.Date(now.getTime()),
-						poslednjeDnevnoStanje.getNovoStanje(),  0,entity.getIznos().doubleValue(),
+						poslednjeDnevnoStanje.getNovoStanje(), 0, entity.getIznos().doubleValue(),
 						poslednjeDnevnoStanje.getNovoStanje() - entity.getIznos().doubleValue(), racunDuznika, null);
 
-
 				analitikaIzvoda = nalogToAnalitikaIzvoda(entity, sqlNow, 1, "Uspesno", dnevnoStanjeRacuna);
-
 
 				try {
 
@@ -210,6 +213,66 @@ public class NalogService {
 					}
 
 				}
+
+				// nije ista banka
+			} else {
+
+				// --- RTGS ---
+				if (entity.isHitno() || entity.getIznos().doubleValue() >= 250000.00) {
+
+					// --- Kliring ---
+				} else {
+
+					lista = dnevnoStanjeRacunaDao
+							.findBy("select distinct dsr from DnevnoStanjeRacuna dsr where dsr.racuni.brojRacuna = '"
+									+ entity.getRacunPrimaoca() + "' and dsr.datumPrometa = '"
+									+ new java.sql.Date(now.getTime()) + "'");
+					// nema danas
+					if (lista.isEmpty()) {
+						poslednjeDnevnoStanje = dnevnoStanjeRacunaDao.getPoslednjeStanje(entity.getRacunPrimaoca());
+
+						// postoji nesto od pre
+						if (poslednjeDnevnoStanje != null) {
+
+							dnevnoStanjeRacuna = new DnevnoStanjeRacuna(new java.sql.Date(now.getTime()),
+									poslednjeDnevnoStanje.getPrethodnoStanje(), entity.getIznos().doubleValue(), 0,
+									poslednjeDnevnoStanje.getNovoStanje(),
+									racunPrimaoca, null);
+						} else {
+							dnevnoStanjeRacuna = new DnevnoStanjeRacuna(new java.sql.Date(now.getTime()), 0,
+									0, 0, 0, racunPrimaoca,
+									null);
+
+						}
+
+						analitikaIzvoda = nalogToAnalitikaIzvoda(entity, sqlNow, 1, "Uspesno", dnevnoStanjeRacuna);
+
+						try {
+							dnevnoStanjeRacunaDao.persist(dnevnoStanjeRacuna);
+							analitikaIzvodaDao.persist(analitikaIzvoda);
+						} catch (NoSuchFieldException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+
+						// ima danas
+					} else {
+						poslednjeDnevnoStanje = lista.get(0);
+
+						analitikaIzvoda = nalogToAnalitikaIzvoda(entity, sqlNow, 1, "Uspesno", poslednjeDnevnoStanje);
+
+						try {
+
+							analitikaIzvodaDao.persist(analitikaIzvoda);
+						} catch (NoSuchFieldException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+
+					}
+
+				}
+
 			}
 
 		}
@@ -217,7 +280,14 @@ public class NalogService {
 		return response;
 	}
 
-	public AnalitikaIzvoda nalogToAnalitikaIzvoda(Nalog entity, java.sql.Date datumPrijema,int tipGreske,String status,DnevnoStanjeRacuna dnevnoStanjeRacuna) {
+	private Banka getCurrentBanka() {
+
+		return bankaDao.findById(1);
+
+	}
+
+	public AnalitikaIzvoda nalogToAnalitikaIzvoda(Nalog entity, java.sql.Date datumPrijema, int tipGreske,
+			String status, DnevnoStanjeRacuna dnevnoStanjeRacuna) {
 
 		Valuta valuta = valutaDao.findByZvanicnaSifra(entity.getOznakaValute());
 
@@ -225,7 +295,12 @@ public class NalogService {
 
 		VrstePlacanja vrstePlacanja = vrstePlacanjaDao.findByOznaka(entity.getSifraPlacanja().intValue());
 
-		AnalitikaIzvoda analitikaIzvoda = new AnalitikaIzvoda(0, entity.getDuznik(), entity.getSvrhaPlacanja(), entity.getPrimalac(), datumPrijema, datumPrijema, entity.getRacunDuznika(), entity.getModelZaduzenja().doubleValue(), entity.getPozivNaBrojZaduzenja(), entity.getRacunPrimaoca(), entity.getModelOdobrenja().doubleValue(), entity.getPozivNaBrojOdobrenja(), entity.isHitno(), entity.getIznos().doubleValue(), tipGreske, status, dnevnoStanjeRacuna, valuta, naseljenoMesto, vrstePlacanja);
+		AnalitikaIzvoda analitikaIzvoda = new AnalitikaIzvoda(0, entity.getDuznik(), entity.getSvrhaPlacanja(),
+				entity.getPrimalac(), datumPrijema, datumPrijema, entity.getRacunDuznika(),
+				entity.getModelZaduzenja().doubleValue(), entity.getPozivNaBrojZaduzenja(), entity.getRacunPrimaoca(),
+				entity.getModelOdobrenja().doubleValue(), entity.getPozivNaBrojOdobrenja(), entity.isHitno(),
+				entity.getIznos().doubleValue(), tipGreske, status, dnevnoStanjeRacuna, valuta, naseljenoMesto,
+				vrstePlacanja);
 
 		return analitikaIzvoda;
 	}

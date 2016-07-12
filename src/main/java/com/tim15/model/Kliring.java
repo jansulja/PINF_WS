@@ -23,7 +23,7 @@ public class Kliring {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "kliring_id", unique = true)
 	private java.lang.String kliringId;
-	private java.util.Date datumKliringa;
+	private java.sql.Date datumKliringa;
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "kliring", orphanRemoval = true)
 	@JsonIgnore
 	private java.util.Set<StavkaKliringa> stavkaKliringa;
@@ -32,7 +32,7 @@ public class Kliring {
 
 
 
-	public Kliring(String kliringId, Date datumKliringa, Set<StavkaKliringa> stavkaKliringa) {
+	public Kliring(String kliringId, java.sql.Date datumKliringa, Set<StavkaKliringa> stavkaKliringa) {
 		super();
 		this.kliringId = kliringId;
 		this.datumKliringa = datumKliringa;
@@ -52,11 +52,11 @@ public class Kliring {
 		this.kliringId = kliringId;
 	}
 
-	public java.util.Date getDatumKliringa() {
+	public java.sql.Date getDatumKliringa() {
 		return datumKliringa;
 	}
 
-	public void setDatumKliringa(java.util.Date datumKliringa) {
+	public void setDatumKliringa(java.sql.Date datumKliringa) {
 		this.datumKliringa = datumKliringa;
 	}
 
