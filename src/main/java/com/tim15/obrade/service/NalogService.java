@@ -228,7 +228,7 @@ public class NalogService {
 			} else {
 
 				// --- RTGS ---
-				if (entity.isHitno() || entity.getIznos().doubleValue() >= 250000.00) {
+				if (entity.isHitno() || entity.getIznos().doubleValue() >= 300000.00) {
 
 					// --- Kliring ---
 				} else {
@@ -321,8 +321,8 @@ public class NalogService {
 
 		AnalitikaIzvoda analitikaIzvoda = new AnalitikaIzvoda(0, entity.getDuznik(), entity.getSvrhaPlacanja(),
 				entity.getPrimalac(), datumPrijema, datumPrijema, entity.getRacunDuznika(),
-				entity.getModelZaduzenja().doubleValue(), entity.getPozivNaBrojZaduzenja(), entity.getRacunPrimaoca(),
-				entity.getModelOdobrenja().doubleValue(), entity.getPozivNaBrojOdobrenja(), entity.isHitno(),
+				entity.getModelZaduzenja().intValue(), entity.getPozivNaBrojZaduzenja(), entity.getRacunPrimaoca(),
+				entity.getModelOdobrenja().intValue(), entity.getPozivNaBrojOdobrenja(), entity.isHitno(),
 				entity.getIznos().doubleValue(), tipGreske, status, dnevnoStanjeRacuna, valuta, naseljenoMesto,
 				vrstePlacanja);
 

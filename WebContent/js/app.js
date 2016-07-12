@@ -259,9 +259,29 @@ angular
 		$rootScope[opened] = true;
 	};
 
-}).controller('myAppCtrl', function ($scope,$location, Drzava, $rootScope){
+}).controller('myAppCtrl', function ($scope,$location, Drzava, $rootScope,$q,$http){
 
 
+	$scope.generateMT102 = function(){
+
+		var deferred = $q.defer();
+		//user.password = md5.createHash(user.password);
+		$http({
+			url: "http://localhost:8089/PINF_WSProjekat/api/mt102",
+			method: "GET",
+		}).then(function successCallback(data) {
+			deferred.resolve(data.data);
+		}, function errorCallback(response) {
+
+		});
+
+		var promise = deferred.promise;
+		promise.then(function (data) {
+			console.log('yeees');
+		});
+
+
+	}
 
 
 });

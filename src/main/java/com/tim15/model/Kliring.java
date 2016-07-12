@@ -1,5 +1,6 @@
 package com.tim15.model;
 
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Set;
 
@@ -23,7 +24,7 @@ public class Kliring {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "kliring_id", unique = true)
 	private java.lang.String kliringId;
-	private java.sql.Date datumKliringa;
+	private java.sql.Timestamp datumKliringa;
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "kliring", orphanRemoval = true)
 	@JsonIgnore
 	private java.util.Set<StavkaKliringa> stavkaKliringa;
@@ -32,7 +33,7 @@ public class Kliring {
 
 
 
-	public Kliring(String kliringId, java.sql.Date datumKliringa, Set<StavkaKliringa> stavkaKliringa) {
+	public Kliring(String kliringId, Timestamp datumKliringa, Set<StavkaKliringa> stavkaKliringa) {
 		super();
 		this.kliringId = kliringId;
 		this.datumKliringa = datumKliringa;
@@ -52,11 +53,11 @@ public class Kliring {
 		this.kliringId = kliringId;
 	}
 
-	public java.sql.Date getDatumKliringa() {
+	public Timestamp getDatumKliringa() {
 		return datumKliringa;
 	}
 
-	public void setDatumKliringa(java.sql.Date datumKliringa) {
+	public void setDatumKliringa(Timestamp datumKliringa) {
 		this.datumKliringa = datumKliringa;
 	}
 

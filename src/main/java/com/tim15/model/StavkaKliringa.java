@@ -35,7 +35,7 @@ public class StavkaKliringa {
 
 	private java.lang.String sifraValute;
 
-	private java.util.Date datumValute;
+	private java.sql.Date datumValute;
 
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "analitika_izvoda_id")
@@ -50,7 +50,7 @@ public class StavkaKliringa {
 
 	public StavkaKliringa(int stavkaKliringaId, String swiftBankeDuznika, String racunBankeDuznika,
 			String swiftBankePoverioca, String racunBankePoverioca, double ukupanIznos, String sifraValute,
-			Date datumValute, AnalitikaIzvoda analitikaIzvoda, Kliring kliring) {
+			java.sql.Date datumValute, AnalitikaIzvoda analitikaIzvoda, Kliring kliring) {
 		super();
 		this.stavkaKliringaId = stavkaKliringaId;
 		this.swiftBankeDuznika = swiftBankeDuznika;
@@ -125,11 +125,11 @@ public class StavkaKliringa {
 		this.sifraValute = sifraValute;
 	}
 
-	public java.util.Date getDatumValute() {
+	public java.sql.Date getDatumValute() {
 		return datumValute;
 	}
 
-	public void setDatumValute(java.util.Date datumValute) {
+	public void setDatumValute(java.sql.Date datumValute) {
 		this.datumValute = datumValute;
 	}
 

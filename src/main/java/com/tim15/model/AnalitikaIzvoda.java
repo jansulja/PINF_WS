@@ -43,10 +43,10 @@ public class AnalitikaIzvoda {
 	private java.sql.Date datumPrijema;
 	private java.sql.Date datumValute;
 	private java.lang.String racunDuznika;
-	private double modelZaduzenja;
+	private int modelZaduzenja;
 	private java.lang.String pozivNaProjZaduzenja;
 	private java.lang.String racunPoverioca;
-	private double modelOdobrenja;
+	private int modelOdobrenja;
 	private java.lang.String pozivNaBrojOdobrenja;
 	private boolean hitno = false;
 	private double iznos = 0;
@@ -82,8 +82,8 @@ public class AnalitikaIzvoda {
 
 
 	public AnalitikaIzvoda(int analitikaIzvodaId, String duznikNalogodavac, String svrhaPlacanja, String poverilacPrimalac, java.sql.Date datumPrijema,
-			java.sql.Date datumValute, String racunDuznika, double modelZaduzenja, String pozivNaProjZaduzenja,
-			String racunPoverioca, double modelOdobrenja, String pozivNaBrojOdobrenja, boolean hitno, double iznos,
+			java.sql.Date datumValute, String racunDuznika, int modelZaduzenja, String pozivNaProjZaduzenja,
+			String racunPoverioca, int modelOdobrenja, String pozivNaBrojOdobrenja, boolean hitno, double iznos,
 			int tipGreske, String status, DnevnoStanjeRacuna dnevnoStanjeRacuna, Valuta valuta,
 			NaseljenoMesto naseljenoMesto, VrstePlacanja vrstePlacanja) {
 		super();
@@ -166,11 +166,11 @@ public class AnalitikaIzvoda {
 		this.racunDuznika = racunDuznika;
 	}
 
-	public double getModelZaduzenja() {
+	public int getModelZaduzenja() {
 		return modelZaduzenja;
 	}
 
-	public void setModelZaduzenja(double modelZaduzenja) {
+	public void setModelZaduzenja(int modelZaduzenja) {
 		this.modelZaduzenja = modelZaduzenja;
 	}
 
@@ -190,11 +190,11 @@ public class AnalitikaIzvoda {
 		this.racunPoverioca = racunPoverioca;
 	}
 
-	public double getModelOdobrenja() {
+	public int getModelOdobrenja() {
 		return modelOdobrenja;
 	}
 
-	public void setModelOdobrenja(double modelOdobrenja) {
+	public void setModelOdobrenja(int modelOdobrenja) {
 		this.modelOdobrenja = modelOdobrenja;
 	}
 

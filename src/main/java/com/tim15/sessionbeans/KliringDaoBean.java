@@ -1,5 +1,6 @@
 package com.tim15.sessionbeans;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -8,6 +9,8 @@ import javax.ejb.Stateless;
 import javax.persistence.Query;
 
 import com.tim15.model.Kliring;
+
+import sun.util.logging.resources.logging;
 
 
 
@@ -19,10 +22,13 @@ public class KliringDaoBean extends GenericDaoBean<Kliring, Integer> implements 
 	public Kliring getNext() {
 
 		Date now = new Date();
-		java.sql.Date sqlNow = new java.sql.Date(now.getTime());
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 
-		String query = "SELECT DISTINCT k FROM Kliring k WHERE k.datumKliringa > '"+ sqlNow +"' ORDER BY k.datumKliringa ASC" ;
+		String time = sdf.format(now);
+
+
+		String query = "SELECT DISTINCT k FROM Kliring k WHERE k.datumKliringa > '"+ time +"' ORDER BY k.datumKliringa ASC" ;
 
 		Query q = em.createQuery(query);
 				List<Kliring> result = q.getResultList();
