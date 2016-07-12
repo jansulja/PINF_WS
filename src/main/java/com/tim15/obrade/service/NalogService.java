@@ -21,6 +21,7 @@ import com.tim15.model.DnevnoStanjeRacuna;
 import com.tim15.model.Kliring;
 import com.tim15.model.NaseljenoMesto;
 import com.tim15.model.Racuni;
+import com.tim15.model.Rtgs;
 import com.tim15.model.StavkaKliringa;
 import com.tim15.model.Valuta;
 import com.tim15.model.VrstePlacanja;
@@ -31,6 +32,7 @@ import com.tim15.sessionbeans.DnevnoStanjeRacunaDaoLocal;
 import com.tim15.sessionbeans.KliringDaoLocal;
 import com.tim15.sessionbeans.NaseljenoMestoDaoLocal;
 import com.tim15.sessionbeans.RacuniDaoLocal;
+import com.tim15.sessionbeans.RtgsDaoLocal;
 import com.tim15.sessionbeans.StavkaKliringaDaoLocal;
 import com.tim15.sessionbeans.ValutaDaoLocal;
 import com.tim15.sessionbeans.VrstePlacanjaDaoLocal;
@@ -54,6 +56,9 @@ public class NalogService {
 
 	@EJB
 	private KliringDaoLocal kliringDao;
+
+	@EJB
+	private RtgsDaoLocal rtgsDao;
 
 	@EJB
 	private StavkaKliringaDaoLocal stavkaKliringaDao;
@@ -230,6 +235,69 @@ public class NalogService {
 				// --- RTGS ---
 				if (entity.isHitno() || entity.getIznos().doubleValue() >= 300000.00) {
 
+					Rtgs rtgs = null;
+
+					lista = dnevnoStanjeRacunaDao
+							.findBy("select distinct dsr from DnevnoStanjeRacuna dsr where dsr.racuni.brojRacuna = '"
+									+ entity.getRacunPrimaoca() + "' and dsr.datumPrometa = '"
+									+ new java.sql.Date(now.getTime()) + "'");
+					// nema danas
+					if (lista.isEmpty()) {
+						poslednjeDnevnoStanje = dnevnoStanjeRacunaDao.getPoslednjeStanje(entity.getRacunPrimaoca());
+
+						// postoji nesto od pre
+						if (poslednjeDnevnoStanje != null) {
+
+							dnevnoStanjeRacuna = new DnevnoStanjeRacuna(new java.sql.Date(now.getTime()),
+									poslednjeDnevnoStanje.getPrethodnoStanje(), entity.getIznos().doubleValue(), 0,
+									poslednjeDnevnoStanje.getNovoStanje(),
+									racunPrimaoca, null);
+						} else {
+							dnevnoStanjeRacuna = new DnevnoStanjeRacuna(new java.sql.Date(now.getTime()), 0,
+									0, 0, 0, racunPrimaoca,
+									null);
+
+						}
+
+						analitikaIzvoda = nalogToAnalitikaIzvoda(entity, sqlNow, 1, "RTGS", dnevnoStanjeRacuna);
+						rtgs = analitikaIzvodaToRtgs(analitikaIzvoda);
+
+
+
+						try {
+							dnevnoStanjeRacunaDao.persist(dnevnoStanjeRacuna);
+							analitikaIzvodaDao.persist(analitikaIzvoda);
+							rtgsDao.persist(rtgs);
+
+						} catch (NoSuchFieldException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+
+						// ima danas
+					} else {
+						poslednjeDnevnoStanje = lista.get(0);
+						analitikaIzvoda = nalogToAnalitikaIzvoda(entity, sqlNow, 1, "RTGS", poslednjeDnevnoStanje);
+						rtgs = analitikaIzvodaToRtgs(analitikaIzvoda);
+						try {
+
+							analitikaIzvodaDao.persist(analitikaIzvoda);
+							rtgsDao.persist(rtgs);
+
+						} catch (NoSuchFieldException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+
+					}
+
+
+
+
+
+
+
+
 					// --- Kliring ---
 				} else {
 
@@ -295,6 +363,15 @@ public class NalogService {
 		}
 
 		return response;
+	}
+
+	private Rtgs analitikaIzvodaToRtgs(AnalitikaIzvoda analitikaIzvoda) {
+		Banka bankaDuznik = racuniDao.findByNumber(analitikaIzvoda.getRacunDuznika()).getBanka();
+		Banka bankaPoverilac = racuniDao.findByNumber(analitikaIzvoda.getRacunPoverioca()).getBanka();
+
+		Rtgs rtgs = new  Rtgs(0, bankaDuznik.getSwift(), bankaDuznik.getObracunskiRacun(), bankaPoverilac.getSwift(), bankaPoverilac.getObracunskiRacun(), analitikaIzvoda);
+
+		return rtgs;
 	}
 
 	private StavkaKliringa analitikaIzvodaToStavkaKliringa(AnalitikaIzvoda analitikaIzvoda,java.sql.Date datumValute,Kliring kliring) {

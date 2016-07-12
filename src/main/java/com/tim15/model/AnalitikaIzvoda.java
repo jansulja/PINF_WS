@@ -73,6 +73,10 @@ public class AnalitikaIzvoda {
 	@JsonIgnore
 	private Set<StavkaKliringa> stavkaKliringa;
 
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "analitikaIzvoda", orphanRemoval=true)
+	@JsonIgnore
+	private Set<Rtgs> rtgs;
+
 
 	public AnalitikaIzvoda() {
 		super();
