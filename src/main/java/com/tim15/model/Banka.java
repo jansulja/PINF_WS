@@ -37,6 +37,8 @@ public class Banka {
 	private java.lang.String web;
 	private java.lang.String telefon;
 	private java.lang.String fax;
+	private String obracunskiRacun;
+	private String swift;
 	private boolean banka;
 
 
@@ -60,7 +62,7 @@ public class Banka {
 
 
 	public Banka(String sifraBanke, String pib, String naziv, String adresa, String eMail, String web, String telefon,
-			String fax, boolean banka, Set<Racuni> racuni, Set<KursnaLista> kursnaLista) {
+			String fax,String obracunskiRacun, String swift, boolean banka, Set<Racuni> racuni, Set<KursnaLista> kursnaLista) {
 		super();
 		this.sifraBanke = sifraBanke;
 		this.pib = pib;
@@ -73,6 +75,32 @@ public class Banka {
 		this.banka = banka;
 		this.racuni = racuni;
 		this.kursnaLista = kursnaLista;
+		this.obracunskiRacun = obracunskiRacun;
+		this.swift = swift;
+	}
+
+
+
+	public String getObracunskiRacun() {
+		return obracunskiRacun;
+	}
+
+
+
+	public void setObracunskiRacun(String obracunskiRacun) {
+		this.obracunskiRacun = obracunskiRacun;
+	}
+
+
+
+	public String getSwift() {
+		return swift;
+	}
+
+
+
+	public void setSwift(String swift) {
+		this.swift = swift;
 	}
 
 

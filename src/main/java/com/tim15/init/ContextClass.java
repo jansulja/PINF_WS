@@ -43,9 +43,9 @@ public class ContextClass implements ServletContextListener {
 	@Override
 	public void contextInitialized(ServletContextEvent arg0) {
 
-		Banka b1 = new Banka("115", "7439857", "TELENOR BANKA, AD, BEOGRAD", "adresa 1", "telenor@tel.com", "www.tel.com", "063/453-234", "063/453-234", true, null, null);
-		Banka b2 = new Banka("125", "7439857", "PIRAEUS BANK, AD, BEOGRAD", "adresa 2", "pireus@tel.com", "www.pire.com", "063/453-234", "063/453-234", true, null, null);
-		Banka b3 = new Banka("160", "7439857", "BANCA INTESA, AD, BEOGRAD", "adresa 3", "intesa@tel.com", "www.intesa.com", "063/453-234", "063/453-234", true, null, null);
+		Banka b1 = new Banka("115", "7439857", "TELENOR BANKA, AD, BEOGRAD", "adresa 1", "telenor@tel.com", "www.tel.com", "063/453-234", "063/453-234","1111111","222", true, null, null);
+		Banka b2 = new Banka("125", "7439857", "PIRAEUS BANK, AD, BEOGRAD", "adresa 2", "pireus@tel.com", "www.pire.com", "063/453-234", "063/453-234","3333333","444", true, null, null);
+		Banka b3 = new Banka("160", "7439857", "BANCA INTESA, AD, BEOGRAD", "adresa 3", "intesa@tel.com", "www.intesa.com", "063/453-234", "063/453-234","6666666","777", true, null, null);
 
 
 		FizickoLice fl1 = new FizickoLice("060/0668***", "shuky11@gmail.com", "Jana Kolara 34", "****", 1, null, "Jan Sulja", new Date(1993, 12, 17), "M", 456789, 1712993850);

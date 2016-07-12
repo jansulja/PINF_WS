@@ -8,7 +8,6 @@ import javax.ejb.Stateless;
 import javax.persistence.Query;
 
 import com.tim15.model.Kliring;
-import com.tim15.model.Kliring;
 
 
 

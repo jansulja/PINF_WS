@@ -21,7 +21,7 @@ public class StavkaKliringa {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "stavka_kliringa_id", unique = true)
-	private java.lang.String stavkaKliringaId;
+	private int stavkaKliringaId;
 
 	private java.lang.String swiftBankeDuznika;
 
@@ -48,7 +48,7 @@ public class StavkaKliringa {
 
 
 
-	public StavkaKliringa(String stavkaKliringaId, String swiftBankeDuznika, String racunBankeDuznika,
+	public StavkaKliringa(int stavkaKliringaId, String swiftBankeDuznika, String racunBankeDuznika,
 			String swiftBankePoverioca, String racunBankePoverioca, double ukupanIznos, String sifraValute,
 			Date datumValute, AnalitikaIzvoda analitikaIzvoda, Kliring kliring) {
 		super();
@@ -69,11 +69,11 @@ public class StavkaKliringa {
 		// TODO Auto-generated constructor stub
 	}
 
-	public java.lang.String getStavkaKliringaId() {
+	public int getStavkaKliringaId() {
 		return stavkaKliringaId;
 	}
 
-	public void setStavkaKliringaId(java.lang.String stavkaKliringaId) {
+	public void setStavkaKliringaId(int stavkaKliringaId) {
 		this.stavkaKliringaId = stavkaKliringaId;
 	}
 

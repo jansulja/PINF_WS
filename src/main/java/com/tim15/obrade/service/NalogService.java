@@ -18,16 +18,20 @@ import org.apache.log4j.Logger;
 import com.tim15.model.AnalitikaIzvoda;
 import com.tim15.model.Banka;
 import com.tim15.model.DnevnoStanjeRacuna;
+import com.tim15.model.Kliring;
 import com.tim15.model.NaseljenoMesto;
 import com.tim15.model.Racuni;
+import com.tim15.model.StavkaKliringa;
 import com.tim15.model.Valuta;
 import com.tim15.model.VrstePlacanja;
 import com.tim15.model.obrade.Nalog;
 import com.tim15.sessionbeans.AnalitikaIzvodaDaoLocal;
 import com.tim15.sessionbeans.BankaDaoLocal;
 import com.tim15.sessionbeans.DnevnoStanjeRacunaDaoLocal;
+import com.tim15.sessionbeans.KliringDaoLocal;
 import com.tim15.sessionbeans.NaseljenoMestoDaoLocal;
 import com.tim15.sessionbeans.RacuniDaoLocal;
+import com.tim15.sessionbeans.StavkaKliringaDaoLocal;
 import com.tim15.sessionbeans.ValutaDaoLocal;
 import com.tim15.sessionbeans.VrstePlacanjaDaoLocal;
 
@@ -47,6 +51,12 @@ public class NalogService {
 
 	@EJB
 	private BankaDaoLocal bankaDao;
+
+	@EJB
+	private KliringDaoLocal kliringDao;
+
+	@EJB
+	private StavkaKliringaDaoLocal stavkaKliringaDao;
 
 	@EJB
 	private NaseljenoMestoDaoLocal naseljenoMestoDao;
@@ -223,6 +233,9 @@ public class NalogService {
 					// --- Kliring ---
 				} else {
 
+					Kliring kliring = kliringDao.getNext();
+					StavkaKliringa stavkaKliringa = null;
+
 					lista = dnevnoStanjeRacunaDao
 							.findBy("select distinct dsr from DnevnoStanjeRacuna dsr where dsr.racuni.brojRacuna = '"
 									+ entity.getRacunPrimaoca() + "' and dsr.datumPrometa = '"
@@ -245,11 +258,15 @@ public class NalogService {
 
 						}
 
-						analitikaIzvoda = nalogToAnalitikaIzvoda(entity, sqlNow, 1, "Uspesno", dnevnoStanjeRacuna);
+						analitikaIzvoda = nalogToAnalitikaIzvoda(entity, sqlNow, 1, "Kliring", dnevnoStanjeRacuna);
+						stavkaKliringa = analitikaIzvodaToStavkaKliringa(analitikaIzvoda, sqlNow, kliring);
+
+
 
 						try {
 							dnevnoStanjeRacunaDao.persist(dnevnoStanjeRacuna);
 							analitikaIzvodaDao.persist(analitikaIzvoda);
+							stavkaKliringaDao.persist(stavkaKliringa);
 						} catch (NoSuchFieldException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -258,12 +275,12 @@ public class NalogService {
 						// ima danas
 					} else {
 						poslednjeDnevnoStanje = lista.get(0);
-
-						analitikaIzvoda = nalogToAnalitikaIzvoda(entity, sqlNow, 1, "Uspesno", poslednjeDnevnoStanje);
-
+						analitikaIzvoda = nalogToAnalitikaIzvoda(entity, sqlNow, 1, "Kliring", poslednjeDnevnoStanje);
+						stavkaKliringa = analitikaIzvodaToStavkaKliringa(analitikaIzvoda, sqlNow, kliring);
 						try {
 
 							analitikaIzvodaDao.persist(analitikaIzvoda);
+							stavkaKliringaDao.persist(stavkaKliringa);
 						} catch (NoSuchFieldException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -280,11 +297,18 @@ public class NalogService {
 		return response;
 	}
 
-	private Banka getCurrentBanka() {
+	private StavkaKliringa analitikaIzvodaToStavkaKliringa(AnalitikaIzvoda analitikaIzvoda,java.sql.Date datumValute,Kliring kliring) {
 
-		return bankaDao.findById(1);
+		Banka bankaDuznik = racuniDao.findByNumber(analitikaIzvoda.getRacunDuznika()).getBanka();
+		Banka bankaPoverilac = racuniDao.findByNumber(analitikaIzvoda.getRacunPoverioca()).getBanka();
+
+		StavkaKliringa stavkaKliringa = new StavkaKliringa(0, bankaDuznik.getSwift(), bankaDuznik.getObracunskiRacun(), bankaPoverilac.getSwift(), bankaPoverilac.getObracunskiRacun(), analitikaIzvoda.getIznos(), analitikaIzvoda.getValuta().getZvanicnaSifra(), datumValute, analitikaIzvoda, kliring);
+
+		return stavkaKliringa;
 
 	}
+
+
 
 	public AnalitikaIzvoda nalogToAnalitikaIzvoda(Nalog entity, java.sql.Date datumPrijema, int tipGreske,
 			String status, DnevnoStanjeRacuna dnevnoStanjeRacuna) {

@@ -6,8 +6,8 @@ import javax.ejb.Stateless;
 import com.tim15.model.StavkaKliringa;
 
 @Stateless
-@Local(StavkaKliringaLocal.class)
-public class StavkaKliringaDaoBean extends GenericDaoBean<StavkaKliringa, Integer> implements StavkaKliringaLocal {
+@Local(StavkaKliringaDaoLocal.class)
+public class StavkaKliringaDaoBean extends GenericDaoBean<StavkaKliringa, Integer> implements StavkaKliringaDaoLocal {
 
 
 
