@@ -4,6 +4,8 @@ angular.module('registration',[])
 
 .controller ('RegistrationController',function($scope, $rootScope, $routeParams, $log, $location, $q, $http){
 
+	$scope.zaposleni = { 'email' : '' , 'password':''};
+	$rootScope.current = {};
 	//Login funkcija
 	$scope.login = function(){
 
@@ -11,9 +13,9 @@ angular.module('registration',[])
 
 		$http({
 			//Ovo mozda treba da se menja u zavisnosti od path-a
-			url: "http://localhost:8089/PINF_WSProjekat/api/klijent/login",
+			url: "http://localhost:8089/PINF_WSProjekat/api/zaposleni/login",
 			method: "POST",
-			data: $scope.user
+			data: $scope.zaposleni
 		}).then(function successCallback(data) {
 			deferred.resolve(data.data);
 		}, function errorCallback(response) {
@@ -26,8 +28,9 @@ angular.module('registration',[])
 
 		promise.then(function (data) {
 			console.log(data);
-			$rootScope.current.imeiPrezime = data.imeiPrezime;
+			$rootScope.current.ime = data.ime;
 			$rootScope.current.email = data.email;
+			$location.path('/racuni-list');
 
 		});
 

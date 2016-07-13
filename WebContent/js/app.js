@@ -283,6 +283,39 @@ angular
 
 	}
 
+	$scope.loggedIn = function(){
+
+		var logged;
+		if($rootScope.current.ime == null){
+			logged = false;
+		}else{
+			logged = true;
+		}
+		return logged;
+	}
+
+	$scope.logout =function(){
+
+		var deferred = $q.defer();
+		//user.password = md5.createHash(user.password);
+		$http({
+			url: "http://localhost:8089/PINF_WSProjekat/api/zaposleni/logout",
+			method: "GET",
+		}).then(function successCallback(data) {
+			deferred.resolve(data.data);
+		}, function errorCallback(response) {
+
+		});
+
+		var promise = deferred.promise;
+		promise.then(function (data) {
+			console.log('yeees');
+			$location.path("/login");
+		});
+
+
+	}
+
 
 });
 

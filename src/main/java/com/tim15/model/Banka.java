@@ -50,6 +50,10 @@ public class Banka {
 	@JsonIgnore
 	private Set<KursnaLista> kursnaLista;
 
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "banka", orphanRemoval = true)
+	@JsonIgnore
+	private Set<Zaposleni> zaposleni;
+
 
 
 

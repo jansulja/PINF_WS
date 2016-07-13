@@ -144,7 +144,10 @@
 					</ul>
 				</li>
 
-				<li><a ng-href="#/login">Login</a></li>
+				<li ng-if="!loggedIn()")><a ng-href="#/login">Login</a></li>
+				<li ng-if="loggedIn()"><button type="button" ng-click="logout()" class="btn btn-warning">Logout</button></li>
+				
+				
 				<li><a ng-href="#/register">Register</a></li>
 				
 				<li ><button type="button" ng-click="generateMT102()" class="btn btn-danger">Generisi MT102</button></li>

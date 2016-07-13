@@ -2,7 +2,11 @@
 	<h3>Fizicka lica</h3>
 
 	<button type="button" class="btn btn-default"
-	ng-click="new()">Dodaj</button>
+	ng-click="new()">Dodaj</button></br>
+
+
+	<div ng-show="errorMessage" class="alert alert-warning" role="alert">{{errorMessage}}</div>
+	<div ng-show="successMessage" class="alert alert-success" role="alert">{{successMessage}}</div>
 
 	<table class="table table-striped table-bordered table-condensed table-hover">
 		<tr>
@@ -41,7 +45,11 @@
 			<td><button type="button" class="btn btn-default"
 				ng-click="remove(fizickoLice)">Obrisi</button>
 				<button type="button" class="btn btn-default"
-				ng-click="edit(fizickoLice)">Izmeni</button></td>
+				ng-click="edit(fizickoLice)">Izmeni</button>
+				<button type="button" class="btn btn-default"
+				ng-click="exportIzvod(fizickoLice)">Exportuj Izvod</button>
+				
+				</td>
 
 <td ng-if="isZoomActive('/fizickoLice-list')">
 				<button ng-click="genericPickUp(fizickoLice,'fizickoLice')" type="button" class="btn btn-default" aria-label="Left Align">

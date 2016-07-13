@@ -62,6 +62,7 @@ angular.module('fizicko-lice',['resource.fizickoLice'])
 	}
 
 
+
 	//funkcija koja otvara datepicker
 	$scope.openDatepicker = function($event, opened) {
 		$event.preventDefault();

@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -18,9 +19,13 @@ import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 
 import com.tim15.model.AnalitikaIzvoda;
+import com.tim15.model.DnevnoStanjeRacuna;
+import com.tim15.model.Klijent;
 import com.tim15.model.Kliring;
 import com.tim15.model.Rtgs;
 import com.tim15.model.StavkaKliringa;
+import com.tim15.model.xml.izvod.Izvod;
+import com.tim15.model.xml.izvod.StavkaIzvoda;
 import com.tim15.model.xml.mt102.MT102;
 import com.tim15.model.xml.mt102.ZaglavljeMT102;
 import com.tim15.model.xml.mt103.MT103;
@@ -102,7 +107,7 @@ public class XmlManager {
 
 			// objectToXmlFile(mt102,"MT102_"+mt102.getZaglavljeKliringa().getDatumKliringa().toString().split("T")[0]);
 			objectToXmlFile(mt102,
-					"MT102_" + getFormatedDateTimeForKliring(mt102.getZaglavljeKliringa().getDatumKliringa()));
+					"MT102_" + mt102.getZaglavljeKliringa().getSwiftKodBankePrimaoca() + "_" + getFormatedDateTimeForKliring(mt102.getZaglavljeKliringa().getDatumKliringa()));
 
 		}
 
@@ -132,7 +137,44 @@ public class XmlManager {
 		mt103.setSwiftKodBankePrimaoca(rtgs.getSwiftBankePoverioca());
 
 
-		objectToXmlFile(mt103, "MT103_" );
+		objectToXmlFile(mt103, "MT103_" + getFormatedDateTimeNow() );
+
+	}
+
+
+	public static void generateIzvod(String brojRacuna, Klijent klijent,DnevnoStanjeRacuna dnevnoStanjeRacuna){
+
+		Izvod izvod = new Izvod();
+		izvod.setBrojRacuna(brojRacuna);
+		izvod.setDatumPrometa(dateToXmlGrgorianCalendar(new java.util.Date()));
+		izvod.setKlijentId(String.valueOf(klijent.getKlijentId()));
+		izvod.setNovoStanje(BigDecimal.valueOf(dnevnoStanjeRacuna.getNovoStanje()));
+		izvod.setPrethodnoStanje(BigDecimal.valueOf(dnevnoStanjeRacuna.getPrethodnoStanje()));
+		izvod.setPrometNaTeret(BigDecimal.valueOf(dnevnoStanjeRacuna.getPrometNaTeret()));
+		izvod.setPrometUkorist(BigDecimal.valueOf(dnevnoStanjeRacuna.getPrometUKorist()));
+
+		
+		for(AnalitikaIzvoda analitikaIzvoda : dnevnoStanjeRacuna.getAnalitikaIzvoda()){
+			
+			StavkaIzvoda stavkaIzvoda = new StavkaIzvoda();
+			stavkaIzvoda.setDatumPrijema(dateToXmlGrgorianCalendar( analitikaIzvoda.getDatumPrijema()));
+			stavkaIzvoda.setDatumValute(dateToXmlGrgorianCalendar(analitikaIzvoda.getDatumValute()));
+			stavkaIzvoda.setDuznik(analitikaIzvoda.getDuznikNalogodavac());
+			stavkaIzvoda.setIznos(BigDecimal.valueOf( analitikaIzvoda.getIznos()));
+			stavkaIzvoda.setModelOdobrenja(BigInteger.valueOf(analitikaIzvoda.getModelOdobrenja()));
+			stavkaIzvoda.setModelZaduzenja(BigInteger.valueOf(analitikaIzvoda.getModelZaduzenja()));
+			stavkaIzvoda.setPozivNaBrojOdobrenja(analitikaIzvoda.getPozivNaBrojOdobrenja());
+			stavkaIzvoda.setPozivNaBrojZaduzenja(analitikaIzvoda.getPozivNaProjZaduzenja());
+			stavkaIzvoda.setPrimalac(analitikaIzvoda.getPoverilacPrimalac());
+			stavkaIzvoda.setRacunDuznika(analitikaIzvoda.getRacunDuznika());
+			stavkaIzvoda.setRacunPrimaoca(analitikaIzvoda.getRacunPoverioca());
+			stavkaIzvoda.setSifraValute(analitikaIzvoda.getValuta().getZvanicnaSifra());
+			stavkaIzvoda.setSvrhaPlacanja(analitikaIzvoda.getSvrhaPlacanja());
+		
+			izvod.getStavka().add(stavkaIzvoda);
+		}
+		
+		objectToXmlFile(izvod, "IZVOD_" + brojRacuna + getFormatedDateTimeNow());
 
 	}
 
@@ -143,6 +185,12 @@ public class XmlManager {
 				+ "_" + datumKliringa.getHour() + "_" + datumKliringa.getMinute();
 
 		return formatedDate;
+	}
+
+	private static String getFormatedDateTimeNow() {
+		java.util.Date date = new java.util.Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy_HH_mm");
+		return sdf.format(date);
 	}
 
 	private static MT102 findMT102(StavkaKliringa stavka, List<MT102> listaMT102) {
@@ -166,6 +214,19 @@ public class XmlManager {
 	private static XMLGregorianCalendar dateToXmlGrgorianCalendar(Date datumKliringa) {
 		GregorianCalendar c = new GregorianCalendar();
 		c.setTime(datumKliringa);
+		XMLGregorianCalendar date2 = null;
+		try {
+			date2 = DatatypeFactory.newInstance().newXMLGregorianCalendar(c);
+		} catch (DatatypeConfigurationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return date2;
+	}
+	private static XMLGregorianCalendar dateToXmlGrgorianCalendar(java.util.Date datum) {
+		GregorianCalendar c = new GregorianCalendar();
+		c.setTime(datum);
 		XMLGregorianCalendar date2 = null;
 		try {
 			date2 = DatatypeFactory.newInstance().newXMLGregorianCalendar(c);
@@ -210,6 +271,12 @@ public class XmlManager {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
+	}
+
+	public static void main(String[] args){
+
+		System.out.println(XmlManager.getFormatedDateTimeNow());
 
 	}
 
