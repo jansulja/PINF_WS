@@ -29,7 +29,9 @@ angular.module('registration',[])
 		promise.then(function (data) {
 			console.log(data);
 			$rootScope.current.ime = data.ime;
+			$rootScope.current.prezime = data.prezime;
 			$rootScope.current.email = data.email;
+			$rootScope.current.banka = data.banka.naziv;
 			$location.path('/racuni-list');
 
 		});

@@ -284,14 +284,75 @@ angular
 
 	}
 
+	$scope.logData;
+	$scope.first = true;
+	$scope.isLog;
+
 	$scope.loggedIn = function(){
 
 		if($rootScope.current == undefined){
-			return false;
+
+			var retVal =false;
+
+			if($scope.first){
+				if(!$scope.logData){
+
+					var deferred = $q.defer();
+					//user.password = md5.createHash(user.password);
+					$http({
+						url: "http://localhost:8089/PINF_WSProjekat/api/zaposleni/isLogged",
+						method: "GET"
+					}).then(function successCallback(data) {
+						deferred.resolve(data.data);
+					}, function errorCallback(response) {
+
+					});
+
+					var promise = deferred.promise;
+					promise.then(function (data) {
+						$scope.logData = data;
+
+
+						if(data!=""){
+
+							$rootScope.current = {};
+							$rootScope.current.ime = data.ime;
+							$rootScope.current.prezime = data.prezime;
+							$rootScope.current.email = data.email;
+							$rootScope.current.banka = data.banka.naziv;
+
+							retVal=true;
+							$scope.isLog = true;
+						}
+					});
+					$scope.first = false;
+
+				}
+
+
+			}else{
+				if($scope.isLog){
+					retVal=true;
+				}else{
+					retVal=false;
+				}
+			}
+
+
+
+
+
+
+			return retVal;
 		}
 
 		var logged;
 		if($rootScope.current.ime == null){
+
+
+
+
+
 			logged = false;
 		}else{
 			logged = true;

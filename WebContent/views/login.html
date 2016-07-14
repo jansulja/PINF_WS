@@ -21,20 +21,21 @@
 <!--     <p>or <a ng-href="#/register">register</a></p> -->
 <!--   </form> -->
 <!-- </section> -->
-
-<div>
+<div class="col-md-4"></div>
+<div class="col-md-4">
 	<form>
 		<div class="form-group">
-			<label >username:</label>
+			<label >Username :</label>
 			<input class="form-control" ng-model="zaposleni.email"></input>
 		</div>
 		<div class="form-group">
-			<label>password:</label>
+			<label>Password :</label>
 			<input type="password" class="form-control" ng-model="zaposleni.password"></input>
 		</div>
 		<div ng-show="pogresan" class="alert alert-danger" role="alert">Pogresan username ili password</div>
 		<div class="form-group">
-			<button class="btn btn-default" ng-click="login()">login</button>
+			<button class="btn btn-default" ng-click="login()">Login</button>
 		</div>
 	</form>
 </div>
+<div class="col-md-4"></div>

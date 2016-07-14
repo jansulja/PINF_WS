@@ -3,6 +3,7 @@ package com.tim15.service;
 import java.util.List;
 
 import javax.ejb.EJB;
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -11,6 +12,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
@@ -32,6 +34,8 @@ public class ZaposleniService {
 	@EJB
 	private ZaposleniDaoLocal zaposleniDao;
 
+	@Context
+	HttpServletRequest request;
 
 	private static Logger log = Logger.getLogger(ZaposleniService.class);
 
@@ -70,7 +74,14 @@ public class ZaposleniService {
 	}
 
 
+	@GET
+	@Path("isLogged")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Zaposleni status() {
+		Zaposleni zaposleni = (Zaposleni) request.getSession().getAttribute("zaposleni");
 
+		return zaposleni;
+	}
 
 
 
