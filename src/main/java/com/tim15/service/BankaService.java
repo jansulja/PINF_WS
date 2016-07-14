@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Set;
 
 import javax.ejb.EJB;
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -12,6 +14,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
@@ -21,12 +24,17 @@ import org.apache.log4j.Logger;
 import com.tim15.model.Banka;
 import com.tim15.model.KursnaLista;
 import com.tim15.model.Racuni;
+import com.tim15.model.Zaposleni;
 import com.tim15.model.view.NalogZaUplatu;
+import com.tim15.model.xml.util.XmlManager;
 import com.tim15.sessionbeans.BankaDaoLocal;
 import com.tim15.sessionbeans.RacuniDaoLocal;
 
 @Path("/banka")
 public class BankaService {
+
+	@Context
+	private HttpServletRequest request;
 
 	@EJB
 	private RacuniDaoLocal racuniDao;
@@ -35,7 +43,21 @@ public class BankaService {
 	private BankaDaoLocal bankaDao;
 
 
+
 	private static Logger log = Logger.getLogger(DrzavaService.class);
+
+	@GET
+	@Path("izvestaj")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response generateReport() {
+
+		Zaposleni zaposleni = (Zaposleni) request.getSession().getAttribute("zaposleni");
+		XmlManager.generateBankaIzvestaj(zaposleni.getBanka());
+
+
+		return Response.ok().build();
+    }
+
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)

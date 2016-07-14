@@ -6,7 +6,7 @@ angular
 'ngRoute',
 'ngResource',
 'ui.bootstrap',
-'registration',
+'registration', 'jcs-autoValidate',
 'success','drzava-list','resource.drzava','drzava-new','resource.valuta','valuta-list','valuta'
 ,'naseljeno-mesto-list','resource.naseljenoMesto','naseljeno-mesto'
 ,'analitika-izvoda-list','resource.analitikaIzvoda','analitika-izvoda'
@@ -20,7 +20,8 @@ angular
 ,'resource.fizickoLice','fizicko-lice-list','fizicko-lice'
 ,'resource.ukidanje','ukidanje-list','ukidanje'
 ,'resource.klijent','klijent-list'
-,'nalog'])
+,'nalog'
+,'modal-klijent-izvestaj'])
 
 
 
@@ -285,6 +286,10 @@ angular
 
 	$scope.loggedIn = function(){
 
+		if($rootScope.current == undefined){
+			return false;
+		}
+
 		var logged;
 		if($rootScope.current.ime == null){
 			logged = false;
@@ -316,6 +321,44 @@ angular
 
 	}
 
+	$scope.generateReport = function(){
 
-});
+		var deferred = $q.defer();
+		//user.password = md5.createHash(user.password);
+		$http({
+			url: "http://localhost:8089/PINF_WSProjekat/api/banka/izvestaj",
+			method: "GET"
+		}).then(function successCallback(data) {
+			deferred.resolve(data.data);
+		}, function errorCallback(response) {
+
+		});
+
+		var promise = deferred.promise;
+		promise.then(function (data) {
+			console.log('yeees');
+		});
+
+
+	}
+
+
+}).run([
+        'bootstrap3ElementModifier',
+        function (bootstrap3ElementModifier) {
+              bootstrap3ElementModifier.enableValidationStateIcons(true);
+}])
+
+ .run([
+    'defaultErrorMessageResolver',
+    function (defaultErrorMessageResolver) {
+        // passing a culture into getErrorMessages('fr-fr') will get the culture specific messages
+        // otherwise the current default culture is returned.
+    	defaultErrorMessageResolver.setCulture('rs-sr');
+//        defaultErrorMessageResolver.getErrorMessages().then(function (errorMessages) {
+//          errorMessages['requiredMy'] = 'Obavezno polje!';
+//
+//        });
+    }
+]);
 

@@ -12,7 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.core.Context;
 
 import com.tim15.model.Banka;
+import com.tim15.model.FizickoLice;
 import com.tim15.model.Klijent;
+import com.tim15.model.PravnoLice;
 import com.tim15.model.Racuni;
 
 
@@ -26,6 +28,13 @@ public class KlijentDaoBean extends GenericDaoBean<Klijent, Integer> implements 
 
 	@EJB
 	private BankaDaoLocal bankaDao;
+
+	@EJB
+	private PravnoLiceDaoLocal pravnoLiceDao;
+
+
+	@EJB
+	private FizickoLiceDaoLocal fizickoLiceDao;
 
 	@Override
 	public Klijent login(String username, String password)
@@ -66,6 +75,26 @@ public class KlijentDaoBean extends GenericDaoBean<Klijent, Integer> implements 
 
 		}
 		return racun;
+	}
+
+	@Override
+	public String getNaziv(int klijentId) {
+
+
+		PravnoLice pl = pravnoLiceDao.findById(klijentId);
+		FizickoLice fl = fizickoLiceDao.findById(klijentId);
+
+		String naziv = null;
+		if(pl!=null){
+
+			naziv = pl.getNaziv();
+
+		}else{
+			naziv = fl.getPunoIme();
+		}
+
+
+		return naziv;
 	}
 
 

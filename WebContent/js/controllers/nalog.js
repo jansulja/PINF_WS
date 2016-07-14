@@ -45,4 +45,44 @@ angular.module('nalog',['resource.racuni'])
 
 	}
 
-});
+	$scope.importNalog = function(){
+
+		var file = $scope.fileName.split("fakepath\\")[1];
+
+		var deferred = $q.defer();
+		//user.password = md5.createHash(user.password);
+		$http({
+			url: "http://localhost:8089/PINF_WSProjekat/api/nalog/" + file,
+			method: "GET"
+		}).then(function successCallback(data) {
+			deferred.resolve(data.data);
+		}, function errorCallback(response) {
+
+		});
+
+		var promise = deferred.promise;
+		promise.then(function (data) {
+			$scope.nalog = data;
+		});
+
+
+	}
+
+}).directive("fileread", [function () {
+    return {
+        scope: {
+            fileread: "="
+        },
+        link: function (scope, element, attributes) {
+            element.bind("change", function (changeEvent) {
+                var reader = new FileReader();
+                reader.onload = function (loadEvent) {
+                    scope.$apply(function () {
+                        scope.fileread = changeEvent.currentTarget.value;
+                    });
+                }
+                reader.readAsDataURL(changeEvent.target.files[0]);
+            });
+        }
+    }
+}]);

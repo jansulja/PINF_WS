@@ -7,11 +7,14 @@ import java.util.List;
 
 import javax.ejb.EJB;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.xml.bind.JAXBException;
 
 import org.apache.log4j.Logger;
 
@@ -78,6 +81,9 @@ public class NalogService {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response create(Nalog entity) {
 		Response response = null;
+
+
+		XmlManager.objectToXmlFile(entity, "NALOG_" + XmlManager.getFormatedDateTimeNow());
 
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		Date now = null;
@@ -370,6 +376,25 @@ public class NalogService {
 
 		return response;
 	}
+
+	@GET
+	@Path("{filename}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Object importNalog(@PathParam("filename") String filename) {
+
+		Nalog n = null;
+		try {
+			n = XmlManager.xmlFileToObject(Nalog.class, filename);
+		} catch (JAXBException e) {
+
+		}
+
+
+
+		return n;
+
+	}
+
 
 	private Rtgs analitikaIzvodaToRtgs(AnalitikaIzvoda analitikaIzvoda) {
 		Banka bankaDuznik = racuniDao.findByNumber(analitikaIzvoda.getRacunDuznika()).getBanka();

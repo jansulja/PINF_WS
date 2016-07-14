@@ -274,6 +274,44 @@ public class Racuni {
 		this.valuta = valuta;
 	}
 
+	@JsonIgnore
+	public double getStanjeRacuna(){
+
+		double stanje = 0;
+
+		if(dnevnoStanjeRacuna!=null && !dnevnoStanjeRacuna.isEmpty()){
+
+			DnevnoStanjeRacuna poslednje = null;
+
+			for(DnevnoStanjeRacuna dsr : dnevnoStanjeRacuna){
+				poslednje = dsr;
+				break;
+
+			}
+
+			for(DnevnoStanjeRacuna dsr : dnevnoStanjeRacuna){
+
+				Date trenutno = new Date(dsr.getDatumPrometa().getTime());
+				Date posl = new Date(poslednje.getDatumPrometa().getTime());
+
+				if(trenutno.after(posl)){
+
+					poslednje = dsr;
+				}
+
+			}
+
+			stanje = poslednje.getNovoStanje();
+
+
+
+		}
+
+
+
+		return stanje;
+
+	}
 
 
 }

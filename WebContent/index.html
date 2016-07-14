@@ -24,6 +24,9 @@
 <script src="bower_components/angular-touch/angular-touch.js"></script>
 <script src="bower_components/angular-bootstrap/ui-bootstrap.js"></script>
 <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+<script src="bower_components/angular-auto-validate/dist/jcs-auto-validate.js"></script>
+
+
 <script src="js/app.js"></script>
 <script src="js/controllers/registration.js"></script>
 <script src="js/controllers/success.js"></script>
@@ -87,6 +90,7 @@
 
 <script src="js/controllers/nalog.js"></script>
 
+<script src="js/controllers/modal-klijent-izvestaj.js"></script>
 
 </head>
 <body ng-app="myApp" ng-controller="myAppCtrl">
@@ -146,11 +150,11 @@
 
 				<li ng-if="!loggedIn()")><a ng-href="#/login">Login</a></li>
 				<li ng-if="loggedIn()"><button type="button" ng-click="logout()" class="btn btn-warning">Logout</button></li>
+				<li ng-if="loggedIn()"><button type="button" ng-click="generateReport()" class="btn btn-primary">Izvestaj Banke</button></li>
 				
+<!-- 				<li><a ng-href="#/register">Register</a></li> -->
 				
-				<li><a ng-href="#/register">Register</a></li>
-				
-				<li ><button type="button" ng-click="generateMT102()" class="btn btn-danger">Generisi MT102</button></li>
+				<li ng-if="loggedIn()"><button type="button" ng-click="generateMT102()" class="btn btn-danger">Generisi MT102</button></li>
 
 
 			</ul>

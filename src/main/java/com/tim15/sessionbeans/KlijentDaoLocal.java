@@ -14,4 +14,6 @@ public interface KlijentDaoLocal extends GenericDao<Klijent, Integer> {
 
 	public Racuni getRacunUBanci(int klijentId, int bankaId);
 
+	public String getNaziv(int klijentId);
+
 }

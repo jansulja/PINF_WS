@@ -1,6 +1,9 @@
 package com.tim15.model.xml.util;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.StringReader;
+import java.io.StringWriter;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.sql.Date;
@@ -14,16 +17,31 @@ import java.util.Set;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.FactoryConfigurationError;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.w3c.dom.Document;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 
 import com.tim15.model.AnalitikaIzvoda;
+import com.tim15.model.Banka;
 import com.tim15.model.DnevnoStanjeRacuna;
 import com.tim15.model.Klijent;
 import com.tim15.model.Kliring;
+import com.tim15.model.Racuni;
 import com.tim15.model.Rtgs;
 import com.tim15.model.StavkaKliringa;
+import com.tim15.model.xml.izvestajBanke.IzvestajBanke;
+import com.tim15.model.xml.izvestajBanke.StavkaIzvestajaBanke;
+import com.tim15.model.xml.izvestajKlijenta.IzvestajKlijenta;
+import com.tim15.model.xml.izvestajKlijenta.Stavka;
 import com.tim15.model.xml.izvod.Izvod;
 import com.tim15.model.xml.izvod.StavkaIzvoda;
 import com.tim15.model.xml.mt102.MT102;
@@ -106,15 +124,14 @@ public class XmlManager {
 		for (MT102 mt102 : listaMT102) {
 
 			// objectToXmlFile(mt102,"MT102_"+mt102.getZaglavljeKliringa().getDatumKliringa().toString().split("T")[0]);
-			objectToXmlFile(mt102,
-					"MT102_" + mt102.getZaglavljeKliringa().getSwiftKodBankePrimaoca() + "_" + getFormatedDateTimeForKliring(mt102.getZaglavljeKliringa().getDatumKliringa()));
+			objectToXmlFile(mt102, "MT102_" + mt102.getZaglavljeKliringa().getSwiftKodBankePrimaoca() + "_"
+					+ getFormatedDateTimeForKliring(mt102.getZaglavljeKliringa().getDatumKliringa()));
 
 		}
 
 	}
 
-
-	public static void generateMT103(Rtgs rtgs,AnalitikaIzvoda analitikaIzvoda){
+	public static void generateMT103(Rtgs rtgs, AnalitikaIzvoda analitikaIzvoda) {
 
 		MT103 mt103 = new MT103();
 		mt103.setDatumNaloga(dateToXmlGrgorianCalendar(analitikaIzvoda.getDatumPrijema()));
@@ -136,13 +153,11 @@ public class XmlManager {
 		mt103.setSwiftKodBankeDuznika(rtgs.getSwiftBankeDuznika());
 		mt103.setSwiftKodBankePrimaoca(rtgs.getSwiftBankePoverioca());
 
-
-		objectToXmlFile(mt103, "MT103_" + getFormatedDateTimeNow() );
+		objectToXmlFile(mt103, "MT103_" + getFormatedDateTimeNow());
 
 	}
 
-
-	public static void generateIzvod(String brojRacuna, Klijent klijent,DnevnoStanjeRacuna dnevnoStanjeRacuna){
+	public static void generateIzvod(String brojRacuna, Klijent klijent, DnevnoStanjeRacuna dnevnoStanjeRacuna) {
 
 		Izvod izvod = new Izvod();
 		izvod.setBrojRacuna(brojRacuna);
@@ -153,14 +168,13 @@ public class XmlManager {
 		izvod.setPrometNaTeret(BigDecimal.valueOf(dnevnoStanjeRacuna.getPrometNaTeret()));
 		izvod.setPrometUkorist(BigDecimal.valueOf(dnevnoStanjeRacuna.getPrometUKorist()));
 
-		
-		for(AnalitikaIzvoda analitikaIzvoda : dnevnoStanjeRacuna.getAnalitikaIzvoda()){
-			
+		for (AnalitikaIzvoda analitikaIzvoda : dnevnoStanjeRacuna.getAnalitikaIzvoda()) {
+
 			StavkaIzvoda stavkaIzvoda = new StavkaIzvoda();
-			stavkaIzvoda.setDatumPrijema(dateToXmlGrgorianCalendar( analitikaIzvoda.getDatumPrijema()));
+			stavkaIzvoda.setDatumPrijema(dateToXmlGrgorianCalendar(analitikaIzvoda.getDatumPrijema()));
 			stavkaIzvoda.setDatumValute(dateToXmlGrgorianCalendar(analitikaIzvoda.getDatumValute()));
 			stavkaIzvoda.setDuznik(analitikaIzvoda.getDuznikNalogodavac());
-			stavkaIzvoda.setIznos(BigDecimal.valueOf( analitikaIzvoda.getIznos()));
+			stavkaIzvoda.setIznos(BigDecimal.valueOf(analitikaIzvoda.getIznos()));
 			stavkaIzvoda.setModelOdobrenja(BigInteger.valueOf(analitikaIzvoda.getModelOdobrenja()));
 			stavkaIzvoda.setModelZaduzenja(BigInteger.valueOf(analitikaIzvoda.getModelZaduzenja()));
 			stavkaIzvoda.setPozivNaBrojOdobrenja(analitikaIzvoda.getPozivNaBrojOdobrenja());
@@ -170,14 +184,130 @@ public class XmlManager {
 			stavkaIzvoda.setRacunPrimaoca(analitikaIzvoda.getRacunPoverioca());
 			stavkaIzvoda.setSifraValute(analitikaIzvoda.getValuta().getZvanicnaSifra());
 			stavkaIzvoda.setSvrhaPlacanja(analitikaIzvoda.getSvrhaPlacanja());
-		
+
 			izvod.getStavka().add(stavkaIzvoda);
 		}
-		
+
 		objectToXmlFile(izvod, "IZVOD_" + brojRacuna + getFormatedDateTimeNow());
 
 	}
 
+
+	public static void generateKlijentIzvestaj(List<DnevnoStanjeRacuna> stanja,String naziv){
+
+		Racuni racun = stanja.get(0).getRacuni();
+
+		IzvestajKlijenta izvestajKlijenta = new IzvestajKlijenta();
+		izvestajKlijenta.setBrojRacuna(stanja.get(0).getRacuni().getBrojRacuna());
+		izvestajKlijenta.setDatum(dateToXmlGrgorianCalendar(new java.util.Date()));
+		izvestajKlijenta.setNaziv(naziv);
+
+		for(DnevnoStanjeRacuna stanje : stanja){
+			for(AnalitikaIzvoda ai : stanje.getAnalitikaIzvoda()){
+
+				Stavka stavka = new Stavka();
+				stavka.setDatumPrometa(dateToXmlGrgorianCalendar(ai.getDatumPrijema()));
+
+				double promet = 0;
+				if(ai.getRacunDuznika().equals(racun.getBrojRacuna())){
+					promet = -ai.getIznos();
+				}else{
+					promet = ai.getIznos();
+				}
+
+				stavka.setPromet(BigDecimal.valueOf(promet));
+
+				izvestajKlijenta.getStavkaIzvestaja().add(stavka);
+
+			}
+
+		}
+
+		//objectToXmlFile(izvestajKlijenta, "testIzvestaj");
+		String xmlString = objectToXmlString(izvestajKlijenta, "testIzvestaj");
+		DocumentBuilder db;
+		Document doc =null;
+			try {
+				db = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+				InputSource is = new InputSource();
+				is.setCharacterStream(new StringReader(xmlString));
+
+				doc = db.parse(is);
+			} catch (ParserConfigurationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (FactoryConfigurationError e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SAXException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+
+			XSLFOTransformer transformer = new XSLFOTransformer();
+			//transformer.izvastajKlijentaToPDF(doc, "IZVESTAJ_"+ naziv.toUpperCase() + "_" +getFormatedDateTimeNow());
+			transformer.domToPDF(doc, "IZVESTAJ_"+ naziv.toUpperCase() + "_" +getFormatedDateTimeNow(), "izvestaj-klijenta-fo.xsl");
+
+
+
+	}
+
+
+	public static void generateBankaIzvestaj(Banka banka){
+
+		IzvestajBanke izvestajBanke = new IzvestajBanke();
+		izvestajBanke.setDatum(dateToXmlGrgorianCalendar(new java.util.Date()));
+		izvestajBanke.setNaziv(banka.getNaziv());
+		izvestajBanke.setPib(banka.getPib());
+
+		for(Racuni racun : banka.getRacuni()){
+
+			StavkaIzvestajaBanke s = new StavkaIzvestajaBanke();
+			s.setDatumOtvaranja(dateToXmlGrgorianCalendar(racun.getDatumOtvaranja()));
+			s.setRacun(racun.getBrojRacuna());
+			s.setValuta(racun.getValuta().getNaziv());
+			s.setKlijentId(BigInteger.valueOf(racun.getKlijent().getKlijentId()));
+			s.setStanje(BigDecimal.valueOf(racun.getStanjeRacuna()));
+
+			izvestajBanke.getStavka().add(s);
+
+		}
+
+		//objectToXmlFile(izvestajBanke, "testIzvestajBanke");
+
+		String xmlString = objectToXmlString(izvestajBanke, "testIzvestaj");
+		DocumentBuilder db;
+		Document doc =null;
+			try {
+				db = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+				InputSource is = new InputSource();
+				is.setCharacterStream(new StringReader(xmlString));
+
+				doc = db.parse(is);
+			} catch (ParserConfigurationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (FactoryConfigurationError e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SAXException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+
+			XSLFOTransformer transformer = new XSLFOTransformer();
+			transformer.domToPDF(doc, "IZVESTAJ_"+ banka.getNaziv().split(" ")[0].toUpperCase() + "_" +getFormatedDateTimeNow(), "izvestaj-banke-fo.xsl");
+
+
+	}
 
 	private static String getFormatedDateTimeForKliring(XMLGregorianCalendar datumKliringa) {
 
@@ -187,7 +317,7 @@ public class XmlManager {
 		return formatedDate;
 	}
 
-	private static String getFormatedDateTimeNow() {
+	public static String getFormatedDateTimeNow() {
 		java.util.Date date = new java.util.Date();
 		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy_HH_mm");
 		return sdf.format(date);
@@ -224,6 +354,7 @@ public class XmlManager {
 
 		return date2;
 	}
+
 	private static XMLGregorianCalendar dateToXmlGrgorianCalendar(java.util.Date datum) {
 		GregorianCalendar c = new GregorianCalendar();
 		c.setTime(datum);
@@ -267,6 +398,7 @@ public class XmlManager {
 			File xmlFile = new File(System.getProperty("user.home") + "/Desktop/" + fileName + ".xml");
 
 			jaxbMarshaller.marshal(object, xmlFile);
+
 		} catch (JAXBException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -274,7 +406,49 @@ public class XmlManager {
 
 	}
 
-	public static void main(String[] args){
+	public static String objectToXmlString(Object object, String fileName) {
+
+		JAXBContext jaxbContext;
+		String xmlString = "";
+		try {
+			jaxbContext = JAXBContext.newInstance(object.getClass());
+			Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+
+			// output pretty printed
+			jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+
+			StringWriter sw = new StringWriter();
+			jaxbMarshaller.marshal(object, sw);
+			xmlString = sw.toString();
+
+
+
+
+
+		} catch (JAXBException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return xmlString;
+	}
+
+	@SuppressWarnings("unchecked")
+	public static <T> T xmlFileToObject(@SuppressWarnings("rawtypes") Class c, String name) throws JAXBException {
+
+		T t = null;
+
+		File xmlFile = new File(System.getProperty("user.home") + "/Desktop/" + name);
+		JAXBContext jaxbContext = JAXBContext.newInstance(c);
+
+		Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+		t = (T) jaxbUnmarshaller.unmarshal(xmlFile);
+
+		return t;
+
+	}
+
+	public static void main(String[] args) {
 
 		System.out.println(XmlManager.getFormatedDateTimeNow());
 

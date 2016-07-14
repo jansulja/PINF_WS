@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+
+    <xs:element name="izvestajKlijenta">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="1" minOccurs="1" name="naziv" type="xs:string"/>
+                <xs:element maxOccurs="1" minOccurs="1" name="datum" type="xs:date"/>
+                <xs:element maxOccurs="1" minOccurs="1" name="brojRacuna" type="xs:string"/>
+                <xs:element name="stavkaIzvestaja" maxOccurs="unbounded" minOccurs="0" type="Stavka"
+                />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="Stavka">
+        <xs:sequence>
+            <xs:element maxOccurs="1" minOccurs="1" name="datumPrometa" type="xs:date"/>
+            <xs:element name="promet">
+                <xs:simpleType>
+                    <xs:restriction base="xs:decimal">
+                        <xs:totalDigits value="15"/>
+                        <xs:fractionDigits value="2"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

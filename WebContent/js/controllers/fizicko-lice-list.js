@@ -2,7 +2,7 @@
 
 angular.module('fizicko-lice-list',['resource.fizickoLice'])
 
-.controller('fizicko-lice-listCtrl', function ($scope,$location, FizickoLice,$q,$http,$timeout){
+.controller('fizicko-lice-listCtrl', function ($scope,$location, FizickoLice,$q,$http,$timeout,$modal){
 
 	$scope.fizickaLica = FizickoLice.query();
 
@@ -47,6 +47,24 @@ angular.module('fizicko-lice-list',['resource.fizickoLice'])
 
 		});
 	}
+
+	$scope.generateReport = function(fizickoLice,size){
+
+
+		 var modalInstance = $modal.open({
+		      templateUrl: 'views/modal-klijent-izvestaj.html',
+		      controller: 'modal-klijent-izvestajCtrl',
+		      size: size,
+		      resolve: {
+			         klijentId : function () {
+			           return fizickoLice.klijentId;
+			         }
+			       }
+		    });
+
+
+	}
+
 
 	$scope.remove = function(fizickoLice){
 

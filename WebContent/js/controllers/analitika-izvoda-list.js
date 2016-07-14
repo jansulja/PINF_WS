@@ -1,10 +1,12 @@
 'use strict';
 
-angular.module('analitika-izvoda-list',['resource.analitikaIzvoda'])
+angular.module('analitika-izvoda-list',['resource.analitikaIzvoda','ui.bootstrap'])
 
-.controller('analitika-izvoda-listCtrl', function ($scope,$location, AnalitikaIzvoda){
+.controller('analitika-izvoda-listCtrl', function ($scope,$location, AnalitikaIzvoda,$q,$http){
 
 	$scope.analitikeIzvoda = AnalitikaIzvoda.query();
+
+
 
 
 
@@ -42,7 +44,31 @@ angular.module('analitika-izvoda-list',['resource.analitikaIzvoda'])
 
 	}
 
-	
+
+	$scope.importNalog = function(){
+
+		alert($scope.fileName.split("fakepath\\"));
+
+		var file = $scope.fileName.split("fakepath\\")[1];
+
+		var deferred = $q.defer();
+		//user.password = md5.createHash(user.password);
+		$http({
+			url: "http://localhost:8089/PINF_WSProjekat/api/nalog/" + file,
+			method: "GET"
+		}).then(function successCallback(data) {
+			deferred.resolve(data.data);
+		}, function errorCallback(response) {
+
+		});
+
+		var promise = deferred.promise;
+		promise.then(function (data) {
+
+		});
+
+
+	}
 
 	console.log($scope.analitikeIzvoda);
 

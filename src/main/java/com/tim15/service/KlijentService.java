@@ -18,10 +18,14 @@ import javax.ws.rs.core.Response.Status;
 import org.apache.log4j.Logger;
 
 import com.tim15.model.Klijent;
+import com.tim15.model.DnevnoStanjeRacuna;
 import com.tim15.model.Drzava;
 import com.tim15.model.FizickoLice;
 import com.tim15.model.Klijent;
 import com.tim15.model.PravnoLice;
+import com.tim15.model.view.DatumIzvestaja;
+import com.tim15.model.xml.util.XmlManager;
+import com.tim15.sessionbeans.DnevnoStanjeRacunaDaoLocal;
 import com.tim15.sessionbeans.FizickoLiceDaoLocal;
 import com.tim15.sessionbeans.KlijentDaoLocal;
 import com.tim15.sessionbeans.PravnoLiceDaoLocal;
@@ -36,7 +40,31 @@ public class KlijentService {
 	@EJB
 	private FizickoLiceDaoLocal fizickoLiceDao;
 
+	@EJB
+	private DnevnoStanjeRacunaDaoLocal dnevnoStanjeRacunaDao;
+
 	private static Logger log = Logger.getLogger(KlijentService.class);
+
+
+	@POST
+	@Path("izvestaj")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response generisiIzvestaj(DatumIzvestaja period) {
+
+
+		List<DnevnoStanjeRacuna> stanja = dnevnoStanjeRacunaDao.getStanjeZaPeriod(period);
+		String naziv = klijentDao.getNaziv(period.getKlijentId());
+		XmlManager.generateKlijentIzvestaj(stanja, naziv);
+
+
+
+		return Response.ok().build();
+
+	}
+
+
+
 
 	@POST
 	@Path("login")

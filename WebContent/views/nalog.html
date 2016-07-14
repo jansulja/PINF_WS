@@ -1,114 +1,131 @@
-<div class="col-md-3"></div>
-<div class="col-md-9">
-	<form ng-submit="uplata()" name="myform" novalidate>
-		<div class="col-md-5">
-			<div class="form-group">
-				<label>Duznik:</label> <input class="form-control"
-					ng-model="nalog.duznik" ng-required></input>
-			</div>
-			<div class="form-group">
-				<label>Svrha uplate:</label> <input class="form-control"
-					ng-model="nalog.svrhaPlacanja" ng-required></input>
-			</div>
-			<div class="form-group">
-				<label>Primalac:</label> <input class="form-control"
-					ng-model="nalog.primalac" ng-required></input>
-			</div>
+<div class="col-md-4">
 
-<!-- 			<div class="form-group"> -->
-<!-- 				<label>datumPrijema</label> -->
-<!-- 				<div class="input-group"> -->
-<!-- 					<span class="input-group-btn"> -->
-<!-- 						<button type="button" class="btn btn-default" -->
-<!-- 							ng-click="openDatepicker($event, 'dateOpened')"> -->
-<!-- 							<i class="glyphicon glyphicon-calendar"></i> -->
-<!-- 						</button> -->
-<!-- 					</span> <input type="text" class="form-control" -->
-<!-- 						datepicker-popup="dd/MM/yyyy" ng-model="nalog.datumPrijema" -->
-<!-- 						is-open="dateOpened" close-text="Close" ng-required="true" /> -->
-
-<!-- 				</div> -->
-<!-- 			</div> -->
-
-			<div class="form-group">
-				<label>Mesto prijema</label> <input class="form-control"
-					ng-model="nalog.mestoPrijema" ></input>
-			</div>
-
-<!-- 			<div class="form-group"> -->
-<!-- 				<label>datumValute</label> -->
-<!-- 				<div class="input-group"> -->
-<!-- 					<span class="input-group-btn"> -->
-<!-- 						<button type="button" class="btn btn-default" -->
-<!-- 							ng-click="openDatepicker($event, 'dateOpened2')"> -->
-<!-- 							<i class="glyphicon glyphicon-calendar"></i> -->
-<!-- 						</button> -->
-<!-- 					</span> <input type="text" class="form-control" -->
-<!-- 						datepicker-popup="dd/MM/yyyy" ng-model="nalog.datumValute" -->
-<!-- 						is-open="dateOpened2" close-text="Close" ng-required="true" /> -->
-
-<!-- 				</div> -->
-<!-- 			</div> -->
-			<div class="form-group">
-				<label>Racun duznika:</label> <input class="form-control"
-					ng-model="nalog.racunDuznika"></input>
-			</div>
-
-			<div class="form-group">
-				<label>Model zaduzenja:</label> <input class="form-control"
-					ng-model="nalog.modelZaduzenja"></input>
-			</div>
-			<div class="form-group">
-				<label>Poziv na broj zaduzenja:</label> <input class="form-control"
-					ng-model="nalog.pozivNaBrojZaduzenja"></input>
-			</div>
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h3 class="panel-title">Import Naloga</h3>
 		</div>
-		<div class="col-md-5">
-
-
+		<div class="panel-body">
 			
-			<div class="form-group">
-				<label>Racun primaoca:</label> <input class="form-control"
-					ng-model="nalog.racunPrimaoca"></input>
-			</div>
-
-			<div class="form-group">
-				<label>Model odobrenja:</label> <input class="form-control"
-					ng-model="nalog.modelOdobrenja"></input>
-			</div>
-
-			<div class="form-group">
-				<label>Poziv na broj odobrenja:</label> <input class="form-control"
-					ng-model="nalog.pozivNaBrojOdobrenja"></input>
-			</div>
-
-			<div class="form-group">
-				<label for="iznos">Iznos:</label> 
-				<input class="form-control" id="iznos"
-					ng-model="nalog.iznos" ng-required></input>
-			</div>
-			<div class="form-group">
-				<label>Oznaka valute:</label> <input class="form-control"
-					ng-model="nalog.oznakaValute"></input>
-			</div>
-			<div class="form-group">
-				<label>Sifra placanja:</label> <input class="form-control"
-					ng-model="nalog.sifraPlacanja"></input>
-			</div>
+			<input class="panel panel-primary" type="file" fileread="fileName" />
+						<button type="button" class="btn btn-default"
+							ng-click="importNalog()">Import</button>
 
 
-			<div class="checkbox">
-				<label> <input type="checkbox" ng-model="nalog.hitno">
-					Hitno
-				</label>
-			</div>
 		</div>
-		<div class="col-md-2">
+	</div>
+
+</div>
+<div class="col-md-8">
+
+		<form ng-submit="uplata()" name="myform" novalidate="novalidate">
+			<div class="col-md-5">
+				<div class="form-group">
+					<label>Duznik:</label> <input class="form-control"
+						ng-model="nalog.duznik" required></input>
+				</div>
+				<div class="form-group">
+					<label>Svrha uplate:</label> <input class="form-control"
+						ng-model="nalog.svrhaPlacanja" required></input>
+				</div>
+				<div class="form-group">
+					<label>Primalac:</label> <input class="form-control"
+						ng-model="nalog.primalac" required></input>
+				</div>
+
+				<!-- 			<div class="form-group"> -->
+				<!-- 				<label>datumPrijema</label> -->
+				<!-- 				<div class="input-group"> -->
+				<!-- 					<span class="input-group-btn"> -->
+				<!-- 						<button type="button" class="btn btn-default" -->
+				<!-- 							ng-click="openDatepicker($event, 'dateOpened')"> -->
+				<!-- 							<i class="glyphicon glyphicon-calendar"></i> -->
+				<!-- 						</button> -->
+				<!-- 					</span> <input type="text" class="form-control" -->
+				<!-- 						datepicker-popup="dd/MM/yyyy" ng-model="nalog.datumPrijema" -->
+				<!-- 						is-open="dateOpened" close-text="Close" ng-required="true" /> -->
+
+				<!-- 				</div> -->
+				<!-- 			</div> -->
+
+				<div class="form-group">
+					<label>Mesto prijema</label> <input class="form-control"
+						ng-model="nalog.mestoPrijema"></input>
+				</div>
+
+				<!-- 			<div class="form-group"> -->
+				<!-- 				<label>datumValute</label> -->
+				<!-- 				<div class="input-group"> -->
+				<!-- 					<span class="input-group-btn"> -->
+				<!-- 						<button type="button" class="btn btn-default" -->
+				<!-- 							ng-click="openDatepicker($event, 'dateOpened2')"> -->
+				<!-- 							<i class="glyphicon glyphicon-calendar"></i> -->
+				<!-- 						</button> -->
+				<!-- 					</span> <input type="text" class="form-control" -->
+				<!-- 						datepicker-popup="dd/MM/yyyy" ng-model="nalog.datumValute" -->
+				<!-- 						is-open="dateOpened2" close-text="Close" ng-required="true" /> -->
+
+				<!-- 				</div> -->
+				<!-- 			</div> -->
+				<div class="form-group">
+					<label>Racun duznika:</label> <input class="form-control"
+						ng-model="nalog.racunDuznika" pattern="\d{3}-\d{1,13}-\d{2}" required></input>
+				</div>
+
+				<div class="form-group">
+					<label>Model zaduzenja:</label> <input class="form-control"
+						ng-model="nalog.modelZaduzenja" required></input>
+				</div>
+				<div class="form-group">
+					<label>Poziv na broj zaduzenja:</label> <input class="form-control"
+						ng-model="nalog.pozivNaBrojZaduzenja" required></input>
+				</div>
+			</div>
+			<div class="col-md-5">
+
+
+
+				<div class="form-group">
+					<label>Racun primaoca:</label> <input class="form-control"
+						ng-model="nalog.racunPrimaoca" required></input>
+				</div>
+
+				<div class="form-group">
+					<label>Model odobrenja:</label> <input class="form-control"
+						ng-model="nalog.modelOdobrenja" required></input>
+				</div>
+
+				<div class="form-group">
+					<label>Poziv na broj odobrenja:</label> <input class="form-control"
+						ng-model="nalog.pozivNaBrojOdobrenja" required></input>
+				</div>
+
+				<div class="form-group">
+					<label for="iznos">Iznos:</label> <input class="form-control"
+						id="iznos" ng-model="nalog.iznos" required></input>
+				</div>
+				<div class="form-group">
+					<label>Oznaka valute:</label> <input class="form-control"
+						ng-model="nalog.oznakaValute" required></input>
+				</div>
+				<div class="form-group">
+					<label>Sifra placanja:</label> <input class="form-control"
+						ng-model="nalog.sifraPlacanja" required></input>
+				</div>
+
+
+				<div class="checkbox">
+					<label> <input type="checkbox" ng-model="nalog.hitno">
+						Hitno
+					</label>
+				</div>
+			</div>
+			<div class="col-md-2">
 				</br>
 				<div class="form-group">
-					<button class="btn btn-info" type="submit" ng-disabled="myform.$invalid">Uplata</button>
+					<button class="btn btn-info" type="submit"
+						ng-disabled="myform.$invalid">Uplata</button>
 				</div>
-			
-		</div>
-	</form>
-</div>
+
+			</div>
+		</form>
+	</div>
