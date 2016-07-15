@@ -188,6 +188,18 @@ public class Banka {
 	public void setBanka(boolean banka) {
 		this.banka = banka;
 	}
+	@JsonIgnore
+	public Set<Zaposleni> getZaposleni() {
+		return zaposleni;
+	}
+
+
+
+	public void setZaposleni(Set<Zaposleni> zaposleni) {
+		this.zaposleni = zaposleni;
+	}
+
+
 
 	@JsonIgnore
 	public Set<Racuni> getRacuni() {

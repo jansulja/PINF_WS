@@ -2,7 +2,9 @@
 
 angular.module('nalog',['resource.racuni'])
 
-.controller('nalogCtrl', function(Racuni,$scope, $rootScope, $routeParams, $log, $location, $q, $http){
+.controller('nalogCtrl', function(Racuni,$scope, $rootScope, $routeParams, $log, $location, $q, $http,$timeout,$modal){
+
+	$scope.fbTimeout = 3000;
 
 	var racuniId = $routeParams.racuniId;
 	Racuni.get({'racuniId':racuniId}).$promise.then(function (data) {
@@ -14,7 +16,7 @@ angular.module('nalog',['resource.racuni'])
 			duznik = data.klijent.punoIme;
 		}
 
-		$scope.nalog = { "duznik" : duznik , "oznakaValute" : data.valuta.zvanicnaSifra , "racunDuznika":data.brojRacuna
+		$scope.nalog = { "duznik" : duznik , "oznakaValute" : data.valuta.zvanicnaSifra , "racunDuznika":data.brojRacuna, "mestoPrijema": "Novi Sad"
 
 		};
 
@@ -35,12 +37,12 @@ angular.module('nalog',['resource.racuni'])
 		}).then(function successCallback(data) {
 			deferred.resolve(data.data);
 		}, function errorCallback(response) {
-
+			$scope.showError('Greska!');
 		});
 
 		var promise = deferred.promise;
 		promise.then(function (data) {
-			console.log('yeees');
+			$scope.showSuccess('Transakcija uspesna.');
 		});
 
 	}
@@ -66,6 +68,31 @@ angular.module('nalog',['resource.racuni'])
 		});
 
 
+	}
+
+	$scope.showError = function(errorMessage){
+
+		$scope.errorMessage = errorMessage;
+		$timeout($scope.hideError, $scope.fbTimeout);
+
+	}
+
+
+	$scope.hideError = function(){
+		$scope.errorMessage = null;
+	}
+
+
+	$scope.showSuccess = function(successMessage){
+
+		$scope.successMessage = successMessage;
+		$timeout($scope.hideSuccess,  $scope.fbTimeout);
+
+	}
+
+
+	$scope.hideSuccess = function(){
+		$scope.successMessage = null;
 	}
 
 }).directive("fileread", [function () {

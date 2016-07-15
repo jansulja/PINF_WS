@@ -5,6 +5,7 @@ import javax.ejb.Stateless;
 import javax.persistence.Query;
 
 import com.tim15.model.Racuni;
+import com.tim15.model.Ukidanje;
 
 
 @Stateless
@@ -33,6 +34,15 @@ public class RacuniDaoBean extends GenericDaoBean<Racuni, Integer> implements Ra
 			e.printStackTrace();
 		}
 
+	}
+
+	@Override
+	public void ukiniRacun(Ukidanje ukidanje) {
+
+		Query query = em.createNativeQuery("{call ukidanje(?,?)}")
+                .setParameter(1, ukidanje.getRacuni().getRacuniId())
+                .setParameter(2, ukidanje.getSredstvaSePrenoseNaRacun());
+		query.executeUpdate();
 	}
 
 }

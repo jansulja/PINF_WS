@@ -16,6 +16,9 @@
 
 </div>
 <div class="col-md-8">
+		<div ng-show="errorMessage" class="alert alert-warning" role="alert">{{errorMessage}}</div>
+	<div ng-show="successMessage" class="alert alert-success" role="alert">{{successMessage}}</div>
+		
 
 		<form ng-submit="uplata()" name="myform" novalidate="novalidate">
 			<div class="col-md-5">

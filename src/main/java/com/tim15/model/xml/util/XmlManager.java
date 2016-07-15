@@ -62,7 +62,7 @@ public class XmlManager {
 			if (mt102 == null) {
 
 				ZaglavljeMT102 zaglavljeMT102 = new ZaglavljeMT102();
-				zaglavljeMT102.setIdKliringa(kliring.getKliringId());
+				zaglavljeMT102.setIdKliringa(String.valueOf(kliring.getKliringId()));
 				zaglavljeMT102.setDatumKliringa(timeStampToXmlGrgorianCalendar(kliring.getDatumKliringa()));
 				zaglavljeMT102.setDatumValute(dateToXmlGrgorianCalendar(stavka.getDatumValute()));
 				zaglavljeMT102.setRacunBankeDuznika(stavka.getRacunBankeDuznika());
@@ -341,7 +341,7 @@ public class XmlManager {
 
 	}
 
-	private static XMLGregorianCalendar dateToXmlGrgorianCalendar(Date datumKliringa) {
+	public static XMLGregorianCalendar dateToXmlGrgorianCalendar(Date datumKliringa) {
 		GregorianCalendar c = new GregorianCalendar();
 		c.setTime(datumKliringa);
 		XMLGregorianCalendar date2 = null;
@@ -355,7 +355,7 @@ public class XmlManager {
 		return date2;
 	}
 
-	private static XMLGregorianCalendar dateToXmlGrgorianCalendar(java.util.Date datum) {
+	public static XMLGregorianCalendar dateToXmlGrgorianCalendar(java.util.Date datum) {
 		GregorianCalendar c = new GregorianCalendar();
 		c.setTime(datum);
 		XMLGregorianCalendar date2 = null;

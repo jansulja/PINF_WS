@@ -16,7 +16,7 @@
                         Izvestaj Banke
                     </fo:block>
 
-                   
+
 
 
                    <xsl:apply-templates></xsl:apply-templates>
@@ -34,16 +34,16 @@
                </fo:inline>
         </fo:block>
     </xsl:template>
-    
-    
-    
+
+
+
     <xsl:template match="pib">
         <fo:block margin-top="30pt">
             <fo:inline> PIB : <xsl:value-of select="text()"/>
             </fo:inline>
         </fo:block>
-        
-       
+
+
     </xsl:template>
 
     <xsl:template match="datum">
@@ -51,7 +51,7 @@
             <fo:inline> Datum : <xsl:value-of select="text()"/>
             </fo:inline>
         </fo:block>
-        
+
         <fo:block margin-top="30pt" font-weight="bold" font-size="13pt">
             <fo:inline padding-right="20pt">
                 Broj racuna
@@ -69,7 +69,7 @@
 
     <xsl:template match="stavka">
 		 <fo:block margin-top="20pt">
-		     <fo:inline padding-right="40pt"> <xsl:value-of select="racun"/></fo:inline>
+		     <fo:inline padding-right="100pt"> <xsl:value-of select="racun"/></fo:inline>
 		     <fo:inline padding-right="60pt"> <xsl:value-of select="klijentId"/></fo:inline>
 		     <fo:inline padding-right="30pt"> <xsl:value-of select="datumOtvaranja"/></fo:inline>
 		     <fo:inline padding-right="30pt"> <xsl:value-of select="valuta"/></fo:inline>

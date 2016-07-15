@@ -19,6 +19,7 @@ import javax.ws.rs.core.Response.Status;
 import org.apache.log4j.Logger;
 
 import com.tim15.model.Ukidanje;
+import com.tim15.sessionbeans.RacuniDaoLocal;
 import com.tim15.sessionbeans.UkidanjeDaoLocal;
 
 
@@ -28,6 +29,9 @@ public class UkidanjeService {
 
 	@EJB
 	private UkidanjeDaoLocal ukidanjeDao;
+
+	@EJB
+	private RacuniDaoLocal racuniDao;
 
 
 	private static Logger log = Logger.getLogger(UkidanjeService.class);
@@ -59,14 +63,16 @@ public class UkidanjeService {
     public Response create(Ukidanje entity) {
 		Response response = null;
 
-		try {
-			ukidanjeDao.persist(entity);
-			response = Response.status(Status.OK).build();
-		} catch (Exception e) {
-			log.error(e.getMessage(), e);
-			response = Response.status(Status.INTERNAL_SERVER_ERROR).build();
+		racuniDao.ukiniRacun(entity);
 
-		}
+//		try {
+//			ukidanjeDao.persist(entity);
+//			response = Response.status(Status.OK).build();
+//		} catch (Exception e) {
+//			log.error(e.getMessage(), e);
+//			response = Response.status(Status.INTERNAL_SERVER_ERROR).build();
+//
+//		}
 		return response;
     }
 

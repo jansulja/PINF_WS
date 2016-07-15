@@ -29,7 +29,7 @@ angular.module('modal-klijent-izvestaj',[])
 
 			promise.then(function (data) {
 
-
+				alert('Uspesno generisan izvestaj');
 
 			});
 

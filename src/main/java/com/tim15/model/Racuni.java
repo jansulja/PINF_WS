@@ -6,7 +6,7 @@
 
 package com.tim15.model;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -39,7 +39,7 @@ public class Racuni {
 	@Column(name = "racuni_id", unique = true)
 	private int racuniId;
 	private java.lang.String brojRacuna;
-	private java.util.Date datumOtvaranja;
+	private Date datumOtvaranja;
 	private boolean vazeci = false;
 	private double stanje;
 
@@ -99,11 +99,11 @@ public class Racuni {
 		this.brojRacuna = brojRacuna;
 	}
 
-	public java.util.Date getDatumOtvaranja() {
+	public Date getDatumOtvaranja() {
 		return datumOtvaranja;
 	}
 
-	public void setDatumOtvaranja(java.util.Date datumOtvaranja) {
+	public void setDatumOtvaranja(Date datumOtvaranja) {
 		this.datumOtvaranja = datumOtvaranja;
 	}
 
